@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>snow-parent</artifactId>
+        <groupId>com.zoe.snow</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>01-infrastructure</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>snow-core</module>
+        <module>snow-zookeeper</module>
+        <module>snow-configuration</module>
+        <module>snow-maven</module>
+        <module>snow-context</module>
+        <module>snow-shiro</module>
+        <module>snow-maven-dubbox</module>
+        <module>snow-rabbitmq</module>
+        <module>snow-spark</module>
+        <module>snow-word</module>
+        <module>snow-communication</module>
+        <module>snow-log-ex</module>
+        <module>snow-validator</module>
+        <module>snow-maven-springboot</module>
+    </modules>
+</project>

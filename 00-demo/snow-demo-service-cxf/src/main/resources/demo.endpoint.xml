@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:cxf="http://cxf.apache.org/core" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://cxf.apache.org/jaxws  http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+    <bean id="greetingServiceImpl" class="com.zoe.snow.service.cxf.demo.GreetingServiceImpl"/>
+    <!--http://localhost:8060/service/greeting?arg0=dai-->
+    <jaxws:endpoint implementor="#greetingServiceImpl" address="/"/>
+
+</beans>

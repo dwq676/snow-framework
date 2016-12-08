@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="demo-provider" owner="programmer" organization="dubbox"/>
+
+    <dubbo:registry address="zookeeper://192.168.2.39:2181"/>
+
+    <dubbo:annotation package="com.zoe.snow"/>
+
+    <dubbo:protocol name="dubbo" serialization="kryo" optimizer="com.zoe.snow.demo.SerializationOptimizerImpl"/>
+
+    <!-- use tomcat server -->
+    <dubbo:protocol name="rest" port="8888" threads="500" contextpath="services"  accepts="500"
+                    extension="com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter"/>
+
+
+    <dubbo:service interface="com.zoe.snow.demo.UserService" ref="userService" protocol="dubbo" />
+
+    <dubbo:service interface="com.zoe.snow.demo.UserRestService" ref="userRestService" protocol="rest"  validation="true"/>
+
+    <bean id="userService" class="com.zoe.snow.demo.UserServiceImpl"/>
+
+    <bean id="userRestService" class="com.zoe.snow.demo.UserRestServiceImpl">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+</beans>

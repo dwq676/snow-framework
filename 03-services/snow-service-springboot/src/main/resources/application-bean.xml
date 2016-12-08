@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+    <context:component-scan base-package="com.zoe.snow"/>
+    <context:property-placeholder location="classpath*:*.conf.properties"/>
+    <aop:aspectj-autoproxy/>
+    <task:annotation-driven/>
+    <import resource="shiro.xml"/>
+    <bean id="dataSources" class="com.zoe.snow.dao.DataSources">
+        <property name="dataSourceBeanMap">
+            <map>
+                <!--默认数据源，如果有多个数据源可以继续追加 entry-->
+                <entry key="default">
+                    <bean class="com.zoe.snow.dao.DataSourceBean">
+                        <!--数据库驱动类型-->
+                        <property name="driver" value="mysql"/>
+                        <!--数据库名-->
+                        <property name="schema" value="smip"/>
+                        <!--集群的名称，可为空-->
+                        <property name="cluster" value="snow"/>
+                        <!--是否开启验证器-->
+                        <property name="toValidate" value="true"/>
+                        <!--可读可写主机-->
+                        <property name="writeAbleHost">
+                            <bean class="com.zoe.snow.dao.DataSourceHost">
+                                <!--主机IP地址，可以输入对称加密后的地址-->
+                                <property name="ip" value="wI+pPLaAN2ARcg5J9JFVKQ=="/>
+                                <!--主机用户名，可以入对称加密后的用户名 -->
+                                <property name="user" value="q4+Pr0B0t8g="/>
+                                <!--主机用户密码，可以输入 对称加密后的密码-->
+                                <property name="password" value="kHbplY6/H1vLXi1gON5wEQ=="/>
+                                <!--端口号，默认可以不填写-->
+                                <property name="port" value="3306"/>
+                                <!--节点控制开关，默认为开的-->
+                                <property name="hostSwitch" value="true"/>
+                            </bean>
+                        </property>
+                        <!--只读主机-->
+                        <!--<property name="readOnlyHost">
+                        </property>-->
+                    </bean>
+                </entry>
+                <entry key="elastic">
+                    <bean class="com.zoe.snow.dao.DataSourceBean">
+                        <property name="cluster" value="snow"/>
+                        <property name="driver" value="elastic"/>
+                        <property name="schema" value="mip"/>
+                        <property name="type" value="info"/>
+                        <property name="writeAbleHost">
+                            <bean class="com.zoe.snow.dao.DataSourceHost">
+                                <!--主机IP地址，可以输入对称加密后的地址-->
+                                <property name="ip" value="nMqmUEShjWlgNh64f7je5g=="/>
+                                <!--端口号，默认可以不填写-->
+                                <property name="port" value="9300"/>
+                                <!--节点控制开关，默认为开的-->
+                                <property name="hostSwitch" value="true"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+    <bean id="hibernateConfigBean" class="com.zoe.snow.dao.hibernate.HibernateConfigBean">
+        <property name="packageToScan" value="com.zoe.snow"/>
+        <property name="showSql" value="true"/>
+        <property name="useSecondLevel" value="false"/>
+    </bean>
+    <bean id="snow:p" class="com.zoe.snow.resource.CustomizedPropertyConfigurer">
+        <property name="location" value="classpath:core.conf.properties"/>
+    </bean>
+    <bean id="redirectTo" class="com.zoe.snow.context.response.RedirectTo">
+        <property name="url" value=""/>
+    </bean>
+    <bean id="authBean" class="com.zoe.snow.auth.AuthBean">
+        <property name="authSwitch" value="false"/>
+    </bean>
+</beans>
