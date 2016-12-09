@@ -1,0 +1,9 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+#::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+10.0.2.7     nnrm
+10.0.1.131     dnzk1
+10.0.2.35     dnzk2
+192.168.2.39     dnzk3
+10.0.2.54    nn
+10.0.1.198 rm
