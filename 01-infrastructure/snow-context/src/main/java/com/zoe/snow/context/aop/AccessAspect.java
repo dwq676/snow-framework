@@ -4,6 +4,7 @@ import com.zoe.snow.Global;
 import com.zoe.snow.auth.AuthBean;
 import com.zoe.snow.auth.NoNeedVerify;
 import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.context.request.Request;
 import com.zoe.snow.crud.Result;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
@@ -67,25 +68,7 @@ public class AccessAspect {
             if (!Validator.isEmpty(method)) {
                 List<NotNull> notNulls = new ArrayList<>();
                 int pos = 0;
-                NoNeedVerify noNeedVerify = method.getAnnotation(NoNeedVerify.class);
-                /*为空证明这个不是特殊方法*/
-                if (noNeedVerify == null) {
-                    if (authBean != null) {
-                        //打开了授权开关
-                        if (authBean.getAuthSwitch()) {
-                            if (method.getParameters().length == 0)
-                                return result.setResult(null, Message.UnAuthorized);
-                            String token = args[method.getParameters().length - 1].toString();
-                            BaseUserModelSupport user = userHelper.getUser(token);
-                            if (user == null)
-                                return result.setResult(null, Message.UnAuthorized);
-                            else {
-                                Global.user.set(user);
-                                Global.token.set(user.getToken());
-                            }
-                        }
-                    }
-                }
+                if (!auth(method, args)) return result.setResult(null, Message.UnAuthorized);
                 for (Parameter parameter : method.getParameters()) {
                     NotNull notNull = parameter.getDeclaredAnnotation(NotNull.class);
                     if (notNull != null) {
@@ -100,19 +83,42 @@ public class AccessAspect {
             if (nullArgNames.size() > 0) {
                 return result.setResult(null, Message.ParameterPositionInHolderIsnull, String.join(",", nullArgNames),
                         proceedingJoinPoint.getSignature().toShortString());
-                //return result;
             }
         } catch (Exception e) {
 
         }
         try {
             return proceedingJoinPoint.proceed(args);
-
         } catch (Throwable e) {
             Logger.error(e, e.getMessage());
             result.setResult(null, Message.ServiceError);
         }
         return result;
+    }
+
+    private boolean auth(Method method, Object[] args) {
+        NoNeedVerify noNeedVerify = method.getAnnotation(NoNeedVerify.class);
+        /*为空证明这个不是特殊方法*/
+        if (noNeedVerify == null) {
+            if (authBean != null) {
+                //打开了授权开关
+                if (authBean.getAuthSwitch()) {
+                    if (method.getParameters().length == 0)
+                        return false;
+                    String token = args[method.getParameters().length - 1].toString();
+                    if (Validator.isEmpty(token))
+                        token = BeanFactory.getBean(Request.class).get("token");
+                    BaseUserModelSupport user = userHelper.getUser(token);
+                    if (user == null)
+                        return false;
+                    else {
+                        Global.user.set(user);
+                        Global.token.set(user.getToken());
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     @Pointcut("execution(* *..*ServiceImpl.*(..))")

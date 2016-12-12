@@ -27,7 +27,7 @@ public class AuthAspect {
     }*/
 
     public void doBefore(JoinPoint jp) {
-        System.out.println("log Begining method: " + jp.getTarget().getClass().getName() + "." + jp.getSignature().getName());
+
     }
 
     public void doThrowing(JoinPoint jp, Throwable ex) {

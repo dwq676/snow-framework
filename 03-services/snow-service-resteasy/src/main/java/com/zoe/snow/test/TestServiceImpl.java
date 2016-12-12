@@ -1,10 +1,10 @@
 package com.zoe.snow.test;
 
+import com.zoe.snow.auth.NoNeedVerify;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.ExecutorService;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,6 +30,7 @@ public class TestServiceImpl {
     @Path(value = "user/{msg}")
     @Produces("application/json")
     @Transactional
+    @NoNeedVerify
     public String getMessage(@PathParam("msg") String msg) {
         return "[Hello dear! ]" + msg;
     }

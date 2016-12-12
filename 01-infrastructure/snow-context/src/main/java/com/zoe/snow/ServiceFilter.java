@@ -2,6 +2,7 @@ package com.zoe.snow;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class ServiceFilter implements Filter {
 
     /**
      * 忽略文件未日期未改的文件，减少重复请求
-     * 
+     *
      * @param request
      * @param response
      */
@@ -86,7 +87,7 @@ public class ServiceFilter implements Filter {
 
     /**
      * 设置上下文
-     * 
+     *
      * @param request
      * @param response
      */
@@ -103,5 +104,13 @@ public class ServiceFilter implements Filter {
 
         Response rp = BeanFactory.getBean(Response.class);
         ((HttpServletResponseAware) rp).set(response);
+
+        try {
+            request.setCharacterEncoding("UTF-8");
+            //response.addHeader("Content-Type", "text/html;charset=UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Logger.error(e, "不支持些编码");
+        }
+
     }
 }
