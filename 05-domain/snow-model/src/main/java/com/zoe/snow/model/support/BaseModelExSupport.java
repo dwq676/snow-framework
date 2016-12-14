@@ -1,7 +1,9 @@
 package com.zoe.snow.model.support;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zoe.snow.model.CustomDateDeSerializer;
+import com.zoe.snow.model.CustomDateSerializer;
 import com.zoe.snow.model.RawModel;
 import com.zoe.snow.model.annotation.Jsonable;
 import com.zoe.snow.model.annotation.SupperClass;
@@ -60,6 +62,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Column(name = "create_time")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonDeserialize(using = CustomDateDeSerializer.class)
+    @JsonSerialize(using = CustomDateSerializer.class)
     @Jsonable
     public Date getCreateTime() {
         return createTime;
@@ -86,6 +89,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Column(name = "modify_time")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonDeserialize(using = CustomDateDeSerializer.class)
+    @JsonSerialize(using = CustomDateSerializer.class)
     @Jsonable
     public Date getModifyTime() {
         return modifyTime;

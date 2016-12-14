@@ -68,7 +68,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
 
     @Test
     public void elasticTest() {
-        crudService.elastic("mip").from("info").paging(0, 20)
+       /*JSONArray jsonArray= crudService.elastic("mip").from("info").paging(0, 20)
                 //.where("USER_INFO.CONTENT.DE01_001_002", Criterion.Like, "吴学凤")
                 //.where("USER_INFO.CONTENT.DE01_003_003", Criterion.GreaterThan, 40)
                 .group("USER_INFO.CONTENT.DE01_003_003").asJson();
@@ -78,7 +78,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
                 .paging(0, 20)
                 .where("MODEL_CODE", Criterion.Equals, "ffe9311e-855c-457a-942a-4f21a44e60a0")
                 .where("USER_ID", Criterion.Equals, "4a6e196f-0db8-482b-b3b7-90c22333445a")
-                .asJson();
+                .asJson();*/
 
         String[] firstName = new String[]{"赵", "钱", "申", "齐", "雷", "付", "孙", "廖", "田", "李", "王", "吕", "洪", "杜", "陈", "黄", "袁", "郭", "沈", "周", "张", "赖", "徐", "白", "蔡", "江", "林", "连", "吴", "谢"};
         String[] midName = new String[]{"平", "森", "书", "伟", "达", "锦", "晓", "海", "才", "秀", "宇", "雅", "允", "敏", "聪", "观", "杰", "启", "兰", "源", "思", "正", "娴", "锋", "峰", "健", "佳", "福", "健", "龙", "忠", "旺", "子", "坚", "瑞", "雪", "超", "永", "珠", "美", "英", "东", "强", "阳", "清", "德", "信", "凤", "龙", "顺", "铭", "文", "艺", "", "乐", "东", "以", "华", "丽", "恒", "真", "茜", "真", "学", "俊", "志", "秋"};

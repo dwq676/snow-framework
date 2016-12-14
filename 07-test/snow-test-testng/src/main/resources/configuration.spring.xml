@@ -64,11 +64,11 @@
                                 <!--192.168.110.136:5M4ZDsZysCf8DMVE0549UA==-->
                                 <!--192.168.2.39 :JC1eKu84lmGqxwZsZPB+vg==-->
                                 <!--10.0.2.54:Bs9k6zl+dT/q+dsyMhfG8A==-->
-                                <property name="ip" value="nMqmUEShjWlgNh64f7je5g=="/>
+                                <property name="ip" value="172.16.34.72"/>
                                 <!--端口号，默认可以不填写-->
                                 <property name="port" value="9300"/>
                                 <!--节点控制开关，默认为开的-->
-                                <property name="hostSwitch" value="false"/>
+                                <property name="hostSwitch" value="true"/>
                             </bean>
                         </property>
                     </bean>

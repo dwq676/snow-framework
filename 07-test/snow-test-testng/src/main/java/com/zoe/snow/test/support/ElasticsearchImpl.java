@@ -20,7 +20,7 @@ import java.util.Random;
  * @author Dai Wenqing
  * @date 2016/9/13
  */
-public class ElasticsearchImpl   {
+public class ElasticsearchImpl {
 
     public static boolean put1(String json) {
         Settings settings = Settings.settingsBuilder()
@@ -29,31 +29,20 @@ public class ElasticsearchImpl   {
         TransportClient client = TransportClient.builder().settings(settings).build();
         try {
 
-            client
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("10.0.2.54"), 9300))
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("10.0.2.7"), 9300))
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.110.136"), 9300));
+            client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.16.34.72"), 9300));
+                    //.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("10.0.2.7"), 9300))
+                    //.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.110.136"), 9300));
         } catch (Exception e) {
-
         }
-
-
-
-
-        for (int i = 0; i < 100000000; i++) {
-            json = "";
-
-
+        for (int i = 0; i < 1000; i++) {
+            //json = "";
             IndexResponse response = client.prepareIndex("mip", "info")
                     //.setId(new String().valueOf(new Random().nextLong()))
                     .setSource(json)
                     .execute().actionGet();
-
             System.out.println(new Date().toString() + ":" + response.isCreated() + " num:" + i);
         }
-
         client.close();
-
         return false;
     }
 
@@ -66,7 +55,7 @@ public class ElasticsearchImpl   {
             client
                     //.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("10.0.2.54"), 9300))
                     //.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("10.0.2.7"), 9300))
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.110.136"), 9300));
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("172.16.34.72"), 9300));
         } catch (Exception e) {
 
         }

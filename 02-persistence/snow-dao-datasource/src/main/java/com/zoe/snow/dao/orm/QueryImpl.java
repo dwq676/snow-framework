@@ -120,7 +120,8 @@ public class QueryImpl extends OrmContextImpl implements Query {
                 this.whereBuffer.append(getAs() + ".");
             }
         }*/
-        this.whereBuffer.append(this.getFrom().getSimpleName()).append(".");
+        String from = this.getFrom() != null ? this.getFrom().getSimpleName() : this.getFromType();
+        this.whereBuffer.append(from).append(".");
         if (byOrm || column.equals("id"))
             this.whereBuffer.append(column);
         else if (!Validator.isEmpty(this.getFrom()))
@@ -252,7 +253,7 @@ public class QueryImpl extends OrmContextImpl implements Query {
         for (Class<? extends Model> c : this.getJoinClasses().keySet()) {
             if (tableNameAlias.containsKey(c))
                 continue;
-            tableNameAlias.put(c, "t" + tableNameAlias.size()+1);
+            tableNameAlias.put(c, "t" + tableNameAlias.size() + 1);
         }
         //记录已经做了关联的类型
         List<Class<? extends Model>> hasJoinClassList = new ArrayList<>();

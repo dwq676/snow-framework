@@ -52,7 +52,7 @@ public class ElasticAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
             content = msg;
         }
         JSONObject jsonObject = new JSONObject();
-        ElasticDao elasticDao = BeanFactory.getBean(ElasticDao.class);
+
 
         try {
             JSONObject jo = JSONObject.fromObject(content);
@@ -64,6 +64,7 @@ public class ElasticAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
         }
 
         if (Global.elasticReady) {
+            ElasticDao elasticDao = BeanFactory.getBean(ElasticDao.class);
             while (!queue.isEmpty()) {
                 elasticDao.save("logger", type, queue.poll().toString());
             }
