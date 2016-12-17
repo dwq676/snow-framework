@@ -91,6 +91,7 @@
     <orderEntry type="library" name="Maven: redis.clients:jedis:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-pool2:2.3" level="project" />
     <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.5.5" level="project" />
+    <orderEntry type="module" module-name="snow-spring" />
     <orderEntry type="module" module-name="snow-service-crud" />
     <orderEntry type="module" module-name="snow-dao-liteorm" />
     <orderEntry type="module" module-name="snow-shiro" />

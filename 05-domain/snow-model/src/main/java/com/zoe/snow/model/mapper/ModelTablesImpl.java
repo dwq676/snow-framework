@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.bean.ContextRefreshedListener;
+import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.annotation.Jsonable;
 import com.zoe.snow.model.annotation.Property;

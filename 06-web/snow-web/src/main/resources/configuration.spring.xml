@@ -73,6 +73,11 @@
     </bean>
     <bean id="redirectTo" class="com.zoe.snow.context.response.RedirectTo">
         <property name="url" value=""/>
+        <property name="excludeUrlList">
+            <list>
+                <value>*/login</value>
+            </list>
+        </property>
     </bean>
     <bean id="authBean" class="com.zoe.snow.auth.AuthBean">
         <property name="authSwitch" value="false"/>

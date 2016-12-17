@@ -2,9 +2,9 @@ package com.zoe.snow.dao;
 
 import com.alibaba.druid.pool.xa.DruidXADataSource;
 import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.bean.ContextRefreshedListener;
 import com.zoe.snow.conf.DaoConfiguration;
 import com.zoe.snow.dao.dialect.Dialect;
+import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
 import org.apache.commons.lang.NullArgumentException;

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <jboss.version>3.0.7.Final</jboss.version>
+        <jboss.version>3.0.19.Final</jboss.version>
         <tomcat.version>8.0.11</tomcat.version>
         <mina.version>1.1.7</mina.version>
         <zookeeper.version>3.4.6</zookeeper.version>

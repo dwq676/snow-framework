@@ -3,7 +3,7 @@ package com.zoe.snow.validator;
 
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.message.Message;
-import com.zoe.snow.message.Reply;
+import com.zoe.snow.message.ReplyUseless;
 
 /**
  * 验证器接口
@@ -30,7 +30,7 @@ public interface Checker {
      * @return 错误消息
      */
     default Object failure(Message message, Object... args) {
-        return BeanFactory.getBean(Reply.class).failure(message, null, args);
+        return BeanFactory.getBean(ReplyUseless.class).failure(message, null, args);
     }
 
     /**

@@ -8,10 +8,13 @@ import com.zoe.snow.context.request.Request;
 import com.zoe.snow.crud.Result;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
+import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.model.annotation.NotNull;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Validator;
+import com.zoe.snow.ws.Json;
+import net.sf.json.JSONObject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -54,7 +57,6 @@ public class AccessAspect {
     }
 
     private Object authentication(Result result) {
-
         return null;
     }
 
@@ -94,6 +96,35 @@ public class AccessAspect {
             result.setResult(null, Message.ServiceError);
         }
         return result;
+    }
+
+    /**
+     * 解析服务请求参数并转换为对应的实体
+     */
+    private Object[] injectParamOfJson(Method method, Object[] args) {
+        Request request = BeanFactory.getBean(Request.class);
+        if (request != null) {
+            int pos = 0;
+            for (Parameter parameter : method.getParameters()) {
+                Json json = parameter.getDeclaredAnnotation(Json.class);
+                if (json != null) {
+                    String data = request.get(json.value());
+                    if (!Validator.isEmpty(data)) {
+                        try {
+                            JSONObject jsonObject = JSONObject.fromObject(data);
+                            if (jsonObject != null) {
+                                //parameter.get
+                                //ModelHelper.fromJson(jsonObject,parameter.)
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+                pos++;
+            }
+        }
+
+        return args;
     }
 
     private boolean auth(Method method, Object[] args) {

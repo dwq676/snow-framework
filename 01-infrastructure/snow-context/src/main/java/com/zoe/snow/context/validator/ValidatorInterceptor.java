@@ -1,5 +1,6 @@
 package com.zoe.snow.context.validator;
 
+import com.zoe.snow.auth.AuthBean;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.context.response.RedirectTo;
@@ -53,14 +54,21 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
         Session session = BeanFactory.getBean(Session.class);
         validateSession();
         boolean re = true;
-        if (handler instanceof HandlerMethod) {
-            /*if (!authentication()) {
-                Response r = BeanFactory.getBean(Response.class);
-                RedirectTo redirectTo = BeanFactory.getBean(RedirectTo.class);
-                r.redirectTo(redirectTo.getUrl());
-                return false;
-            }*/
 
+        if (handler instanceof HandlerMethod) {
+            AuthBean authBean = BeanFactory.getBean(AuthBean.class);
+            //未找到开关 默认不开启权限验证
+            if (authBean != null && authBean.getAuthSwitch()) {
+                /*if (authBean.getAuthSwitch()) {
+                    if (!authentication()) {
+                        Response r = BeanFactory.getBean(Response.class);
+                        RedirectTo redirectTo = BeanFactory.getBean(RedirectTo.class);
+                        r.redirectTo(redirectTo.getUrl());
+                        return false;
+                    }
+                }*/
+                SecurityUtils.getSubject().isPermitted();
+            }
             if (!sessionList.contains(session.getSessionId())) {
                 sessionList.add(session.getSessionId());
             }
@@ -123,7 +131,35 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
 
     private boolean authentication() {
         Request request = BeanFactory.getBean(Request.class);
-        //RedirectTo redirectTo = BeanFactory.getBean(RedirectTo.class);
+        AuthBean authBean = BeanFactory.getBean(AuthBean.class);
+        RedirectTo redirectTo = BeanFactory.getBean(RedirectTo.class);
+        //未找到开关 默认不开启权限验证
+        if (authBean == null)
+            return true;
+        if (authBean.getAuthSwitch()) {
+
+            //先验证JS、CSS
+            /*String[] uris = request.getUri().split("\\?");
+            if (uris.length > 0) {
+                String uri = uris[0];
+
+            } else */
+            if (redirectTo.getExcludeUrlList() != null) {
+                for (String c : redirectTo.getExcludeUrlList()) {
+                    if (c.startsWith("*") && c.endsWith("*")) {
+                        if (request.getUri().contains(c.substring(1, c.length() - 2)))
+                            return true;
+                    } else if (c.startsWith("*")) {
+                        if (request.getUri().endsWith(c.substring(1)))
+                            return true;
+                    } else if (c.endsWith("*")) {
+                        if (request.getUri().startsWith(c.substring(0, c.length() - 2)))
+                            return true;
+                    }
+                }
+            }
+        }
+
         if (request.getUri().endsWith("login"))
             return true;
         UserHelper userHelper = BeanFactory.getBean(UserHelper.class);

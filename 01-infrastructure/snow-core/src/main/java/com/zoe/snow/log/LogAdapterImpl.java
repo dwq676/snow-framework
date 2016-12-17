@@ -4,12 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarker;
-import org.springframework.stereotype.Component;
 
 /**
- * @author lpw
+ * @author dwq
  */
-@Component("snow.util.logger")
 public class LogAdapterImpl implements LogAdapter {
     private static final String[] THROWABLES = {"< ", " > ", "    "};
 

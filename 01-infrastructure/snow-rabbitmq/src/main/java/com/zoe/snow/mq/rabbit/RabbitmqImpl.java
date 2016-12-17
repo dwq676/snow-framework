@@ -1,7 +1,7 @@
 package com.zoe.snow.mq.rabbit;
 
-import com.zoe.snow.bean.ContextRefreshedListener;
 import com.zoe.snow.conf.RabbitMqConfiguration;
+import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.mq.RabbitConsumer;
 import com.zoe.snow.mq.Rabbitmq;
 import com.zoe.snow.util.Validator;

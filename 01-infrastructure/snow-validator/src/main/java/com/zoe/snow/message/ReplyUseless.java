@@ -6,12 +6,12 @@ package com.zoe.snow.message;
  * @author Dai Wenqing
  * @date 2015/12/2
  */
-public interface Reply {
+@Deprecated
+public interface ReplyUseless {
     /**
      * 封装执行成功返回结果说明。
      *
      * @param data 数据。
-     * @return 执行成功返回结果说明。
      */
     Object success(Object data);
 

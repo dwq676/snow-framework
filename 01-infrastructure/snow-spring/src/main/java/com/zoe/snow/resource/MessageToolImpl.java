@@ -5,10 +5,7 @@ package com.zoe.snow.resource;
 
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.bean.BeansScanRegister;
-import com.zoe.snow.bean.ContextRefreshedListener;
-import com.zoe.snow.message.Message;
 import com.zoe.snow.util.LocaleUtil;
-import com.zoe.snow.log.Logger;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;

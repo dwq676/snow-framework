@@ -1,11 +1,11 @@
 package com.zoe.snow.dao.hibernate;
 
 import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.bean.ContextRefreshedListener;
 import com.zoe.snow.dao.ConnectionSupport;
 import com.zoe.snow.dao.DataSourceManager;
 import com.zoe.snow.dao.Mode;
 import com.zoe.snow.dao.hibernate.dialect.HDialect;
+import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;

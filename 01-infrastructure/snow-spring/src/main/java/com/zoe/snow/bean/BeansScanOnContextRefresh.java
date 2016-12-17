@@ -1,13 +1,12 @@
 package com.zoe.snow.bean;
 
+import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

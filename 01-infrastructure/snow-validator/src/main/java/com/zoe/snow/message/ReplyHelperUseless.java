@@ -6,7 +6,8 @@ package com.zoe.snow.message;
  * @author Dai Wenqing
  * @date 2015/11/28
  */
-public interface ReplyHelper {
+@Deprecated
+public interface ReplyHelperUseless {
     /**
      * 封装对成功消息的应答
      *

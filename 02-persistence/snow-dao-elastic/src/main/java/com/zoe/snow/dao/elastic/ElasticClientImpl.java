@@ -1,8 +1,8 @@
 package com.zoe.snow.dao.elastic;
 
 import com.zoe.snow.Global;
-import com.zoe.snow.bean.ContextRefreshedListener;
 import com.zoe.snow.dao.*;
+import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
 import org.apache.commons.lang.NullArgumentException;

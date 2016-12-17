@@ -27,5 +27,6 @@
         <module>snow-validator</module>
         <module>snow-maven-springboot</module>
         <module>snow-maven-resteasy</module>
+        <module>snow-spring</module>
     </modules>
 </project>

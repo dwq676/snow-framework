@@ -1,9 +1,9 @@
 package com.zoe.snow.cache.strategy.redis;
 
-import com.zoe.snow.bean.ContextRefreshedListener;
 import com.zoe.snow.cache.CacheItemPriority;
 import com.zoe.snow.cache.ExpirationWay;
 import com.zoe.snow.cache.strategy.CacheStrategy;
+import com.zoe.snow.listener.ContextRefreshedListener;
 
 /**
  * RedisCache

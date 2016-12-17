@@ -73,6 +73,11 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.zoe.snow</groupId>
+            <artifactId>snow-spring</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
         </dependency>

@@ -1,10 +1,10 @@
 package com.zoe.snow.cache;
 
 import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.bean.ContextRefreshedListener;
 import com.zoe.snow.cache.strategy.CacheStrategy;
 import com.zoe.snow.conf.CacheConfiguration;
 import com.zoe.snow.conf.spare.CacheConfigurationImpl;
+import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.log.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

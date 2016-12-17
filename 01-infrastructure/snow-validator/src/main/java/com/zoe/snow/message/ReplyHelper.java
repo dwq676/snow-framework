@@ -3,10 +3,11 @@ package com.zoe.snow.message;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zoe.snow.resource.MessageTool;
+import com.zoe.snow.resource.MessageToolImpl;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONObject;
 
-import com.zoe.snow.resource.MessageTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +17,8 @@ import org.springframework.stereotype.Component;
  * @author Dai Wenqing
  * @date 2015/11/28
  */
-@Component("snow.message.reply.helper")
-public class ReplyHelperImpl implements ReplyHelper {
-
-    @Autowired
-    private MessageTool message;
+public class ReplyHelper {
+    private static MessageTool messageTool = new MessageToolImpl();
     /*
      * @Value("${}") protected String packageInfo;
      */
@@ -35,13 +33,11 @@ public class ReplyHelperImpl implements ReplyHelper {
         return replyTo(success.getType(), data);
     }*/
 
-    @Override
-    public Object replyTo(String keyOrCodeOrMsg) {
+    public static Object replyTo(String keyOrCodeOrMsg) {
         return replyTo(keyOrCodeOrMsg, null);
     }
 
-    @Override
-    public Object replyTo(String keyOrCodeOrMsg, Object data, Object... args) {
+    public static Object replyTo(String keyOrCodeOrMsg, Object data, Object... args) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", keyOrCodeOrMsg);
 
@@ -49,21 +45,21 @@ public class ReplyHelperImpl implements ReplyHelper {
             jsonObject.put("data", data);
         if (!Validator.isEmpty(keyOrCodeOrMsg)) {
             if (args.length == 1) {
-                String obj = message.get(args[0].toString());
+                String obj = messageTool.get(args[0].toString());
                 if (!obj.equals(args[0])) {
                     // if (packageInfo != null)
                     //obj = obj.substring(getPackagePrefix().length());
-                    jsonObject.put("message", message.get(keyOrCodeOrMsg, obj));
+                    jsonObject.put("message", messageTool.get(keyOrCodeOrMsg, obj));
                 } else
-                    jsonObject.put("message", message.get(keyOrCodeOrMsg, args));
+                    jsonObject.put("message", messageTool.get(keyOrCodeOrMsg, args));
             } else
-                jsonObject.put("message", message.get(keyOrCodeOrMsg, args));
+                jsonObject.put("message", messageTool.get(keyOrCodeOrMsg, args));
         }
         return jsonObject;
     }
 
-    private String getPackagePrefix() {
-        String packageName = this.getClass().getPackage().getName();
+    private static String getPackagePrefix() {
+        String packageName = ReplyHelper.class.getPackage().getName();
         String[] names = packageName.split("\\.");
         List<String> prefixs = new ArrayList<>();
         int i = 0;
@@ -75,18 +71,16 @@ public class ReplyHelperImpl implements ReplyHelper {
         return String.join(".", prefixs);
     }
 
-    @Override
-    public Object replyTo(Message message, int code, Object... args) {
+
+    public static Object replyTo(Message message, int code, Object... args) {
         return replyTo(message, null, code, args);
     }
 
-    @Override
-    public Object replyTo(Message message) {
+    public static Object replyTo(Message message) {
         return replyTo(message, null, -1);
     }
 
-    @Override
-    public Object replyTo(Message message, Object data, int code, Object... args) {
+    public static Object replyTo(Message message, Object data, int code, Object... args) {
         StackTraceElement stack[] = Thread.currentThread().getStackTrace();
         // String callName = stack[2].getClassName();
         JSONObject jsonObject = new JSONObject();
@@ -117,14 +111,14 @@ public class ReplyHelperImpl implements ReplyHelper {
                 String replyMessage;
                 if (message == Message.Error) {
                     // 获取原因
-                    String reason = this.message.get(key, args);
+                    String reason = messageTool.get(key, args);
                     if (reason.equals(key)) {
-                        reason = this.message.get(Message.NoTellAnyReason.getType(), ste.getClassName(), ste.getMethodName(), ste.getLineNumber());
+                        reason = messageTool.get(Message.NoTellAnyReason.getType(), ste.getClassName(), ste.getMethodName(), ste.getLineNumber());
                     }
-                    replyMessage = this.message.get(message.getType(), reason);
+                    replyMessage = messageTool.get(message.getType(), reason);
                 } else {
                     // 获取操作对象
-                    replyMessage = this.message.get(message.getType(), this.message.get(packageName));
+                    replyMessage = messageTool.get(message.getType(), messageTool.get(packageName));
                 }
                 jsonObject.put("message", replyMessage);
                 if (!replyMessage.isEmpty())
@@ -135,8 +129,7 @@ public class ReplyHelperImpl implements ReplyHelper {
         return jsonObject;
     }
 
-    @Override
-    public Object replyTo(String code, String message, String parameter, String value) {
+    public static Object replyTo(String code, String message, String parameter, String value) {
         JSONObject json = new JSONObject();
         json.put("code", code);
         json.put("message", message);

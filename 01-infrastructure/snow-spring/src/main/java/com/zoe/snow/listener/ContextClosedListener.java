@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.zoe.snow.bean;
+package com.zoe.snow.listener;
 
 /**
  * Bean环境关闭监听器。

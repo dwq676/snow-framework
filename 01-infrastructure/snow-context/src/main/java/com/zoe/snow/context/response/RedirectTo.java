@@ -2,6 +2,9 @@ package com.zoe.snow.context.response;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * RedirectTo
  *
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 @Controller("snow.web.redirect-to")
 public class RedirectTo {
     private String url;
+    private List<String> excludeUrlList = new ArrayList<>();
 
     public String getUrl() {
         return url;
@@ -18,5 +22,13 @@ public class RedirectTo {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<String> getExcludeUrlList() {
+        return excludeUrlList;
+    }
+
+    public void setExcludeUrlList(List<String> excludeList) {
+        this.excludeUrlList = excludeList;
     }
 }
