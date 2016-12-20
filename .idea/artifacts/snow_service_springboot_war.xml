@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="snow-service-springboot:war">
+    <output-path>$PROJECT_DIR$/03-services/snow-service-springboot/target</output-path>
+    <root id="archive" name="snow-service-springboot-1.0.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="snow-service-springboot:war exploded" />
+    </root>
+  </artifact>
+</component>

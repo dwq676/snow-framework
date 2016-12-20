@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="snow-service-cxf:war">
+    <output-path>$PROJECT_DIR$/03-services/snow-service-cxf/target</output-path>
+    <root id="archive" name="snow-service-cxf.war">
+      <element id="artifact" artifact-name="snow-service-cxf:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <profile name="Maven 1" modules="06-web,snow-configuration,snow-service-cxf,snow-core,05-domain,snow-dao-liteorm,03-services,snow-maven,snow-web-mvc,snow-cache,snow-dao-mongodb,snow-context,snow-maven-dubbox,02-persistence,snow-demo-service-cxf,snow-zookeeper,snow-dao-hibernate,snow-parent,snow-demo-web,00-demo,snow-model,snow-rabbitmq,snow-test-testng,snow-service-crud,snow-dao-datasource,04-component,snow-shiro,snow-service-dubbox,snow-web,07-test,01-infrastructure" />
+    <profile name="Maven 2" modules="snow-spark">
+      <option name="deprecationWarnings" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="explainTypeErrors" value="true" />
+    </profile>
+  </component>
+</project>

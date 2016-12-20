@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/00-demo/00-demo.iml" filepath="$PROJECT_DIR$/00-demo/00-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/01-infrastructure.iml" filepath="$PROJECT_DIR$/01-infrastructure/01-infrastructure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-persistence/02-persistence.iml" filepath="$PROJECT_DIR$/02-persistence/02-persistence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03-services/03-services.iml" filepath="$PROJECT_DIR$/03-services/03-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04-component/04-component.iml" filepath="$PROJECT_DIR$/04-component/04-component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05-domain/05-domain.iml" filepath="$PROJECT_DIR$/05-domain/05-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06-web/06-web.iml" filepath="$PROJECT_DIR$/06-web/06-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/07-test/07-test.iml" filepath="$PROJECT_DIR$/07-test/07-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/04-component/snow-cache/snow-cache.iml" filepath="$PROJECT_DIR$/04-component/snow-cache/snow-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-communication/snow-communication.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-communication/snow-communication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-configuration/snow-configuration.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-configuration/snow-configuration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-context/snow-context.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-context/snow-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-core/snow-core.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-core/snow-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-datasource/snow-dao-datasource.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-datasource/snow-dao-datasource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-elastic/snow-dao-elastic.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-elastic/snow-dao-elastic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-hibernate/snow-dao-hibernate.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-hibernate/snow-dao-hibernate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-liteorm/snow-dao-liteorm.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-liteorm/snow-dao-liteorm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-mongodb/snow-dao-mongodb.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-mongodb/snow-dao-mongodb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/00-demo/snow-demo-service-cxf/snow-demo-service-cxf.iml" filepath="$PROJECT_DIR$/00-demo/snow-demo-service-cxf/snow-demo-service-cxf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/00-demo/snow-demo-web/snow-demo-web.iml" filepath="$PROJECT_DIR$/00-demo/snow-demo-web/snow-demo-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-log-ex/snow-log-ex.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-log-ex/snow-log-ex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-maven/snow-maven.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-maven/snow-maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-maven-dubbox/snow-maven-dubbox.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-maven-dubbox/snow-maven-dubbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-maven-resteasy/snow-maven-resteasy.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-maven-resteasy/snow-maven-resteasy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-maven-springboot/snow-maven-springboot.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-maven-springboot/snow-maven-springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/05-domain/snow-model/snow-model.iml" filepath="$PROJECT_DIR$/05-domain/snow-model/snow-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/snow-parent.iml" filepath="$PROJECT_DIR$/snow-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-rabbitmq/snow-rabbitmq.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-rabbitmq/snow-rabbitmq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-restful/snow-restful.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-restful/snow-restful.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-crud/snow-service-crud.iml" filepath="$PROJECT_DIR$/03-services/snow-service-crud/snow-service-crud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-cxf/snow-service-cxf.iml" filepath="$PROJECT_DIR$/03-services/snow-service-cxf/snow-service-cxf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-dubbox/snow-service-dubbox.iml" filepath="$PROJECT_DIR$/03-services/snow-service-dubbox/snow-service-dubbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-resteasy/snow-service-resteasy.iml" filepath="$PROJECT_DIR$/03-services/snow-service-resteasy/snow-service-resteasy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-springboot/snow-service-springboot.iml" filepath="$PROJECT_DIR$/03-services/snow-service-springboot/snow-service-springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-shiro/snow-shiro.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-shiro/snow-shiro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-spark/snow-spark.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-spark/snow-spark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-spring/snow-spring.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-spring/snow-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/07-test/snow-test-testng/snow-test-testng.iml" filepath="$PROJECT_DIR$/07-test/snow-test-testng/snow-test-testng.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-validator/snow-validator.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-validator/snow-validator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06-web/snow-web/snow-web.iml" filepath="$PROJECT_DIR$/06-web/snow-web/snow-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06-web/snow-web-mvc/snow-web-mvc.iml" filepath="$PROJECT_DIR$/06-web/snow-web-mvc/snow-web-mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-word/snow-word.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-word/snow-word.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-zookeeper/snow-zookeeper.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-zookeeper/snow-zookeeper.iml" />
+    </modules>
+  </component>
+</project>

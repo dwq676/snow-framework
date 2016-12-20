@@ -3,13 +3,8 @@ package com.zoe.snow.message;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zoe.snow.resource.MessageTool;
-import com.zoe.snow.resource.MessageToolImpl;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONObject;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * ReplyHelperImpl

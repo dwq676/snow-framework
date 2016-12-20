@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/00-demo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/00-demo/snow-demo-service-cxf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/00-demo/snow-demo-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-communication" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-configuration" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-context" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-log-ex" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven-dubbox" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven-resteasy" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven-springboot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-rabbitmq" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-restful" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-shiro" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-spark" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-spring" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-validator" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-word" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-zookeeper" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02-persistence" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-datasource" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-elastic" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-hibernate" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-liteorm" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-mongodb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03-services" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03-services/snow-service-crud" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03-services/snow-service-cxf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03-services/snow-service-dubbox" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03-services/snow-service-resteasy" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03-services/snow-service-springboot" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/04-component" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/04-component/snow-cache" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/05-domain" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/05-domain/snow-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06-web/snow-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06-web/snow-web-mvc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/07-test" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/07-test/snow-test-testng" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

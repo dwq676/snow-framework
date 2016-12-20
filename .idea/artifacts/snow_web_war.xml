@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="snow-web:war">
+    <output-path>$PROJECT_DIR$/06-web/snow-web/target</output-path>
+    <root id="archive" name="snow-web.war">
+      <element id="artifact" artifact-name="snow-web:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="snow-maven-springboot:war">
+    <output-path>$PROJECT_DIR$/01-infrastructure/snow-maven-springboot/target</output-path>
+    <root id="archive" name="snow-maven-springboot-1.0.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="snow-maven-springboot:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -13,7 +13,6 @@ import com.zoe.snow.model.annotation.NotNull;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Validator;
-import com.zoe.snow.ws.Json;
 import net.sf.json.JSONObject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -102,7 +101,7 @@ public class AccessAspect {
      * 解析服务请求参数并转换为对应的实体
      */
     private Object[] injectParamOfJson(Method method, Object[] args) {
-        Request request = BeanFactory.getBean(Request.class);
+        /*Request request = BeanFactory.getBean(Request.class);
         if (request != null) {
             int pos = 0;
             for (Parameter parameter : method.getParameters()) {
@@ -122,7 +121,7 @@ public class AccessAspect {
                 }
                 pos++;
             }
-        }
+        }*/
 
         return args;
     }

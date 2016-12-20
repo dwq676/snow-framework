@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="snow-service-resteasy:war">
+    <output-path>$PROJECT_DIR$/03-services/snow-service-resteasy/target</output-path>
+    <root id="archive" name="snow-rest-easy.war">
+      <element id="artifact" artifact-name="snow-service-resteasy:war exploded" />
+    </root>
+  </artifact>
+</component>

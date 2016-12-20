@@ -10,14 +10,13 @@ import com.zoe.snow.model.PageList;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import com.zoe.snow.resource.MessageTool;
+import com.zoe.snow.message.MessageTool;
 import org.hibernate.SessionException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

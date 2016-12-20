@@ -9,7 +9,7 @@ import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.mapper.ModelTable;
 import com.zoe.snow.model.mapper.ModelTables;
-import com.zoe.snow.resource.MessageTool;
+import com.zoe.snow.message.MessageTool;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.validator.Checker;
