@@ -163,19 +163,24 @@
         </dependency>
 
         <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-validator</artifactId>
-    </dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.cache</groupId>
             <artifactId>cache-api</artifactId>
             <version>0.4</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
             <version>${jboss.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.zoe.snow</groupId>
+            <artifactId>snow-restful</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
