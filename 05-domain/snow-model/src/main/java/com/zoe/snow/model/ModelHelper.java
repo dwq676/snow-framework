@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 /**
- * @author lpw
+ * @author daiwenqing
  */
 public class ModelHelper {
 
