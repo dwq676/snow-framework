@@ -30,3 +30,5 @@ _ReSharper*/
 *.class
 target/
 *idea/
+*overlays/
+*.iml
