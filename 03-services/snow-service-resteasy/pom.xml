@@ -16,6 +16,11 @@
             <artifactId>snow-maven-resteasy</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!--<dependency>
+            <groupId>com.zoe.snow</groupId>
+            <artifactId>snow-restful</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>-->
     </dependencies>
     <build>
         <finalName>snow-rest-easy</finalName>

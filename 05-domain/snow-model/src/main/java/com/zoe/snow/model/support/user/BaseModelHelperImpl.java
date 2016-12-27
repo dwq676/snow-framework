@@ -54,8 +54,10 @@ public class BaseModelHelperImpl implements BaseModelHelper {
         if (Validator.isEmpty(baseModel.getId())) {
             if (baseModel instanceof Sort) {
                 Sort sort = Sort.class.cast(baseModel);
-                if (!Validator.isEmpty(sort))
-                    sort.setSort(0);
+                if (!Validator.isEmpty(sort)) {
+                    if (sort.getSort() == Integer.MIN_VALUE)
+                        sort.setSort(0);
+                }
             }
         }
     }

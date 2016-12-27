@@ -20,7 +20,7 @@
     </modules>
     <properties>
         <resteasy.version>3.0.19.Final</resteasy.version>
-        <httpcomp.version>4.2.5</httpcomp.version>
+        <httpcomp.version>4.4.1</httpcomp.version>
         <servlet.version>3.1.0</servlet.version>
         <snow.version>1.0.0-SNAPSHOT</snow.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

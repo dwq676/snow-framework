@@ -64,6 +64,7 @@
         <option value="$PROJECT_DIR$/01-infrastructure/pom.xml" />
         <option value="$PROJECT_DIR$/01-infrastructure/snow-aop/pom.xml" />
         <option value="$PROJECT_DIR$/01-infrastructure/snow-elasticsearch/pom.xml" />
+        <option value="$PROJECT_DIR$/01-infrastructure/snow-restful/pom.xml" />
       </set>
     </option>
   </component>

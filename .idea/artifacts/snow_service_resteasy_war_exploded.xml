@@ -19,6 +19,7 @@
           <element id="archive" name="snow-core-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-core" />
           </element>
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
           <element id="library" level="project" name="Maven: com.belerweb:pinyin4j:2.5.1" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.2" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.2" />
@@ -124,6 +125,7 @@
           <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.5" />
           <element id="library" level="project" name="Maven: cglib:cglib-nodep:2.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.3.4.RELEASE" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
           <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.3.4.RELEASE" />
@@ -136,25 +138,37 @@
           <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.6" />
           <element id="library" level="project" name="Maven: org.springframework:spring-test:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
-          <element id="library" level="project" name="Maven: javassist:javassist:3.12.1.GA" />
-          <element id="archive" name="snow-restful-1.0.0-SNAPSHOT.jar">
-            <element id="module-output" name="snow-restful" />
+          <element id="archive" name="resteasy-jarxrs-ex-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="resteasy-jarxrs-ex" />
+          </element>
+          <element id="archive" name="resteasy-jaxrs-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="resteasy-jaxrs" />
           </element>
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.2.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging-annotations:2.0.2.Final" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.2.5" />
-          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
-          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.2.5" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore-nio:4.2.5" />
-          <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-spring:3.0.19.Final" />
-          <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-jaxrs:3.0.19.Final" />
-          <element id="library" level="project" name="Maven: org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.1" />
+          <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-jaxrs:3.0.9.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.resteasy:jaxrs-api:3.0.9.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.annotation:jboss-annotations-api_1.1_spec:1.0.1.Final" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.1" />
           <element id="library" level="project" name="Maven: net.jcip:jcip-annotations:1.0" />
-          <element id="library" level="project" name="Maven: org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec:1.0.0.Final" />
-          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
+          <element id="library" level="project" name="Maven: asm:asm:3.3.1" />
+          <element id="archive" name="resteasy-spring-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="resteasy-spring" />
+          </element>
+          <element id="archive" name="resteasy-client-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="resteasy-client" />
+          </element>
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-server:9.2.11.v20150529" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-http:9.2.11.v20150529" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-util:9.2.11.v20150529" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-io:9.2.11.v20150529" />
           <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-jackson2-provider:3.0.19.Final" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.6.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.6.3" />
@@ -166,10 +180,9 @@
           <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:2.16" />
           <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.12" />
           <element id="library" level="project" name="Maven: javax.xml.bind:jsr173_api:1.0" />
-          <element id="library" level="project" name="Maven: org.jboss.resteasy:resteasy-servlet-initializer:3.0.19.Final" />
-          <element id="library" level="project" name="Maven: org.jboss.resteasy:async-http-servlet-3.0:3.0.19.Final" />
-          <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
-          <element id="library" level="project" name="Maven: asm:asm:3.3.1" />
+          <element id="archive" name="resteasy-servlet-initializer-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="resteasy-servlet-initializer" />
+          </element>
         </element>
       </element>
       <element id="directory" name="META-INF">

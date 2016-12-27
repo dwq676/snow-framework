@@ -28,6 +28,6 @@
         <module>snow-maven-springboot</module>
         <module>snow-maven-resteasy</module>
         <module>snow-spring</module>
-        <module>snow-restful</module>
+        <module>snow-resteasy</module>
     </modules>
 </project>

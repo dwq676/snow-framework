@@ -4,6 +4,7 @@ import com.zoe.snow.cache.Element;
 import com.zoe.snow.cache.CacheItemPriority;
 import com.zoe.snow.cache.ExpirationWay;
 import com.zoe.snow.log.Logger;
+import com.zoe.snow.scheduler.FiveSecondJob;
 import com.zoe.snow.util.Validator;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -18,26 +19,22 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2016/1/18
  */
 @Component("snow.cache.strategy.local")
-public class LocalCache implements CacheStrategy {
+public class LocalCache implements CacheStrategy, FiveSecondJob {
 
     protected Map<String, Element> map = new ConcurrentHashMap<>();
     private int jobTime = 60000;
 
     /**
      * 用于计数系统运行分钟数
-     * 
+     * <p>
      * private long ndx = 0; private boolean starting = true;
      */
-    @Scheduled(cron = "0/5 * *  * * ? ")
+    /*@Scheduled(cron = "0/5 * *  * * ? ")
     public void run() {
 
-        // 定时清理过期的缓存或根据策略删除缓存
-        clearExpiration();
-        lru();
-        // 系统回收内存
-        System.gc();
 
-    }
+
+    }*/
 
     /**
      * 移动过期缓存
@@ -143,5 +140,19 @@ public class LocalCache implements CacheStrategy {
         Element element = map.get(key);
         if (element != null)
             map.remove(key);
+    }
+
+    @Override
+    public void running() {
+        // 定时清理过期的缓存或根据策略删除缓存
+        clearExpiration();
+        lru();
+        // 系统回收内存
+        System.gc();
+    }
+
+    @Override
+    public String getJobName() {
+        return "snow.cache.strategy.local";
     }
 }

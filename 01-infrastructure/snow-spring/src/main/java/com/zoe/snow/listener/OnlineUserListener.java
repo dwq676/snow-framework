@@ -46,7 +46,7 @@ public class OnlineUserListener implements HttpSessionListener,
      * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
      */
     @Override
-    public void contextDestroyed(ServletContextEvent arg0) {
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
     }
 
@@ -54,7 +54,7 @@ public class OnlineUserListener implements HttpSessionListener,
      * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
      */
     @Override
-    public void contextInitialized(ServletContextEvent arg0) {
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
 
     }
 

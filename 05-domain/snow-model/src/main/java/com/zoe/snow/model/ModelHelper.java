@@ -118,6 +118,22 @@ public class ModelHelper {
         return getModelClass((Class<T>) modelClass.getSuperclass());
     }
 
+    public static <T extends Model> List<T> fromJsonArray(JSONArray jsonArray, Class<T> modelClass) {
+        List<T> list = new ArrayList<T>();
+        try {
+            if (jsonArray != null) {
+                jsonArray.forEach(c -> {
+                    T t = fromJson(JSONObject.fromObject(c), modelClass);
+                    list.add(t);
+                });
+            }
+        } catch (Exception e) {
+            Logger.error(e, "将Json数组转换成List失败");
+        }
+        return list;
+
+    }
+
     /**
      * 将JSON对象转化为Model对象。
      *

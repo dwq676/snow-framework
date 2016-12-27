@@ -10,6 +10,11 @@
       <module fileurl="file://$PROJECT_DIR$/05-domain/05-domain.iml" filepath="$PROJECT_DIR$/05-domain/05-domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/06-web/06-web.iml" filepath="$PROJECT_DIR$/06-web/06-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/07-test/07-test.iml" filepath="$PROJECT_DIR$/07-test/07-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-client/resteasy-client.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-client/resteasy-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-jarxrs-ex/resteasy-jarxrs-ex.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-jarxrs-ex/resteasy-jarxrs-ex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-jaxrs/resteasy-jaxrs.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-jaxrs/resteasy-jaxrs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-servlet-initializer/resteasy-servlet-initializer.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-servlet-initializer/resteasy-servlet-initializer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-spring/resteasy-spring.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-spring/resteasy-spring.iml" />
       <module fileurl="file://$PROJECT_DIR$/04-component/snow-cache/snow-cache.iml" filepath="$PROJECT_DIR$/04-component/snow-cache/snow-cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-communication/snow-communication.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-communication/snow-communication.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-configuration/snow-configuration.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-configuration/snow-configuration.iml" />
@@ -30,7 +35,7 @@
       <module fileurl="file://$PROJECT_DIR$/05-domain/snow-model/snow-model.iml" filepath="$PROJECT_DIR$/05-domain/snow-model/snow-model.iml" />
       <module fileurl="file://$PROJECT_DIR$/snow-parent.iml" filepath="$PROJECT_DIR$/snow-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-rabbitmq/snow-rabbitmq.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-rabbitmq/snow-rabbitmq.iml" />
-      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-restful/snow-restful.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-restful/snow-restful.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/snow-resteasy.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-resteasy/snow-resteasy.iml" />
       <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-crud/snow-service-crud.iml" filepath="$PROJECT_DIR$/03-services/snow-service-crud/snow-service-crud.iml" />
       <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-cxf/snow-service-cxf.iml" filepath="$PROJECT_DIR$/03-services/snow-service-cxf/snow-service-cxf.iml" />
       <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-dubbox/snow-service-dubbox.iml" filepath="$PROJECT_DIR$/03-services/snow-service-dubbox/snow-service-dubbox.iml" />

@@ -16,6 +16,12 @@
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven-resteasy" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven-springboot" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-rabbitmq" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-jarxrs-ex" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-jaxrs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-servlet-initializer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-spring" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-restful" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-shiro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-spark" charset="UTF-8" />

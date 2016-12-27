@@ -4,6 +4,7 @@
 package com.zoe.snow.dao.hibernate;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.dao.DataSourceManager;
@@ -247,7 +248,7 @@ public class HibernateOrmImpl implements HibernateOrm {
             else if (args[i] instanceof Collection<?>)
                 query.setParameterList(ARG[2] + i, (Collection<?>) args[i]);
             else if (args[i].getClass().isArray())
-                query.setParameterList(ARG[2] + i, (Object[]) args[i]);
+                query.setParameterList(ARG[2] + i, Arrays.asList(args[i]).parallelStream().collect(Collectors.toList()));
             else
                 query.setParameter(ARG[2] + i, args[i]);
         }

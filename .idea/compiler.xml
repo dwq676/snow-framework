@@ -6,6 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="resteasy-client" />
+        <module name="resteasy-jarxrs-ex" />
+        <module name="resteasy-jaxrs" />
+        <module name="resteasy-servlet-initializer" />
+        <module name="resteasy-spring" />
         <module name="snow-cache" />
         <module name="snow-communication" />
         <module name="snow-configuration" />
@@ -25,7 +30,6 @@
         <module name="snow-maven-springboot" />
         <module name="snow-model" />
         <module name="snow-rabbitmq" />
-        <module name="snow-restful" />
         <module name="snow-service-crud" />
         <module name="snow-service-cxf" />
         <module name="snow-service-dubbox" />
@@ -52,6 +56,11 @@
       <module name="05-domain" target="1.8" />
       <module name="06-web" target="1.8" />
       <module name="07-test" target="1.8" />
+      <module name="resteasy-client" target="1.8" />
+      <module name="resteasy-jarxrs-ex" target="1.8" />
+      <module name="resteasy-jaxrs" target="1.8" />
+      <module name="resteasy-servlet-initializer" target="1.8" />
+      <module name="resteasy-spring" target="1.8" />
       <module name="snow-aop" target="1.8" />
       <module name="snow-cache" target="1.8" />
       <module name="snow-communication" target="1.8" />
@@ -74,6 +83,7 @@
       <module name="snow-model" target="1.8" />
       <module name="snow-parent" target="1.8" />
       <module name="snow-rabbitmq" target="1.8" />
+      <module name="snow-resteasy" target="1.8" />
       <module name="snow-restful" target="1.8" />
       <module name="snow-service-crud" target="1.8" />
       <module name="snow-service-cxf" target="1.8" />
