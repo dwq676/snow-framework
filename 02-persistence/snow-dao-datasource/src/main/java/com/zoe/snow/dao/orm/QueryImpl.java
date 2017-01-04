@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -189,7 +190,26 @@ public class QueryImpl extends OrmContextImpl implements Query {
 
     @Override
     public Query where(String where) {
-        this.whereBuffer.append(where);
+        return where(where, null);
+    }
+
+    @Override
+    public Query where(String where, Object[] args, Operator... operators) {
+        if (!Validator.isEmpty(where)) {
+
+            if (operators.length > 0)
+                this.whereBuffer.append(operators[0].getType());
+            else if (whereBuffer.length() > 0) {
+                this.whereBuffer.append(" and ");
+            } else
+                this.whereBuffer.append(" ");
+            this.whereBuffer.append(where);
+            this.whereBuffer.append(" ");
+
+            if (!Validator.isEmpty(args)) {
+                Arrays.asList(args).forEach(this.args::add);
+            }
+        }
         return this;
     }
 

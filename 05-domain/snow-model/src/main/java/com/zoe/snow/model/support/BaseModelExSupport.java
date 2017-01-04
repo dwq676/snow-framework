@@ -6,6 +6,7 @@ import com.zoe.snow.model.CustomDateDeSerializer;
 import com.zoe.snow.model.CustomDateSerializer;
 import com.zoe.snow.model.RawModel;
 import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.model.annotation.Property;
 import com.zoe.snow.model.annotation.SupperClass;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -49,6 +50,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Override
     @Column(name = "valid_flag")
     @Jsonable
+    @Property(name = "有效标记")
     public int getValidFlag() {
         return validFlag;
     }
@@ -64,6 +66,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @JsonDeserialize(using = CustomDateDeSerializer.class)
     @JsonSerialize(using = CustomDateSerializer.class)
     @Jsonable
+    @Property(name = "创建时间")
     public Date getCreateTime() {
         return createTime;
     }
@@ -76,6 +79,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Override
     @Column(name = "create_user")
     @Jsonable
+    @Property(name = "创建者")
     public String getCreateUser() {
         return createUser;
     }
@@ -91,6 +95,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @JsonDeserialize(using = CustomDateDeSerializer.class)
     @JsonSerialize(using = CustomDateSerializer.class)
     @Jsonable
+    @Property(name = "修改时间")
     public Date getModifyTime() {
         return modifyTime;
     }
@@ -103,6 +108,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Override
     @Column(name = "modify_user")
     @Jsonable
+    @Property(name = "修改者")
     public String getModifyUser() {
         return modifyUser;
     }
@@ -115,6 +121,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Override
     @Column(name = "remark")
     @Jsonable
+    @Property(name = "备注")
     public String getRemark() {
         return remark;
     }
@@ -127,6 +134,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Override
     @Column(name = "domain")
     @Jsonable
+    @Property(name = "域")
     public String getDomain() {
         return domain;
     }

@@ -58,6 +58,8 @@ public interface Query {
 
     Query where(String where);
 
+    Query where(String where, Object[] args, Operator... operators);
+
     /**
      * 设置ORDER BY片段。为空则不排序。
      *

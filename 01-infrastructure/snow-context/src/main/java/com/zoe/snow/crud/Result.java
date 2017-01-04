@@ -146,19 +146,19 @@ public class Result<T> implements Serializable {
 
     public Object toJson() {
         if (data instanceof Model || data == null || data instanceof PageList) {
-            Map<String, Object> map = new HashMap<>();
-            // JSONObject jsonObject = new JSONObject();
+            //Map<String, Object> map = new HashMap<>();
+            JSONObject jsonObject = new JSONObject();
             if (data instanceof Model) {
-                map.put("data", ModelHelper.toJson((Model) data));
+                jsonObject.put("data", ModelHelper.toJson((Model) data));
             } else if (data instanceof PageList) {
                 PageList pageList = (PageList) data;
-                map.put("data", pageList.toJson());
+                jsonObject.put("data", pageList.toJson());
             }
-            map.put("message", this.getMessage());
-            map.put("code", this.getCode());
-            return map;
+            jsonObject.put("message", this.getMessage());
+            jsonObject.put("code", this.getCode());
+            return jsonObject.toString();
         }
-        return JSONObject.fromObject(this);
+        return JSONObject.fromObject(this).toString();
     }
 
     private Result setResult(T data, String message) {

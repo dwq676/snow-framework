@@ -1,5 +1,6 @@
 package com.zoe.snow.model;
 
+import com.alibaba.fastjson.JSON;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.model.annotation.Jsonable;
 import com.zoe.snow.model.annotation.Property;
@@ -12,6 +13,7 @@ import net.sf.json.JSONObject;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.log.Logger;
+import net.sf.json.JsonConfig;
 
 import java.lang.reflect.*;
 import java.sql.Timestamp;
@@ -50,7 +52,6 @@ public class ModelHelper {
                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                     Logger.warn(e, "获取Model[{}]属性[{}]值时发生异常！", model, name);
                 }
-
             }
         }
         return object;
@@ -118,6 +119,7 @@ public class ModelHelper {
         return getModelClass((Class<T>) modelClass.getSuperclass());
     }
 
+    @Deprecated
     public static <T extends Model> List<T> fromJsonArray(JSONArray jsonArray, Class<T> modelClass) {
         List<T> list = new ArrayList<T>();
         try {
@@ -141,6 +143,7 @@ public class ModelHelper {
      * @param modelClass Model类。
      * @return Model对象；如果转化失败则返回null。
      */
+    @Deprecated
     public static <T extends Model> T fromJson(JSONObject json, Class<T> modelClass) {
         if (json == null || modelClass == null)
             return null;
@@ -171,8 +174,27 @@ public class ModelHelper {
                 }
             }
         }
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
+        jsonConfig.setRootClass(modelClass);
+        jsonConfig.setClassMap(m);
+        return (T) JSONObject.toBean(json, jsonConfig);
+    }
 
-        return (T) JSONObject.toBean(json, modelClass, m);
+    public static <T extends Model> T fromJson(String json, Class<T> clazz) {
+        if (Validator.isEmpty(json))
+            return null;
+        if (clazz == null)
+            return null;
+        return JSON.parseObject(json, clazz);
+    }
+
+    public static <T extends Model> Collection<T> fromJsonArray(String jsonArray, Class<T> clazz) {
+        if (Validator.isEmpty(jsonArray))
+            return null;
+        if (clazz == null)
+            return null;
+        return JSON.parseArray(jsonArray, clazz);
     }
 
     /**
@@ -196,13 +218,13 @@ public class ModelHelper {
         return baseModel;
     }
 
-    private static String getFirstUppercase(String normal) {
+    /*private static String getFirstUppercase(String normal) {
         return normal.toString().substring(0, 1).toUpperCase() + normal.toString().substring(1);
-    }
+    }*/
 
     private static <T extends Model> Class<Model> getJsonClass(T model, String key) {
 
-        String upperCase = getFirstUppercase(key);
+        String upperCase = Converter.toFirstUpperCase(key);
         try {
             return (Class<Model>) model.getClass().getMethod("get" + upperCase).getReturnType();
         } catch (NoSuchMethodException e) {
@@ -213,7 +235,7 @@ public class ModelHelper {
 
     private static <T extends Model> void setValue(T model, String key, Object value) {
         try {
-            String upperCase = getFirstUppercase(key);
+            String upperCase = Converter.toFirstUpperCase(key);
             model.getClass().getDeclaredMethod("set" + upperCase, model.getClass().getDeclaredField(key.toString()).getType()).invoke(model,
                     convert(model.getClass().getDeclaredField(key.toString()).getType(), value));
         } catch (NoSuchMethodException | NoSuchFieldException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -241,7 +263,7 @@ public class ModelHelper {
             return Converter.toDouble(value);
 
         if (java.sql.Date.class.equals(type) || Timestamp.class.equals(type)) {
-            java.util.Date date = Converter.toDate(value);
+            java.util.Date date = Converter.toDate(value.toString());
             if (date == null)
                 return null;
 

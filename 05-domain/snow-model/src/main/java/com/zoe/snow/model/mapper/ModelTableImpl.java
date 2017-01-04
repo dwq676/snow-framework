@@ -313,7 +313,7 @@ public class ModelTableImpl implements ModelTable {
             return Converter.toDouble(value);
 
         if (Date.class.equals(type) || Timestamp.class.equals(type)) {
-            java.util.Date date = Converter.toDate(value);
+            java.util.Date date = Converter.toDate(value.toString());
             if (date == null)
                 return null;
 

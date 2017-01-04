@@ -29,5 +29,6 @@
         <module>snow-maven-resteasy</module>
         <module>snow-spring</module>
         <module>snow-resteasy</module>
+        <module>snow-delivery</module>
     </modules>
 </project>

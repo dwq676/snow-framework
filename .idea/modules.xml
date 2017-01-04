@@ -25,6 +25,7 @@
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-hibernate/snow-dao-hibernate.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-hibernate/snow-dao-hibernate.iml" />
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-liteorm/snow-dao-liteorm.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-liteorm/snow-dao-liteorm.iml" />
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-mongodb/snow-dao-mongodb.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-mongodb/snow-dao-mongodb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-delivery/snow-delivery.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-delivery/snow-delivery.iml" />
       <module fileurl="file://$PROJECT_DIR$/00-demo/snow-demo-service-cxf/snow-demo-service-cxf.iml" filepath="$PROJECT_DIR$/00-demo/snow-demo-service-cxf/snow-demo-service-cxf.iml" />
       <module fileurl="file://$PROJECT_DIR$/00-demo/snow-demo-web/snow-demo-web.iml" filepath="$PROJECT_DIR$/00-demo/snow-demo-web/snow-demo-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-log-ex/snow-log-ex.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-log-ex/snow-log-ex.iml" />

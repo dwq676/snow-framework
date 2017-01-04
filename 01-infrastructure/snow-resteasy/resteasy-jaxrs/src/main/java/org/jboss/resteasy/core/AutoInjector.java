@@ -1,11 +1,11 @@
 package org.jboss.resteasy.core;
 
+import com.zoe.snow.Global;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.ModelHelper;
+import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.ws.Auto;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.HttpResponse;
@@ -13,6 +13,8 @@ import org.jboss.resteasy.util.Encode;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Json格式注入器
@@ -45,20 +47,40 @@ public class AutoInjector implements ValueInjector {
         if (type != null) {
             try {
                 if (request.getHttpMethod().toUpperCase().equals("GET")) {
-                    object = Encode.decode(request.getUri().getQueryParameters().getFirst(auto.value()));
+                    object = request.getUri().getQueryParameters().getFirst(auto.value());
                 } else {
-                    object = Encode.decode(request.getFormParameters().getFirst(auto.value().trim()));
+                    object = request.getFormParameters().getFirst(auto.value().trim());
                 }
-
                 if (object != null) {
+                    object = Encode.decode(object.toString());
                     if (getJSONType(object.toString()).equals(JsonType.JSON_TYPE_ERROR)) {
+                        if (type.equals(Date.class))
+                            return Converter.toDate(object.toString());
                         return ConvertUtils.convert(object, type);
                     } else if (getJSONType(object.toString()).equals(JsonType.JSON_TYPE_ARRAY)) {
-                        JSONArray jn = JSONArray.fromObject(object);
-                        return ModelHelper.fromJsonArray(jn, type);
+                        //JSONArray jn = JSONArray.fromObject(object);
+                        return ModelHelper.fromJsonArray(object.toString(), type);
                     } else if (getJSONType(object.toString()).equals(JsonType.JSON_TYPE_OBJECT)) {
-                        JSONObject jo = JSONObject.fromObject(object);
-                        return ModelHelper.fromJson(jo, type);
+                        //JSONObject jo = JSONObject.fromObject(object);
+                        return ModelHelper.fromJson(object.toString(), type);
+                    }
+                } else {
+                    if (type.equals(Double.TYPE)) {
+                        return Double.MIN_VALUE;
+                    } else if (type.equals(Integer.TYPE)) {
+                        return 0;
+                    } else if (type.equals(Long.TYPE)) {
+                        return 0L;
+                    } else if (type.equals(BigDecimal.class)) {
+                        return BigDecimal.ZERO;
+                    } else if (type.equals(Float.TYPE)) {
+                        return 0f;
+                    } else if (type.equals(Byte.TYPE)) {
+                        return Byte.parseByte("0");
+                    } else if (type.equals(Character.TYPE)) {
+                        return Character.NON_SPACING_MARK;
+                    } else if (type.equals(Boolean.TYPE)) {
+                        return false;
                     }
                 }
             } catch (Exception e) {

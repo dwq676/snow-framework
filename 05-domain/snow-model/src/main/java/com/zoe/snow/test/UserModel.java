@@ -22,7 +22,7 @@ public class UserModel extends BaseModelSupport {
 
     private String userName;
     private String password;
-    private School school;
+    private Student student;
 
     /*private String sex;
 
@@ -57,13 +57,13 @@ public class UserModel extends BaseModelSupport {
     }
 
     @Jsonable
-    @JoinColumn(name = "school")
+    @JoinColumn(name = "student_id")
     @OneToOne(fetch = FetchType.LAZY)
-    public School getSchool() {
-        return school;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setSchool(School school) {
-        this.school = school;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

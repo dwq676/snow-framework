@@ -21,6 +21,7 @@
         <module name="snow-dao-hibernate" />
         <module name="snow-dao-liteorm" />
         <module name="snow-dao-mongodb" />
+        <module name="snow-delivery" />
         <module name="snow-demo-service-cxf" />
         <module name="snow-demo-web" />
         <module name="snow-log-ex" />
@@ -72,6 +73,7 @@
       <module name="snow-dao-hibernate" target="1.8" />
       <module name="snow-dao-liteorm" target="1.8" />
       <module name="snow-dao-mongodb" target="1.8" />
+      <module name="snow-delivery" target="1.8" />
       <module name="snow-demo-service-cxf" target="1.8" />
       <module name="snow-demo-web" target="1.8" />
       <module name="snow-elasticsearch" target="1.8" />

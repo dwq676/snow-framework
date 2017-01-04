@@ -8,6 +8,7 @@ import com.zoe.snow.crud.service.proxy.QueryProxy;
 import com.zoe.snow.dao.Closable;
 import com.zoe.snow.dao.Transaction;
 import com.zoe.snow.dao.sql.Sql;
+import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.JoinType;
@@ -283,7 +284,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
             userModel.setUserName(Thread.currentThread().getName() + "_" + j);
             School school = new School();
             school.setId("1");
-            userModel.setSchool(school);
+            //userModel.setStudent(school);
             crudService.save(userModel);
 
         }
@@ -309,7 +310,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         School school = new School();
         school.setId("1");
         school.setSchoolName("diwf");
-        userModel.setSchool(school);
+        //userModel.setStudent(school);
         crudService.save(userModel);
         crudService.update(school);
         transactionSet.forEach(Transaction::commit);
@@ -365,6 +366,11 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         //UserModel userModel= crudService.execute()
         transactionSet.forEach(Transaction::beginTransaction);
 
+        userModel = crudService.query().from(UserModel.class).join(School.class, JoinType.Inner)
+                .where("id", Criterion.Equals, "00000a66-ce70-4a34-b3d9-1165d89d7cb0").one();
+
+        ModelHelper.fromJson(ModelHelper.toJson(userModel).toString(), UserModel.class);
+
         crudService.sql("select * fRom crip_user t where  t.id=1").asJson();
 
         userModel = new UserModel();
@@ -375,7 +381,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
             userModel.setUserName("john_" + i);
             School school = new School();
             school.setId("1");
-            userModel.setSchool(school);
+            //userModel.setStudent(school);
             crudService.save(userModel);
         }
 

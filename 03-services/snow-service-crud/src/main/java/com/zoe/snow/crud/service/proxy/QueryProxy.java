@@ -3,6 +3,7 @@ package com.zoe.snow.crud.service.proxy;
 import com.zoe.snow.crud.service.QueryService;
 import com.zoe.snow.dao.orm.OrmContext;
 import com.zoe.snow.dao.orm.Query;
+import com.zoe.snow.fun.CallInOne;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
@@ -68,6 +69,11 @@ public class QueryProxy {
 
     public QueryProxy where(String where) {
         query.where(where);
+        return this;
+    }
+
+    public QueryProxy where(String where, Object[] args, Operator... operators) {
+        query.where(where, args);
         return this;
     }
 

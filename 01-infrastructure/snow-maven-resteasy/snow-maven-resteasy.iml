@@ -108,6 +108,7 @@
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.35" level="project" />
     <orderEntry type="module" module-name="snow-model" />
     <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.23" level="project" />
     <orderEntry type="module" module-name="snow-spring" />
     <orderEntry type="library" name="Maven: aspectj:aspectjrt:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.5" level="project" />

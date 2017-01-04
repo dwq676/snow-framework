@@ -10,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-configuration" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-context" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-delivery" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-log-ex" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-maven-dubbox" charset="UTF-8" />
@@ -22,7 +23,6 @@
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-jaxrs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-servlet-initializer" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-resteasy/resteasy-spring" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/01-infrastructure/snow-restful" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-shiro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-spark" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/01-infrastructure/snow-spring" charset="UTF-8" />

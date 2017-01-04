@@ -1,6 +1,8 @@
 package com.zoe.snow.util;
 
+import com.zoe.snow.Global;
 import com.zoe.snow.log.Logger;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.net.URLDecoder;
@@ -345,7 +347,7 @@ public final class Converter {
      * @param date 日期对象。
      * @return 日期值。如果格式不匹配则返回null。
      */
-    public static Date toDate(Object date) {
+    /*public static Date toDate(Object date) {
         if (Validator.isEmpty(date))
             return null;
 
@@ -360,23 +362,26 @@ public final class Converter {
         }
 
         return null;
-    }
+    }*/
 
     /**
      * 将日期字符串按指定格式转化为日期值。
      *
      * @param date   日期字符串。
-     * @param format 字符串格式。
      * @return 日期值。如果格式不匹配则返回null。
      */
-    public static Date toDate(String date, String format) {
-        if (Validator.isEmpty(date) || Validator.isEmpty(format) || date.length() != format.length())
+    public static Date toDate(String date) {
+        if (Validator.isEmpty(date))
             return null;
 
         try {
-            return getSimpleDateFormat(format).parse(date);
+            return getSimpleDateFormat(Global.dateTimeFormat).parse(date);
         } catch (ParseException e) {
-            Logger.warn(e, "使用格式[{}]将字符串[{}]转化为日期值时发生异常！", format, date);
+            try {
+                return getSimpleDateFormat(Global.dateFormat).parse(date);
+            } catch (Exception ex) {
+                Logger.warn(e, "使用格式[{}]将字符串[{}]转化为日期值时发生异常！", Global.dateFormat, date);
+            }
 
             return null;
         }

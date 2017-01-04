@@ -62,7 +62,7 @@ public class SchedulerSupport {
 
                 try {
                     job.running();
-                    Logger.info("成功执行[{}]定时器任务！", job.getJobName());
+                    Logger.debug("成功执行[{}]定时器任务！", job.getJobName());
                 } catch (Exception e) {
                     Logger.error(e, "执行定时器[{}]任务时发生异常！", job.getJobName());
                 }

@@ -19,6 +19,7 @@ import org.jboss.resteasy.spi.ResteasyUriInfo;
 import org.jboss.resteasy.spi.metadata.ResourceMethod;
 import org.jboss.resteasy.spi.validation.GeneralValidator;
 import org.jboss.resteasy.spi.validation.GeneralValidatorCDI;
+import org.jboss.resteasy.util.Encode;
 import org.jboss.resteasy.util.FeatureContextDelegate;
 
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -35,6 +36,8 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -246,6 +249,7 @@ public class ResourceMethodInvoker implements ResourceInvoker, JaxrsInterceptorR
             if (rtn != null) {
                 if (rtn instanceof Result) {
                     rtn = Result.class.cast(rtn).toJson();
+                    //rtn = URLEncoder.encode(Result.class.cast(rtn).toJson().toString(), StandardCharsets.UTF_8.name());
                 }
             }
         } catch (RuntimeException ex) {
@@ -259,6 +263,7 @@ public class ResourceMethodInvoker implements ResourceInvoker, JaxrsInterceptorR
             } else {
                 throw ex;
             }
+        }catch (Exception e){
 
         }
 

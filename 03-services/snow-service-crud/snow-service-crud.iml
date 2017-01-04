@@ -60,6 +60,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:4.3.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:4.3.4.RELEASE" level="project" />
     <orderEntry type="module" module-name="snow-model" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.23" level="project" />
     <orderEntry type="module" module-name="snow-context" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.4.RELEASE" level="project" />
