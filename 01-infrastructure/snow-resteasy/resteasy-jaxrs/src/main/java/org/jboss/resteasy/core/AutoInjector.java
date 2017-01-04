@@ -1,6 +1,5 @@
 package org.jboss.resteasy.core;
 
-import com.zoe.snow.Global;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.util.Converter;
@@ -65,29 +64,40 @@ public class AutoInjector implements ValueInjector {
                         return ModelHelper.fromJson(object.toString(), type);
                     }
                 } else {
-                    if (type.equals(Double.TYPE)) {
-                        return Double.MIN_VALUE;
-                    } else if (type.equals(Integer.TYPE)) {
-                        return 0;
-                    } else if (type.equals(Long.TYPE)) {
-                        return 0L;
-                    } else if (type.equals(BigDecimal.class)) {
-                        return BigDecimal.ZERO;
-                    } else if (type.equals(Float.TYPE)) {
-                        return 0f;
-                    } else if (type.equals(Byte.TYPE)) {
-                        return Byte.parseByte("0");
-                    } else if (type.equals(Character.TYPE)) {
-                        return Character.NON_SPACING_MARK;
-                    } else if (type.equals(Boolean.TYPE)) {
-                        return false;
-                    }
+                    //判断是否为基本类型，即值类型,值类型返回默认值或最小值
+                    return getValue();
                 }
             } catch (Exception e) {
-                Logger.error(e, "类型转换出错了");
+                //类型转换出错时，判断是否为基本类型，即值类型，值类型返回默认值或最小值
+                try {
+                    return getValue();
+                } catch (Exception ex) {
+                    Logger.error(e, "类型转换出错了");
+                }
             }
         }
         return object;
+    }
+
+    private Object getValue() {
+        if (type.equals(Double.TYPE)) {
+            return Double.MIN_VALUE;
+        } else if (type.equals(Integer.TYPE)) {
+            return 0;
+        } else if (type.equals(Long.TYPE)) {
+            return 0L;
+        } else if (type.equals(BigDecimal.class)) {
+            return BigDecimal.ZERO;
+        } else if (type.equals(Float.TYPE)) {
+            return 0f;
+        } else if (type.equals(Byte.TYPE)) {
+            return Byte.parseByte("0");
+        } else if (type.equals(Character.TYPE)) {
+            return Character.NON_SPACING_MARK;
+        } else if (type.equals(Boolean.TYPE)) {
+            return false;
+        }
+        return null;
     }
 
     /**
