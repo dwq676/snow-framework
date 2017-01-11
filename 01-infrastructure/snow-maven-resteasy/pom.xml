@@ -48,7 +48,7 @@
             <version>${sonw.resteasy.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
-        <dependency>
+        <!--<dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>2.0.1</version>
@@ -57,7 +57,7 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
             <version>1.1.1</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>

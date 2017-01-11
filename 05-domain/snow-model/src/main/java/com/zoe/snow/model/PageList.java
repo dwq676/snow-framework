@@ -32,21 +32,24 @@ public class PageList<T extends Model> {
 
     protected int count;
     protected int size;
+    protected int page;
     protected int number;
    /* protected T model;*/
 
     /**
      * 设置分页信息。
      *
-     * @param count  记录总数。
-     * @param size   每页显示记录数。
-     * @param number 当前显示页码数。
+     * @param count 记录总数。
+     * @param size  每页显示记录数。
+     * @param page  当前显示页码数。
      */
-    public void setPage(int count, int size, int number) {
+    public void setPage(int count, int size, int page) {
         this.count = Math.max(0, count);
         this.size = Math.max(1, size);
-        this.number = Math.min(number, this.count / this.size + (this.count % this.size == 0 ? 0 : 1));
+        this.number = this.count / this.size + (this.count % this.size == 0 ? 0 : 1);
         this.number = Math.max(1, this.number);
+        //this.number = (int) Math.ceil(this.count / this.size);
+        this.page = page;
     }
 
     /**
@@ -72,6 +75,10 @@ public class PageList<T extends Model> {
      *
      * @return 当前显示页数。
      */
+    public int getPage() {
+        return page;
+    }
+
     public int getNumber() {
         return number;
     }
@@ -103,7 +110,7 @@ public class PageList<T extends Model> {
      * JSONObject object = new JSONObject();
      * object.put("count", count);
      * object.put("size", size);
-     * object.put("number", number);
+     * object.put("page", page);
      * JSONArray array = new JSONArray();
      *//*
          * for (T model : list) array.add(modelHelper.toJson(model));
@@ -130,7 +137,8 @@ public class PageList<T extends Model> {
         JSONObject object = new JSONObject();
         object.put("total", count);
         object.put("size", size);
-        object.put("number", number);
+        object.put("page", page);
+        object.put("number", this.number);
         JSONArray array = new JSONArray();
         for (T model : list)
             array.add(ModelHelper.toJson(model));

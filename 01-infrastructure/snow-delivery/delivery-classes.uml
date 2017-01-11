@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="34.0" y="-69.0">com.zoe.snow.delivery.ServiceBeanRegisterListener</node>
+    <node x="-323.0" y="-147.0">com.zoe.snow.delivery.ServiceBean</node>
+    <node x="-383.0" y="93.5">com.zoe.snow.delivery.ServiceBeanFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.zoe.snow.delivery.ServiceBeanFactory" target="com.zoe.snow.delivery.ServiceBean">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes>
+    <node>com.zoe.snow.delivery.ServiceBeanRegisterListener</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

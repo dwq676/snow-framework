@@ -85,11 +85,11 @@
             <artifactId>jboss-logging</artifactId>
             <version>3.3.0.Final</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
-            <version>3.0.9.Final</version>
-        </dependency>
+            <version>3.0.19.Final</version>
+        </dependency>-->
     </dependencies>
     <profiles>
         <profile>

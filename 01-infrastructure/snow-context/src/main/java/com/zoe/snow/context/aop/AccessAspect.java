@@ -6,18 +6,25 @@ import com.zoe.snow.auth.NoNeedVerify;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.crud.Result;
+import com.zoe.snow.delivery.Http;
+import com.zoe.snow.delivery.Register;
+import com.zoe.snow.delivery.Verb;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
-import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.model.annotation.NotNull;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Validator;
+import javassist.*;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
 import net.sf.json.JSONObject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
@@ -33,12 +40,16 @@ import java.util.*;
 @Aspect
 @Service
 public class AccessAspect {
+    @Value("${snow.request.channel:local}")
+    protected String requestChannel;
     @Autowired(required = false)
     private Set<com.zoe.snow.dao.Closable> cloneableSet;
     @Autowired
     private UserHelper userHelper;
     @Autowired
     private AuthBean authBean;
+    @Autowired
+    private Http http;
 
     @After("anyMethod()")
     public void doAfter(JoinPoint jp) {
@@ -89,13 +100,62 @@ public class AccessAspect {
 
         }
         try {
-            return proceedingJoinPoint.proceed(args);
+            if (requestChannel.endsWith("local")) {
+                return proceedingJoinPoint.proceed(args);
+            } else if (requestChannel.endsWith("remote")) {
+
+            }
         } catch (Throwable e) {
             Logger.error(e, e.getMessage());
             result.setResult(null, Message.ServiceError);
         }
         return result;
     }
+
+    private String getParameterName(String clazzName, String methodName, int ndx)
+            throws NotFoundException {
+        ClassPool pool = ClassPool.getDefault();
+        ClassClassPath classPath = new ClassClassPath(this.getClass());
+        pool.insertClassPath(classPath);
+
+        CtClass cc = pool.get(clazzName);
+        CtMethod cm = cc.getDeclaredMethod(methodName);
+        MethodInfo methodInfo = cm.getMethodInfo();
+        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
+        LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute
+                .getAttribute(LocalVariableAttribute.tag);
+        if (attr == null) {
+            // exception
+        }
+        String[] paramNames = new String[cm.getParameterTypes().length];
+        int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
+        for (int i = 0; i < paramNames.length; i++)
+            paramNames[i] = attr.variableName(i + pos);
+        if (paramNames.length >= ndx)
+            return paramNames[ndx];
+        return "";
+    }
+
+    private Object rmi(Register register, Class<?> clazz, Method method, Object[] args) {
+        if (register == null || clazz == null || method == null)
+            return null;
+        StringBuffer urlBuffer = new StringBuffer();
+        urlBuffer.append(register.host());
+        urlBuffer.append(":");
+        urlBuffer.append(register.port());
+        if (!Validator.isEmpty(register.nameSpace())) {
+            urlBuffer.append("/");
+            urlBuffer.append(register.nameSpace());
+        } else {
+            
+        }
+        //urlBuffer.append(register.)
+        if (register.verb() == Verb.GET) {
+
+        }
+        return null;
+    }
+
 
     /**
      * 解析服务请求参数并转换为对应的实体

@@ -117,7 +117,7 @@ public class SqlImpl extends JdbcSupport<PreparedStatement> implements Sql {
         if (Validator.isEmpty(sql) || Validator.isEmpty(classZ))
             return BeanFactory.getBean(PageList.class);
         int count = 0;
-        if (page == 1) {
+        if (page > 0) {
             count = getCount(sql, false, args);
         }
         return sqlTableToPageList(classZ, query(sql, size, page, args), count, size, page);

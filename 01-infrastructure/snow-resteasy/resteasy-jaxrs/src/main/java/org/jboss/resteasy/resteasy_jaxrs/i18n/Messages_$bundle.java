@@ -161,7 +161,7 @@ public class Messages_$bundle implements Serializable, Messages {
     private static final String nullSubresource = "RESTEASY003680: Null subresource for path: %s.";
     private static final String nullValue = "RESTEASY003685: null value";
     private static final String numberOfMatchedSegments = "RESTEASY003690: Number of matched segments greater than actual";
-    private static final String oddNumberOfCharacters = "RESTEASY003695: Odd number of characters.";
+    private static final String oddNumberOfCharacters = "RESTEASY003695: Odd page of characters.";
     private static final String originNotAllowed = "RESTEASY003700: Origin not allowed: %s";
     private static final String paramNull = "RESTEASY003705: param was null";
     private static final String passedInValueNull = "RESTEASY003710: A passed in value was null";
@@ -1568,7 +1568,7 @@ public class Messages_$bundle implements Serializable, Messages {
     }
 
     protected String oddNumberOfCharacters$str() {
-        return "RESTEASY003695: Odd number of characters.";
+        return "RESTEASY003695: Odd page of characters.";
     }
 
     public final String originNotAllowed(String origin) {

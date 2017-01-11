@@ -89,7 +89,10 @@
     <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.22" level="project" />
     <orderEntry type="module" module-name="snow-context" />
     <orderEntry type="module" module-name="snow-validator" />
+    <orderEntry type="module" module-name="snow-delivery" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpmime:4.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.3.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.resteasy:jaxrs-api:3.0.12.Final" level="project" />
     <orderEntry type="module" module-name="snow-configuration" />
     <orderEntry type="module" module-name="snow-dao-hibernate" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:4.3.9.Final" level="project" />
@@ -155,17 +158,10 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.resteasy:resteasy-jaxrs:3.0.9.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.resteasy:jaxrs-api:3.0.9.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.spec.javax.annotation:jboss-annotations-api_1.1_spec:1.0.1.Final" level="project" />
-    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.1" level="project" />
-    <orderEntry type="library" name="Maven: net.jcip:jcip-annotations:1.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" level="project" />
-    <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: asm:asm:3.3.1" level="project" />
     <orderEntry type="module" module-name="resteasy-spring" />
     <orderEntry type="module" module-name="resteasy-client" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.2.11.v20150529" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.2.11.v20150529" level="project" />

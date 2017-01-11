@@ -94,7 +94,7 @@ public class Page<T> {
         JSONObject object = new JSONObject();
         object.put("count", count);
         object.put("size", size);
-        object.put("number", number);
+        object.put("page", number);
         JSONArray array = new JSONArray();
         /*
          * for (T model : list) array.add(modelHelper.toJson(model));

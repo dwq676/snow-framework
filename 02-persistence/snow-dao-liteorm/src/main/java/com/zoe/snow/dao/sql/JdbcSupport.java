@@ -23,8 +23,6 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Table;
-
 /**
  * @author lpw
  */
@@ -35,9 +33,9 @@ public abstract class JdbcSupport<T extends PreparedStatement> implements Jdbc {
     @Autowired
     protected ModelTables modelTables;
 
-    protected <T extends Model> PageList<T> sqlTableToPageList(Class<? extends Model> classZ, SqlTable sqlTable, int count, int size, int number) {
+    protected <T extends Model> PageList<T> sqlTableToPageList(Class<? extends Model> classZ, SqlTable sqlTable, int count, int size, int page) {
         PageList<T> models = BeanFactory.getBean(PageList.class);
-        models.setPage(count, size, number);
+        models.setPage(count, size, page);
         if (Validator.isEmpty(classZ) || Validator.isEmpty(sqlTable))
             return models;
         ModelTable modelTable = modelTables.get(classZ);

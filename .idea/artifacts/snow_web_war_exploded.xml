@@ -94,8 +94,16 @@
           <element id="archive" name="snow-validator-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-validator" />
           </element>
+          <element id="archive" name="snow-delivery-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="snow-delivery" />
+          </element>
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.5.1" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.4" />
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
+          <element id="library" level="project" name="Maven: org.jboss.resteasy:jaxrs-api:3.0.12.Final" />
           <element id="archive" name="snow-log-ex-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-log-ex" />
           </element>

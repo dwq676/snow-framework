@@ -145,6 +145,10 @@ public class Result<T> implements Serializable {
             }*/
 
     public Object toJson() {
+        return toJsonObject();
+    }
+
+    private JSONObject toJsonObject() {
         if (data instanceof Model || data == null || data instanceof PageList) {
             //Map<String, Object> map = new HashMap<>();
             JSONObject jsonObject = new JSONObject();
@@ -156,9 +160,13 @@ public class Result<T> implements Serializable {
             }
             jsonObject.put("message", this.getMessage());
             jsonObject.put("code", this.getCode());
-            return jsonObject.toString();
+            return jsonObject;
         }
-        return JSONObject.fromObject(this).toString();
+        return JSONObject.fromObject(this);
+    }
+
+    public String toJsonString() {
+        return toJsonObject().toString();
     }
 
     private Result setResult(T data, String message) {

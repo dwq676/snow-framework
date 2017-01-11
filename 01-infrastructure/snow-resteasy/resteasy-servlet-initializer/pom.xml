@@ -14,7 +14,7 @@
         <dependency>
             <groupId>com.zoe.snow</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

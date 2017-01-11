@@ -248,7 +248,7 @@ public class ResourceMethodInvoker implements ResourceInvoker, JaxrsInterceptorR
             rtn = methodInjector.invoke(request, response, target);
             if (rtn != null) {
                 if (rtn instanceof Result) {
-                    rtn = Result.class.cast(rtn).toJson();
+                    rtn = Result.class.cast(rtn).toJsonString();
                     //rtn = URLEncoder.encode(Result.class.cast(rtn).toJson().toString(), StandardCharsets.UTF_8.name());
                 }
             }
@@ -263,7 +263,7 @@ public class ResourceMethodInvoker implements ResourceInvoker, JaxrsInterceptorR
             } else {
                 throw ex;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
