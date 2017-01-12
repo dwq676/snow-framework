@@ -9,9 +9,6 @@ package com.zoe.snow.demo;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,14 +20,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class User implements Serializable {
 
-    @NotNull
-    @Min(1L)
     private Long id;
 
     @JsonProperty()
     @XmlElement(name = "username")
-    @NotNull
-    @Size(min = 6, max = 50)
     private String name;
 
     public User() {

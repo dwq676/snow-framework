@@ -1,4 +1,4 @@
-package com.zoe.snow.crud;
+package com.zoe.snow.fun;
 
 /**
  * 可执行，可回调用接口

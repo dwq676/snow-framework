@@ -122,13 +122,13 @@
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
         <sonar-maven3-plugin.version>3.5</sonar-maven3-plugin.version>
 
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
         <hamcrest.version>1.3</hamcrest.version>
         <randomizedtesting.version>2.1.11</randomizedtesting.version>
-        <lucene.version>5.4.0</lucene.version>
-        <elasticsearch.version>2.1.1</elasticsearch.version>
+        <lucene.version>5.5.2</lucene.version>
+        <elasticsearch.version>2.4.0</elasticsearch.version>
         <jedis.version>2.5.1</jedis.version>
-        <pinyin4j.version>2.5.0</pinyin4j.version>
+        <pinyin4j.version>2.5.1</pinyin4j.version>
     </properties>
 
     <dependencies>

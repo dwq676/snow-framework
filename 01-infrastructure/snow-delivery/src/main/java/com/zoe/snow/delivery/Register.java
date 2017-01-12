@@ -28,4 +28,6 @@ public @interface Register {
     String serviceName();
 
     Verb verb() default Verb.GET;
+
+    String prefix() default "";
 }

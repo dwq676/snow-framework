@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.Path;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -100,7 +101,8 @@ public class AccessAspect {
 
         }
         try {
-            if (requestChannel.endsWith("local")) {
+            Register register = proceedingJoinPoint.getTarget().getClass().getAnnotation(Register.class);
+            if (requestChannel.endsWith("local") && register == null) {
                 return proceedingJoinPoint.proceed(args);
             } else if (requestChannel.endsWith("remote")) {
 
@@ -114,6 +116,13 @@ public class AccessAspect {
 
     private String getParameterName(String clazzName, String methodName, int ndx)
             throws NotFoundException {
+        String[] paramNames = getParameterNames(clazzName, methodName);
+        if (paramNames.length >= ndx)
+            return paramNames[ndx];
+        return "";
+    }
+
+    private String[] getParameterNames(String clazzName, String methodName) throws NotFoundException {
         ClassPool pool = ClassPool.getDefault();
         ClassClassPath classPath = new ClassClassPath(this.getClass());
         pool.insertClassPath(classPath);
@@ -131,14 +140,21 @@ public class AccessAspect {
         int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
         for (int i = 0; i < paramNames.length; i++)
             paramNames[i] = attr.variableName(i + pos);
-        if (paramNames.length >= ndx)
-            return paramNames[ndx];
-        return "";
+        return paramNames;
     }
 
     private Object rmi(Register register, Class<?> clazz, Method method, Object[] args) {
         if (register == null || clazz == null || method == null)
             return null;
+        String url = getUrl(register, clazz, method);
+        //urlBuffer.append(register.)
+        if (register.verb() == Verb.GET) {
+
+        }
+        return null;
+    }
+
+    private String getUrl(Register register, Class<?> clazz, Method method) {
         StringBuffer urlBuffer = new StringBuffer();
         urlBuffer.append(register.host());
         urlBuffer.append(":");
@@ -147,13 +163,17 @@ public class AccessAspect {
             urlBuffer.append("/");
             urlBuffer.append(register.nameSpace());
         } else {
-            
+            urlBuffer.append("/").append(register.prefix());
+            Path servicePath = clazz.getAnnotation(Path.class);
+            Path methodPath = method.getAnnotation(Path.class);
+            if (!servicePath.value().startsWith("/"))
+                urlBuffer.append("/");
+            urlBuffer.append(servicePath.value());
+            if (!methodPath.value().startsWith("/"))
+                urlBuffer.append("/");
+            urlBuffer.append(methodPath.value());
         }
-        //urlBuffer.append(register.)
-        if (register.verb() == Verb.GET) {
-
-        }
-        return null;
+        return urlBuffer.toString();
     }
 
 

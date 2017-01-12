@@ -1,6 +1,7 @@
 package com.zoe.snow.crud;
 
 import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.fun.Callable;
 import com.zoe.snow.validator.exception.*;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
@@ -18,9 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 返回的结果集
