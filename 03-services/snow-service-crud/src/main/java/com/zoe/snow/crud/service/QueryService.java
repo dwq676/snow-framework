@@ -5,6 +5,7 @@ import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import java.util.Map;
 
@@ -67,7 +68,8 @@ public interface QueryService {
      */
     int count(Query query, boolean excludeDomain, Object... args);
 
-    JSONArray asJson(Query query, String ormName);
+    JSONObject asJsonObject(Query query, String ormName);
+    JSONArray asJsonArray(Query query, String ormName);
 
     Query mapToQuery(Class<? extends Model> classZ, Map<String, Criterion> criterionMap, int page, int size, Object... args);
 }

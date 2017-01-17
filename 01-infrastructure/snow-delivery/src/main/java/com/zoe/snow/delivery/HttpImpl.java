@@ -49,11 +49,11 @@ import java.util.Map;
 @Component("snow.delivery.http")
 public class HttpImpl implements Http, ContextRefreshedListener {
     private static final String CHARSET = "UTF-8";
-    @Value("${commons.util.http.pool.max:256}")
+    @Value("${snow.util.http.pool.max:256}")
     protected int max;
-    @Value("${commons.util.http.connect.time-out:5000}")
+    @Value("${snow.util.http.connect.time-out:5000}")
     protected int connectTimeout;
-    @Value("${commons.util.http.read.time-out:20000}")
+    @Value("${snow.util.http.read.time-out:20000}")
     protected int readTimeout;
     protected PoolingHttpClientConnectionManager manager;
     @Autowired

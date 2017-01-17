@@ -149,8 +149,8 @@ public class ConnectionSupport<T> implements ConnectionManage<T> {
                     Logger.debug("进行了事务回滚！");
             });
         }
-        transactional.remove();
-        connections.remove();
+        //transactional.remove();
+        //connections.remove();
     }
 
     @Override

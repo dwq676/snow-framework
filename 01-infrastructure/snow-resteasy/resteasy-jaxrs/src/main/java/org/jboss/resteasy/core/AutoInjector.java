@@ -1,19 +1,13 @@
 package org.jboss.resteasy.core;
 
 import com.zoe.snow.log.Logger;
-import com.zoe.snow.model.ModelHelper;
-import com.zoe.snow.util.Converter;
-import com.zoe.snow.util.Validator;
+import com.zoe.snow.model.TypeConverter;
 import com.zoe.snow.ws.Auto;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.HttpResponse;
-import org.jboss.resteasy.util.Encode;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * Json格式注入器
@@ -50,27 +44,11 @@ public class AutoInjector implements ValueInjector {
                 } else {
                     object = request.getFormParameters().getFirst(auto.value().trim());
                 }
-                if (object != null) {
-                    object = Encode.decode(object.toString());
-                    if (getJSONType(object.toString()).equals(JsonType.JSON_TYPE_ERROR)) {
-                        if (type.equals(Date.class))
-                            return Converter.toDate(object.toString());
-                        return ConvertUtils.convert(object, type);
-                    } else if (getJSONType(object.toString()).equals(JsonType.JSON_TYPE_ARRAY)) {
-                        //JSONArray jn = JSONArray.fromObject(object);
-                        return ModelHelper.fromJsonArray(object.toString(), type);
-                    } else if (getJSONType(object.toString()).equals(JsonType.JSON_TYPE_OBJECT)) {
-                        //JSONObject jo = JSONObject.fromObject(object);
-                        return ModelHelper.fromJson(object.toString(), type);
-                    }
-                } else {
-                    //判断是否为基本类型，即值类型,值类型返回默认值或最小值
-                    return getValue();
-                }
+                return TypeConverter.converter(object, type);
             } catch (Exception e) {
                 //类型转换出错时，判断是否为基本类型，即值类型，值类型返回默认值或最小值
                 try {
-                    return getValue();
+                    return TypeConverter.getBasicTypeValue(type);
                 } catch (Exception ex) {
                     Logger.error(e, "类型转换出错了");
                 }
@@ -79,64 +57,5 @@ public class AutoInjector implements ValueInjector {
         return object;
     }
 
-    private Object getValue() {
-        if (type.equals(Double.TYPE)) {
-            return Double.MIN_VALUE;
-        } else if (type.equals(Integer.TYPE)) {
-            return 0;
-        } else if (type.equals(Long.TYPE)) {
-            return 0L;
-        } else if (type.equals(BigDecimal.class)) {
-            return BigDecimal.ZERO;
-        } else if (type.equals(Float.TYPE)) {
-            return 0f;
-        } else if (type.equals(Byte.TYPE)) {
-            return Byte.parseByte("0");
-        } else if (type.equals(Character.TYPE)) {
-            return Character.NON_SPACING_MARK;
-        } else if (type.equals(Boolean.TYPE)) {
-            return false;
-        }
-        return null;
-    }
 
-    /**
-     * 获取JSON类型
-     * 判断规则
-     * 判断第一个字母是否为{或[ 如果都不是则不是一个JSON格式的文
-     *
-     * @param str
-     * @return
-     */
-    private JsonType getJSONType(String str) {
-        if (Validator.isEmpty(str)) {
-            return JsonType.JSON_TYPE_ERROR;
-        }
-
-        char[] strChar = str.substring(0, 1).toCharArray();
-        char firstChar = strChar[0];
-
-        if (firstChar == '{') {
-            return JsonType.JSON_TYPE_OBJECT;
-        } else if (firstChar == '[') {
-            return JsonType.JSON_TYPE_ARRAY;
-        } else {
-            return JsonType.JSON_TYPE_ERROR;
-        }
-    }
-
-    public enum JsonType {
-        /**
-         * JSONObject
-         */
-        JSON_TYPE_OBJECT,
-        /**
-         * JSONArray
-         */
-        JSON_TYPE_ARRAY,
-        /**
-         * 不是JSON格式的字符串
-         */
-        JSON_TYPE_ERROR
-    }
 }

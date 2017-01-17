@@ -310,10 +310,17 @@ public class CrudServiceBasic implements CrudService, QueryService, ExecuteServi
 
     @LogTo("crud")
     @Override
-    public JSONArray asJson(Query query, String ormName) {
+    public JSONObject asJsonObject(Query query, String ormName) {
+        if (Validator.isEmpty(ormName) || Validator.isEmpty(query))
+            return new JSONObject();
+        return ormManage.getOrm(ormName).getAsJsonObject(query);
+    }
+
+    @Override
+    public JSONArray asJsonArray(Query query, String ormName) {
         if (Validator.isEmpty(ormName) || Validator.isEmpty(query))
             return new JSONArray();
-        return ormManage.getOrm(ormName).getAsJson(query);
+        return ormManage.getOrm(ormName).getAsJsonArray(query);
     }
 
     @LogTo("crud")

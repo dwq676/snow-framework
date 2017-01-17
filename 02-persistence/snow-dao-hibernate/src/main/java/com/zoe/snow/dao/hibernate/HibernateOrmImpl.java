@@ -18,6 +18,7 @@ import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.model.PageList;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -215,7 +216,12 @@ public class HibernateOrmImpl implements HibernateOrm {
     }
 
     @Override
-    public JSONArray getAsJson(HibernateQuery query) {
+    public JSONObject getAsJsonObject(HibernateQuery query) {
+        return null;
+    }
+
+    @Override
+    public JSONArray getAsJsonArray(HibernateQuery query) {
         return null;
     }
 

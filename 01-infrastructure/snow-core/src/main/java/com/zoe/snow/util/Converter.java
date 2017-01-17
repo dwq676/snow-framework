@@ -367,7 +367,7 @@ public final class Converter {
     /**
      * 将日期字符串按指定格式转化为日期值。
      *
-     * @param date   日期字符串。
+     * @param date 日期字符串。
      * @return 日期值。如果格式不匹配则返回null。
      */
     public static Date toDate(String date) {

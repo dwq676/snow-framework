@@ -7,9 +7,8 @@ import com.zoe.snow.dao.elastic.ElasticDao;
 import com.zoe.snow.dao.orm.Query;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.Operator;
-import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
-import org.springframework.stereotype.Component;
+import net.sf.json.JSONObject;
 
 /**
  * 非关系型检索代理
@@ -64,8 +63,12 @@ public class ElasticProxy {
         return this;
     }
 
-    public JSONArray asJson() {
-        return queryService.asJson(query, "elastic");
+    public JSONObject asJsonObject() {
+        return queryService.asJsonObject(query, "elastic");
+    }
+
+    public JSONArray asJsonArray() {
+        return queryService.asJsonArray(query, "elastic");
     }
 
     public boolean save(String type, String json, String... id) {

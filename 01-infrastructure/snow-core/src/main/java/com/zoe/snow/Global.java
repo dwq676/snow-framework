@@ -21,6 +21,21 @@ public class Global {
     public static ThreadLocal<Object> user = new ThreadLocal<>();
     public static ThreadLocal<String> token = new ThreadLocal<>();
 
+    public enum JsonType {
+        /**
+         * JSONObject
+         */
+        JSON_TYPE_OBJECT,
+        /**
+         * JSONArray
+         */
+        JSON_TYPE_ARRAY,
+        /**
+         * 不是JSON格式的字符串
+         */
+        JSON_TYPE_ERROR
+    }
+
     /**
      * 性别
      */

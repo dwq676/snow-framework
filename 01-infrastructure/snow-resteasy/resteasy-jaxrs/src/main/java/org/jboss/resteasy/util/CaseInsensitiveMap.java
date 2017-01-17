@@ -330,7 +330,7 @@ public class CaseInsensitiveMap<V> extends MultivaluedTreeMap<String, V>
          public EntryWrapper(Entry<String, T> entry)
          {
             key = new CaseInsensitiveKey(entry.getKey());
-            value = entry.getValue();
+            value = entry.getBasicTypeValue();
          }
 
          public CaseInsensitiveKey getKey()
@@ -338,7 +338,7 @@ public class CaseInsensitiveMap<V> extends MultivaluedTreeMap<String, V>
             return key;
          }
 
-         public T getValue()
+         public T getBasicTypeValue()
          {
             return value;
          }
@@ -365,9 +365,9 @@ public class CaseInsensitiveMap<V> extends MultivaluedTreeMap<String, V>
             return entry.getKey().key;
          }
 
-         public final T getValue()
+         public final T getBasicTypeValue()
          {
-            return entry.getValue();
+            return entry.getBasicTypeValue();
          }
 
          public final T setValue(T v)
@@ -491,14 +491,14 @@ public class CaseInsensitiveMap<V> extends MultivaluedTreeMap<String, V>
          Set<Map.Entry<CaseInsensitiveKey, List<V>>> es = otherCaseInsensitiveMap.map.entrySet();
          for (Entry<CaseInsensitiveKey, List<V>> entry : es)
          {
-            getMapList(entry.getKey()).addAll(entry.getValue());
+            getMapList(entry.getKey()).addAll(entry.getBasicTypeValue());
          }
       }
       else
       {
          for (Map.Entry<String, List<V>> entry : (Set<Entry<String, List<V>>>) otherMap.entrySet())
          {
-            getMapList(new CaseInsensitiveKey(entry.getKey())).addAll(entry.getValue());
+            getMapList(new CaseInsensitiveKey(entry.getKey())).addAll(entry.getBasicTypeValue());
          }
       }
    }
@@ -566,10 +566,10 @@ public class CaseInsensitiveMap<V> extends MultivaluedTreeMap<String, V>
       }
       for (Entry<String, List<V>> e : entrySet()) {
          List<V> olist = omap.get(e.getKey());
-         if (e.getValue().size() != olist.size()) {
+         if (e.getBasicTypeValue().size() != olist.size()) {
             return false;
          }
-         for (V v : e.getValue()) {
+         for (V v : e.getBasicTypeValue()) {
             if (!olist.contains(v)) {
                return false;
             }

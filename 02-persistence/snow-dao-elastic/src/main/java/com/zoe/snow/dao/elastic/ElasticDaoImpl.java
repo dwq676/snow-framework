@@ -12,16 +12,19 @@ import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.elasticsearch.action.fieldstats.FieldStats;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.MultiBucketsAggregation;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -120,21 +123,60 @@ public class ElasticDaoImpl implements ElasticDao {
         return false;
     }
 
+    private JSONObject initResult() {
+        JSONObject jsonObject = new JSONObject();
+        if (jsonObject != null) {
+            jsonObject.put("count", 0);
+            jsonObject.put("number", 0);
+            jsonObject.put("size", 0);
+            jsonObject.put("page", 0);
+
+        }
+        return jsonObject;
+    }
+
     @Override
-    public JSONArray getAsJson(ElasticQuery elasticQuery) {
+    public JSONObject getAsJsonObject(ElasticQuery elasticQuery) {
+        JSONObject result = initResult();
         JSONArray jsonArray = new JSONArray();
+        result.put("size", elasticQuery.getSize());
+        result.put("page", elasticQuery.getPage());
+
         SearchResponse searchResponse = getSearchResponse(elasticQuery);
         if (Validator.isEmpty(searchResponse))
-            return jsonArray;
+            return result;
         if (searchResponse != null) {
             if (Validator.isEmpty(elasticQuery.getGroup())) {
+                result.put("count", searchResponse.getHits().getTotalHits());
+                int number = (int) (searchResponse.getHits().getTotalHits() / elasticQuery.getSize() + (searchResponse.getHits().getTotalHits() % elasticQuery.getSize() == 0 ? 0 : 1));
+                number = Math.max(1, number);
+                result.put("number", number);
                 searchResponse.getHits().forEach(searchHitFields -> {
                     JSONObject jsonObject = JSONObject.fromObject(searchHitFields.getSourceAsString());
                     jsonObject.put(ElasticType.DOC_ID, searchHitFields.getId());
                     jsonObject.put(ElasticType.TYPE, searchHitFields.getType());
                     jsonObject.put(ElasticType.INDEX, searchHitFields.getIndex());
+                    jsonObject.put(ElasticType.SCORE, searchHitFields.getScore());
+                    //JSONArray hLightJA = new JSONArray();
+                    if (searchHitFields.getHighlightFields() != null) {
+                        if (elasticQuery.getWhereContexts() != null) {
+                            elasticQuery.getWhereContexts().forEach(c -> {
+                                JSONArray ja = new JSONArray();
+                                JSONObject js = new JSONObject();
+                                if (searchHitFields.getHighlightFields().get(c.getKey()) != null) {
+                                    for (Text text : searchHitFields.getHighlightFields().get(c.getKey()).fragments()) {
+                                        ja.add(text.toString());
+                                    }
+                                }
+                                js.put(c.getKey(), ja);
+                                //ja.add(js);
+                                jsonObject.put(ElasticType.HIGHLIGHT, js);
+                            });
+                        }
+                    }
                     jsonArray.add(jsonObject);
                 });
+                result.put("data", jsonArray);
             } else {
                 JSONObject jsonObject = new JSONObject();
                 searchResponse.getAggregations().asList().forEach(c -> {
@@ -151,13 +193,19 @@ public class ElasticDaoImpl implements ElasticDao {
                                 ja.add(jo);
                             }
                         });
-                        jsonObject.element(c.getName(),ja);
+                        jsonObject.element(c.getName(), ja);
                         jsonArray.add(jsonObject);
                     }
                 });
             }
         }
-        return jsonArray;
+        return result;
+    }
+
+    @Override
+    public JSONArray getAsJsonArray(ElasticQuery elasticQuery) {
+        JSONObject jsonObject = getAsJsonObject(elasticQuery);
+        return JSONArray.fromObject(jsonObject.get("data"));
     }
 
     protected SearchResponse getSearchResponse(ElasticQuery elasticQuery) {
@@ -165,10 +213,19 @@ public class ElasticDaoImpl implements ElasticDao {
         if (!Validator.isEmpty(elasticQuery)) {
             String index = getIndex(elasticQuery.getSchema());
             SearchRequestBuilder searchRequestBuilder = elasticClient.get(Mode.Read).prepareSearch(index)
-                    .setTypes(getType(elasticQuery.getFromType()))
-                    .setFrom(elasticQuery.getPage()).setSize(elasticQuery.getSize());
+                    .setTypes(getType(elasticQuery.getFromType()));
+            if (elasticQuery.getPage() > 0 && elasticQuery.getSize() > 0)
+                searchRequestBuilder.setFrom((elasticQuery.getPage() - 1) * elasticQuery.getSize()).setSize(elasticQuery.getSize());
 
             searchRequestBuilder.setQuery(createBoolQuery(elasticQuery));
+            //HighlightBuilder highlightBuilder = new HighlightBuilder().field("*").requireFieldMatch(false);
+            searchRequestBuilder.setHighlighterPreTags("<span style=\"color:red\">");
+            searchRequestBuilder.setHighlighterPostTags("</span>");
+            if (elasticQuery.getWhereContexts() != null) {
+                elasticQuery.getWhereContexts().forEach(c -> {
+                    searchRequestBuilder.addHighlightedField(c.getKey());
+                });
+            }
             if (!Validator.isEmpty(elasticQuery.getGroup()))
                 getGroupBy(searchRequestBuilder, elasticQuery);
             try {
@@ -221,7 +278,7 @@ public class ElasticDaoImpl implements ElasticDao {
                                 qb.should(matchQuery(whereContext.getKey(), whereContext.getValue()[0]));
                         }
                     } else {
-                        //if (Validator.isNumeric(whereContext.getValue()))
+                        //if (Validator.isNumeric(whereContext.getBasicTypeValue()))
                         RangeQueryBuilder rb = rangeQuery(whereContext.getKey());
                         String value = String.valueOf(whereContext.getValue()[0]);
                         switch (whereContext.getCriterion()) {

@@ -146,8 +146,10 @@ public class SessionManageImpl extends ConnectionSupport<Session> implements Ses
 
     @Override
     public void rollback(Session session) {
-        if (!Validator.isEmpty(session))
+        if (!Validator.isEmpty(session)) {
             session.getTransaction().rollback();
+            session.close();
+        }
     }
 
     @Override

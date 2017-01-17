@@ -15,19 +15,21 @@ public @interface Register {
     /*
     服务地址
     * */
-    String host();
+    String host() default "";
 
     /*服务端口
     * */
-    int port();
+    int port() default 0;
 
     /*命名空间*/
-    String nameSpace();
+    String nameSpace() default "";
 
     /*服务名*/
-    String serviceName();
+    String serviceName() default "";
 
     Verb verb() default Verb.GET;
 
     String prefix() default "";
+
+    String protocol() default "http";
 }

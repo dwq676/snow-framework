@@ -2,6 +2,7 @@ package com.zoe.snow.dao.elastic;
 
 import com.zoe.snow.dao.orm.Orm;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * ElasticDao
@@ -15,5 +16,7 @@ public interface ElasticDao extends Orm<ElasticQuery> {
 
     //boolean update(String index, String type, String id, String json);
 
-    JSONArray getAsJson(ElasticQuery elasticQuery);
+    JSONObject getAsJsonObject(ElasticQuery elasticQuery);
+
+    JSONArray getAsJsonArray(ElasticQuery elasticQuery);
 }

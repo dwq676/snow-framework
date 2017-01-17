@@ -71,6 +71,7 @@ public class ConnectionManageImpl extends ConnectionSupport<Connection> {
             if (!connection.isClosed()) {
                 if (!connection.getAutoCommit()) {
                     connection.rollback();
+                    connection.close();
                 }
             }
         } catch (SQLException e) {

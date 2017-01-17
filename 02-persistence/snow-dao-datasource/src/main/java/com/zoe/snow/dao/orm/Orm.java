@@ -3,6 +3,7 @@ package com.zoe.snow.dao.orm;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 规范ORM框架 对象提示的通用接口 对不同ORM要求实现的接口
@@ -92,6 +93,8 @@ public interface Orm<Q extends Query> {
      */
     boolean delete(Q query);
 
-    JSONArray getAsJson(Q query);
+    JSONObject getAsJsonObject(Q query);
+
+    JSONArray getAsJsonArray(Q query);
 
 }

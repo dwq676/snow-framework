@@ -25,6 +25,7 @@ import com.zoe.snow.util.Validator;
 import javax.persistence.Table;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -269,7 +270,12 @@ public class LiteOrmImpl implements LiteOrm {
     }
 
     @Override
-    public JSONArray getAsJson(LiteQuery query) {
+    public JSONObject getAsJsonObject(LiteQuery query) {
+        return null;
+    }
+
+    @Override
+    public JSONArray getAsJsonArray(LiteQuery query) {
         return null;
     }
 }

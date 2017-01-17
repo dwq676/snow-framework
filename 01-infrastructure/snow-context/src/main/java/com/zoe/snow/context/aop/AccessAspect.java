@@ -8,9 +8,9 @@ import com.zoe.snow.context.request.Request;
 import com.zoe.snow.crud.Result;
 import com.zoe.snow.delivery.Http;
 import com.zoe.snow.delivery.Register;
-import com.zoe.snow.delivery.Verb;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
+import com.zoe.snow.model.TypeConverter;
 import com.zoe.snow.model.annotation.NotNull;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
@@ -27,13 +27,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
 
 /**
- * CloseSessionAspect
+ * 所有服务端方法访问拦截器
+ * 1、用于参数检验，参数不为空的检测，根据自定义注释进行扩展
+ * 2、对于服务调用判断是否为远程调用，并按策略进行执行
+ * 3、访问权限的控制
  *
  * @author Dai Wenqing
  * @date 2016/3/17
@@ -72,46 +78,56 @@ public class AccessAspect {
     }
 
     @Around("anyMethod()")
-    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) {
-        Object[] args = proceedingJoinPoint.getArgs();
+    public Object doAround(ProceedingJoinPoint pj) {
+        Object[] args = pj.getArgs();
         Result result = BeanFactory.getBean(Result.class);
+        Method method = null;
         try {
-            Method method = AopUtil.getMethod(proceedingJoinPoint);
+            method = AopUtil.getMethod(pj);
             List<String> nullArgNames = new ArrayList<>();
-            if (!Validator.isEmpty(method)) {
-                List<NotNull> notNulls = new ArrayList<>();
-                int pos = 0;
-                if (!auth(method, args)) return result.setResult(null, Message.UnAuthorized);
-                for (Parameter parameter : method.getParameters()) {
-                    NotNull notNull = parameter.getDeclaredAnnotation(NotNull.class);
-                    if (notNull != null) {
-                        notNulls.add(notNull);
-                        if (Validator.isEmpty(args[pos]))
-                            nullArgNames.add(parameter.getName());
-                    }
-                    pos++;
-                }
-            }
+            if (validator(args, method, nullArgNames)) return result.setResult(null, Message.UnAuthorized);
 
             if (nullArgNames.size() > 0) {
                 return result.setResult(null, Message.ParameterPositionInHolderIsnull, String.join(",", nullArgNames),
-                        proceedingJoinPoint.getSignature().toShortString());
+                        pj.getSignature().toShortString());
             }
         } catch (Exception e) {
 
         }
         try {
-            Register register = proceedingJoinPoint.getTarget().getClass().getAnnotation(Register.class);
-            if (requestChannel.endsWith("local") && register == null) {
-                return proceedingJoinPoint.proceed(args);
-            } else if (requestChannel.endsWith("remote")) {
-
-            }
+            /*Register register = pj.getTarget().getClass().getAnnotation(Register.class);
+            if (method == null)
+                return null;
+            Produces produces = method.getClass().getAnnotation(Produces.class);
+            if (requestChannel.endsWith("local") && register == null && produces == null) {
+                return pj.proceed(args);
+            } else if (requestChannel.endsWith("remote") || register != null) {
+                rmi(register, pj.getTarget().getClass(), method, args);
+            }*/
+            return pj.proceed(args);
         } catch (Throwable e) {
             Logger.error(e, e.getMessage());
             result.setResult(null, Message.ServiceError);
         }
         return result;
+    }
+
+    private boolean validator(Object[] args, Method method, List<String> nullArgNames) {
+        if (!Validator.isEmpty(method)) {
+            List<NotNull> notNulls = new ArrayList<>();
+            int pos = 0;
+            if (!auth(method, args)) return true;
+            for (Parameter parameter : method.getParameters()) {
+                NotNull notNull = parameter.getDeclaredAnnotation(NotNull.class);
+                if (notNull != null) {
+                    notNulls.add(notNull);
+                    if (Validator.isEmpty(args[pos]))
+                        nullArgNames.add(parameter.getName());
+                }
+                pos++;
+            }
+        }
+        return false;
     }
 
     private String getParameterName(String clazzName, String methodName, int ndx)
@@ -147,15 +163,37 @@ public class AccessAspect {
         if (register == null || clazz == null || method == null)
             return null;
         String url = getUrl(register, clazz, method);
-        //urlBuffer.append(register.)
-        if (register.verb() == Verb.GET) {
-
+        Object result = null;
+        Map<String, String> params = new HashMap<>();
+        String[] paramNames = null;
+        try {
+            paramNames = getParameterNames(clazz.getName(), method.getName());
+            int ndx = 0;
+            for (String param : paramNames) {
+                params.put(param, args[ndx++].toString());
+            }
+        } catch (Exception e) {
+            Logger.error(e, "获取方法参数列表时出现了错误，类名为：[{}]，类名为：[{}]", clazz.getName(), method.getName());
         }
-        return null;
+        try {
+            POST post = method.getAnnotation(POST.class);
+            GET get = method.getAnnotation(GET.class);
+            if (get != null) {
+                result = http.get(url, null, params);
+            } else if (post != null) {
+                JSONObject jsonObject = JSONObject.fromObject(params);
+                result = http.post(url, params, jsonObject.toString());
+            }
+            result = TypeConverter.converter(result, method.getReturnType());
+        } catch (Exception e) {
+            Logger.error(e, "执行远程调用时失败类名为：[{}]，类名为：[{}]", clazz.getName(), method.getName());
+        }
+        return result;
     }
 
     private String getUrl(Register register, Class<?> clazz, Method method) {
         StringBuffer urlBuffer = new StringBuffer();
+        urlBuffer.append(register.protocol()).append("://");
         urlBuffer.append(register.host());
         urlBuffer.append(":");
         urlBuffer.append(register.port());
@@ -166,12 +204,16 @@ public class AccessAspect {
             urlBuffer.append("/").append(register.prefix());
             Path servicePath = clazz.getAnnotation(Path.class);
             Path methodPath = method.getAnnotation(Path.class);
-            if (!servicePath.value().startsWith("/"))
-                urlBuffer.append("/");
-            urlBuffer.append(servicePath.value());
-            if (!methodPath.value().startsWith("/"))
-                urlBuffer.append("/");
-            urlBuffer.append(methodPath.value());
+            if (servicePath != null) {
+                if (!servicePath.value().startsWith("/"))
+                    urlBuffer.append("/");
+                urlBuffer.append(servicePath.value());
+            }
+            if (methodPath != null) {
+                if (!methodPath.value().startsWith("/"))
+                    urlBuffer.append("/");
+                urlBuffer.append(methodPath.value());
+            }
         }
         return urlBuffer.toString();
     }
