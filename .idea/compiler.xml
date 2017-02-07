@@ -64,6 +64,7 @@
       <module name="resteasy-spring" target="1.8" />
       <module name="snow-aop" target="1.8" />
       <module name="snow-cache" target="1.8" />
+      <module name="snow-citrus-webx" target="1.8" />
       <module name="snow-communication" target="1.8" />
       <module name="snow-configuration" target="1.8" />
       <module name="snow-context" target="1.8" />

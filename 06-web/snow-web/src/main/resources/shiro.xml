@@ -22,6 +22,7 @@
                 <entry key="authc" value="authc"/>
             </map>
         </property>
+        <!--配置需要匿名的URL-->
         <property name="filterChainDefinitions">
             <value>
 
@@ -55,11 +56,14 @@
     <bean id="myAuthorizer" class="org.apache.shiro.authz.ModularRealmAuthorizer">
         <property name="rolePermissionResolver" ref="baseRolePermissionResolver"/>
     </bean>
+
     <bean id="myRealm" class="com.zoe.snow.auth.realm.UserRealm">
         <property name="credentialsMatcher" ref="passwordMatcher"></property>
     </bean>
+    <!--密码验证器-->
     <bean id="passwordMatcher" class="com.zoe.snow.auth.realm.LimitRetryHashedMatcher">
     </bean>
+    <!--默认的登录realm-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="authorizer" ref="myAuthorizer"/>
         <property name="realm" ref="myRealm"/>

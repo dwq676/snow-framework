@@ -2,6 +2,7 @@ package com.zoe.snow.dao.elastic;
 
 import com.zoe.snow.Global;
 import com.zoe.snow.dao.*;
+import com.zoe.snow.dao.dialect.Dialect;
 import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
@@ -91,6 +92,11 @@ public class ElasticClientImpl extends ConnectionSupport<Client> implements Elas
     public void close(Client client) {
         if (!Validator.isEmpty(client))
             client.close();
+    }
+
+    @Override
+    public Dialect getDialect(String... key) {
+        return null;
     }
 
     @Override

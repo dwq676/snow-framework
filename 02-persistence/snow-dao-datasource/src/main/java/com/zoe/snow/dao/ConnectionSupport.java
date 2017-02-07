@@ -17,7 +17,7 @@ import java.util.*;
  * @date 2016/8/26
  */
 @MappedSuperclass()
-public class ConnectionSupport<T> implements ConnectionManage<T> {
+public abstract class ConnectionSupport<T> implements ConnectionManage<T> {
     protected ThreadLocal<Map<String, Map<Mode, List<T>>>> connections = new ThreadLocal<>();
     // ThreadLocal 只是对线程进行安全隔离，每个线程都需要重新创建对象
     protected ThreadLocal<Boolean> transactional = new ThreadLocal<>();
@@ -58,18 +58,16 @@ public class ConnectionSupport<T> implements ConnectionManage<T> {
             }
         }
         Map<String, Map<Mode, List<T>>> openConnection = connections.get();
-        Map<Mode, List<T>> modeTMap = null;
-        List<T> tList = null;
         if (Validator.isEmpty(openConnection)) {
             openConnection = new HashMap<>();
             connections.set(openConnection);
-        } else
-            modeTMap = openConnection.get(key);
+        }
+        Map<Mode, List<T>> modeTMap = openConnection.get(key);
         if (Validator.isEmpty(modeTMap)) {
             modeTMap = new HashMap<>();
             openConnection.put(key, modeTMap);
-        } else
-            tList = modeTMap.get(mode);
+        }
+        List<T> tList = modeTMap.get(mode);
         if (Validator.isEmpty(tList)) {
             tList = new ArrayList<T>();
             modeTMap.put(mode, tList);
@@ -85,13 +83,7 @@ public class ConnectionSupport<T> implements ConnectionManage<T> {
             int left = 0;
             //为空表明此线程是初始化状态
             if (sessionMultiplexingCount.get() == null) {
-                if (count == 0)
-                    count = defaultCount;
-                    //最少复用数必须大于3
-                else if (count < minCount)
-                    count = minCount;
-                count -= 2;
-                sessionMultiplexingCount.set(count);
+                initCount(count);
             } else {
                 //为空表明计数已经用完了
                 left = sessionMultiplexingCount.get();
@@ -119,15 +111,33 @@ public class ConnectionSupport<T> implements ConnectionManage<T> {
         return t;
     }
 
-    @Override
-    public T open(String datasource, Mode mode) {
-        return null;
+    private void initCount(int count) {
+        if (count == 0)
+            count = defaultCount;
+            //最少复用数必须大于3
+        else if (count < minCount)
+            count = minCount;
+        count -= 2;
+        sessionMultiplexingCount.set(count);
     }
 
     @Override
-    public T fetch(List<T> caches, String datasource, Mode mode) {
-        return null;
-    }
+    public abstract T open(String datasource, Mode mode);
+
+    @Override
+    public abstract T fetch(List<T> caches, String datasource, Mode mode);
+
+    @Override
+    public abstract void rollback(T connection);
+
+    @Override
+    public abstract void commit(T connection) throws SQLException;
+
+    @Override
+    public abstract void close(T connection);
+
+    @Override
+    public abstract Dialect getDialect(String... key);
 
     @Override
     public void rollback() {
@@ -151,10 +161,6 @@ public class ConnectionSupport<T> implements ConnectionManage<T> {
         }
         //transactional.remove();
         //connections.remove();
-    }
-
-    @Override
-    public void rollback(T connection) {
     }
 
     @Override
@@ -183,14 +189,6 @@ public class ConnectionSupport<T> implements ConnectionManage<T> {
     }
 
     @Override
-    public void commit(T connection) throws SQLException {
-    }
-
-    @Override
-    public void close(T connection) {
-    }
-
-    @Override
     public void close() {
         //有开启事务都没有提交，不能关闭会话
         if (transactional.get() != null)
@@ -216,10 +214,5 @@ public class ConnectionSupport<T> implements ConnectionManage<T> {
         transactional.remove();
         connections.remove();
 
-    }
-
-    @Override
-    public Dialect getDialect(String... key) {
-        return null;
     }
 }

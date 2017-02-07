@@ -176,7 +176,7 @@ public class ElasticDaoImpl implements ElasticDao {
                     }
                     jsonArray.add(jsonObject);
                 });
-                result.put("data", jsonArray);
+
             } else {
                 JSONObject jsonObject = new JSONObject();
                 searchResponse.getAggregations().asList().forEach(c -> {
@@ -198,6 +198,7 @@ public class ElasticDaoImpl implements ElasticDao {
                     }
                 });
             }
+            result.put("data", jsonArray);
         }
         return result;
     }

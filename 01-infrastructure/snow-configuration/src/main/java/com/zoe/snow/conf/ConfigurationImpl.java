@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @Component("snow.conf")
 public class ConfigurationImpl implements Configuration, CrudConfiguration, CacheConfiguration, DaoConfiguration, RabbitMqConfiguration {
-    @Value("${snow.configuration.deploy}")
+    @Value("${snow.configuration.deploy:singleton}")
     private String deploy;
 
     @Value("${snow.session.name}")
