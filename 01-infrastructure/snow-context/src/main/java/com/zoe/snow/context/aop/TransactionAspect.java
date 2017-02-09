@@ -50,19 +50,14 @@ public class TransactionAspect {
             if (transactionSet != null) {
                 transactionSet.forEach(Transaction::rollback);
             }
-            if (r instanceof Result) {
-                Result result = Result.class.cast(r);
-                result.setResult(null, Message.ServiceError);
-            }
+            Logger.error(e, "执行事务出现了错误！");
         } finally {
             outerTransaction.remove();
             threadLocal.remove();
-            if (r == null) {
-                r = TypeConverter.converter(r, AopUtil.getMethod(proceedingJoinPoint).getReturnType());
-            }
-            return r;
+            return AopUtil.getResult(proceedingJoinPoint, r);
         }
     }
+
 
     private void confirm(Object data, String simpleName) {
         //ProceedingJoinPoint proceedingJoinPoint = ; Result data = ;

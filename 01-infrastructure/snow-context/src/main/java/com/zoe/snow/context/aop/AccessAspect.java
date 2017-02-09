@@ -82,6 +82,7 @@ public class AccessAspect {
         Object[] args = pj.getArgs();
         Result result = BeanFactory.getBean(Result.class);
         Method method = null;
+        Object r = null;
         try {
             method = AopUtil.getMethod(pj);
             List<String> nullArgNames = new ArrayList<>();
@@ -104,12 +105,12 @@ public class AccessAspect {
             } else if (requestChannel.endsWith("remote") || register != null) {
                 rmi(register, pj.getTarget().getClass(), method, args);
             }*/
-            return pj.proceed(args);
+            r = pj.proceed(args);
         } catch (Throwable e) {
-            Logger.error(e, e.getMessage());
-            result.setResult(null, Message.ServiceError);
+            Logger.error(e, "执行服务端方法出现了错误！");
+        } finally {
+            return AopUtil.getResult(pj, r);
         }
-        return result;
     }
 
     private boolean validator(Object[] args, Method method, List<String> nullArgNames) {

@@ -1,5 +1,8 @@
 package com.zoe.snow.context.aop;
 
+import com.zoe.snow.crud.Result;
+import com.zoe.snow.message.Message;
+import com.zoe.snow.model.TypeConverter;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
@@ -23,5 +26,17 @@ public class AopUtil {
             }
         }
         return method;
+    }
+
+    public static Object getResult(ProceedingJoinPoint proceedingJoinPoint, Object r) {
+        Class<?> resultType = AopUtil.getMethod(proceedingJoinPoint).getReturnType();
+        if (r == null) {
+            if (resultType.equals(Result.class)) {
+                Result result = Result.class.cast(r);
+                result.setResult(null, Message.ServiceError);
+            } else
+                r = TypeConverter.converter(r, resultType);
+        }
+        return r;
     }
 }
