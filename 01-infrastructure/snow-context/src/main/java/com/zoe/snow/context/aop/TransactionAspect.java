@@ -3,6 +3,7 @@ package com.zoe.snow.context.aop;
 import com.zoe.snow.crud.Result;
 import com.zoe.snow.dao.Transaction;
 import com.zoe.snow.message.Message;
+import com.zoe.snow.model.TypeConverter;
 import com.zoe.snow.util.Validator;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -45,22 +46,22 @@ public class TransactionAspect {
             } else {
                 confirm(r, proceedingJoinPoint.getTarget().getClass().getName());
             }
-
         } catch (Throwable e) {
-            try {
-                if (transactionSet != null) {
-                    transactionSet.forEach(Transaction::rollback);
-                }
-            } catch (Exception ex) {
+            if (transactionSet != null) {
+                transactionSet.forEach(Transaction::rollback);
             }
             if (r instanceof Result) {
                 Result result = Result.class.cast(r);
                 result.setResult(null, Message.ServiceError);
             }
+        } finally {
+            outerTransaction.remove();
+            threadLocal.remove();
+            if (r == null) {
+                r = TypeConverter.converter(r, AopUtil.getMethod(proceedingJoinPoint).getReturnType());
+            }
+            return r;
         }
-        outerTransaction.remove();
-        threadLocal.remove();
-        return r;
     }
 
     private void confirm(Object data, String simpleName) {

@@ -48,7 +48,7 @@ public class AutoInjector implements ValueInjector {
             } catch (Exception e) {
                 //类型转换出错时，判断是否为基本类型，即值类型，值类型返回默认值或最小值
                 try {
-                    return TypeConverter.getBasicTypeValue(type);
+                    return TypeConverter.initTypeValue(type);
                 } catch (Exception ex) {
                     Logger.error(e, "类型转换出错了");
                 }

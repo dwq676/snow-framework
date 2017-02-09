@@ -189,16 +189,16 @@ public class MongoDBAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
             Iterator<Map.Entry<String, String>> it = mdcMap.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, String> pairs = it.next();
-                mdcDoc.put(pairs.getKey(), pairs.getBasicTypeValue());
-                if (isNumeric(pairs.getBasicTypeValue())) {
+                mdcDoc.put(pairs.getKey(), pairs.initTypeValue());
+                if (isNumeric(pairs.initTypeValue())) {
                     try {
-                        Integer intValue = Integer.parseInt(pairs.getBasicTypeValue());
+                        Integer intValue = Integer.parseInt(pairs.initTypeValue());
                         mdcDoc.put(pairs.getKey(), intValue);
                     } catch (NumberFormatException nfe) {
-                        mdcDoc.put(pairs.getKey(), pairs.getBasicTypeValue());
+                        mdcDoc.put(pairs.getKey(), pairs.initTypeValue());
                     }
                 } else {
-                    mdcDoc.put(pairs.getKey(), pairs.getBasicTypeValue());
+                    mdcDoc.put(pairs.getKey(), pairs.initTypeValue());
                 }
                 it.remove(); // avoids a ConcurrentModificationException
             }

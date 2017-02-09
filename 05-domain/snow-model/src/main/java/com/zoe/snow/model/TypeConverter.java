@@ -1,6 +1,7 @@
 package com.zoe.snow.model;
 
 import com.zoe.snow.Global;
+import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Encode;
 import com.zoe.snow.util.Validator;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 /**
  * 类型转换
+ * 初始化类型值
  *
  * @author <a href="mailto:dwq676@126.com">daiwenqing</a>
  * @date 2017/1/12
@@ -36,7 +38,7 @@ public class TypeConverter<T> {
 
         } else {
             //判断是否为基本类型，即值类型,值类型返回默认值或最小值
-            return getBasicTypeValue(type);
+            return initTypeValue(type);
         }
         return null;
     }
@@ -48,7 +50,7 @@ public class TypeConverter<T> {
      * @param <T>
      * @return
      */
-    public static <T> Object getBasicTypeValue(Class<T> type) {
+    public static <T> Object initTypeValue(Class<T> type) {
         if (type.equals(Double.TYPE)) {
             return Double.MIN_VALUE;
         } else if (type.equals(Integer.TYPE)) {
@@ -65,6 +67,16 @@ public class TypeConverter<T> {
             return Character.NON_SPACING_MARK;
         } else if (type.equals(Boolean.TYPE)) {
             return false;
+        } else if (type.equals(String.class)) {
+            return "";
+        } else {
+            try {
+                Object o = BeanFactory.getBean(type);
+                if (o == null && !type.isInterface()) {
+                    return type.newInstance();
+                }
+            } catch (Exception e) {
+            }
         }
         return null;
     }
@@ -93,6 +105,4 @@ public class TypeConverter<T> {
             return Global.JsonType.JSON_TYPE_ERROR;
         }
     }
-
-
 }
