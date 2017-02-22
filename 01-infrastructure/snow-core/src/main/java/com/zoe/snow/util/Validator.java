@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ *  验证器，提供诸如邮件，手机号码正则表达式验证，同时支持对象包括是否为空
  * @author dwq
- *         验证器，提供诸如邮件，手机号码正则表达式验证
  */
 public final class Validator {
     private static final String EMAIL = "^(?:\\w+\\.?-?)*\\w+@(?:\\w+\\.?-?)*\\w+$";

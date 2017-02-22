@@ -6,7 +6,7 @@ package com.zoe.snow.model.annotation;
 import java.lang.annotation.*;
 
 /**
- * 定义可转化为JSON的属性。
+ * 定义字段的额外属性，系列化
  *
  * @author lpw
  */

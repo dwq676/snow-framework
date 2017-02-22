@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
+ * 生成器，用于生成随机数、UUID类
  * @author dwq
  */
 public final class Generator {

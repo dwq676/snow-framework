@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 对称加密、非对称加密类，包括DES、3DES、MD5
  * @author dwq
  */
 public final class Security {
@@ -69,8 +70,8 @@ public final class Security {
         try {
             return MessageDigest.getInstance(algorithm).digest(merge(input, key));
         } catch (NoSuchAlgorithmException e) {
-            Logger.warn(e, "取消息摘要[{}]时发生异常！", algorithm);
-
+            if (Logger.isDebugEnable())
+                Logger.warn(e, "取消息摘要[{}]时发生异常！", algorithm);
             return null;
         }
     }
@@ -168,16 +169,16 @@ public final class Security {
 
             return cipher.doFinal(input);
         } catch (Exception e) {
-            Logger.warn(e, "使用密钥[{}]进行3DES加/解密[{}]时发生异常！", new String(key), new String(input));
-
+            if (Logger.isDebugEnable())
+                Logger.warn(e, "使用密钥[{}]进行3DES加/解密[{}]时发生异常！", new String(key), new String(input));
             return null;
         }
     }
 
     protected static SecretKey getDesedeSecretKey(byte[] key, String algorithm) {
         if (key.length != 24) {
-            Logger.warn(null, "密钥[{}]长度[{}]必须是24个字节！", new String(key), key.length);
-
+            if (Logger.isDebugEnable())
+                Logger.warn(null, "密钥[{}]长度[{}]必须是24个字节！", new String(key), key.length);
             return null;
         }
 
@@ -202,7 +203,7 @@ public final class Security {
      * @return
      * @throws Exception
      */
-    public static String AESEncode(String plainData){
+    public static String AESEncode(String plainData) {
 
         Cipher cipher = null;
         try {
@@ -227,7 +228,7 @@ public final class Security {
      * @return
      * @throws Exception
      */
-    public static String AESDecode(String secretData){
+    public static String AESDecode(String secretData) {
 
         Cipher cipher = null;
         try {

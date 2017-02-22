@@ -1,7 +1,7 @@
 package com.zoe.snow.log;
 
 /**
- * LogType
+ * 日志分类枚举，定义了基本类型包括系统
  *
  * @author Dai Wenqing
  * @date 2016/10/9

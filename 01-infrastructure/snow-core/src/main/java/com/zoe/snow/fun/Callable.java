@@ -1,8 +1,7 @@
 package com.zoe.snow.fun;
 
 /**
- * 可执行，可回调用接口
- * 带有返回值的匿名执行函数
+ * 回调用接口，带有特定类型返回值的匿名执行方法
  *
  * @author Dai Wenqing
  * @date 2016/6/17

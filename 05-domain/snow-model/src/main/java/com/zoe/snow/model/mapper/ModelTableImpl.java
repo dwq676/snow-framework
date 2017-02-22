@@ -24,8 +24,10 @@ import com.zoe.snow.model.Model;
 import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.model.annotation.Jsonable;
 import com.zoe.snow.model.annotation.Property;
+import com.zoe.snow.model.mapper.data.ModelTableData;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -58,6 +60,8 @@ public class ModelTableImpl implements ModelTable {
     protected List<String> uniqueColumnList = new ArrayList<>();
     //protected Map<Class<? extends Model>, FetchWay> fetchMap = new ConcurrentHashMap<>();
     protected Map<Class<? extends Model>, JoinColumn> joinColumnMap = new ConcurrentHashMap<>();
+    @Autowired
+    private ModelTableData modelTableData;
 
     @Override
     public Class<? extends Model> getModelClass() {

@@ -28,7 +28,7 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
     @Autowired(required = false)
     protected Set<Model> models;
     protected Map<Class<? extends Model>, ModelTable> map;
-    protected Map<String, Model> tableNameMap;
+    //protected Map<String, Model> tableNameMap;
 
     @Override
     public ModelTable get(Class<? extends Model> modelClass) {
@@ -39,10 +39,10 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
         return modelTable;
     }
 
-    @Override
+    /*@Override
     public Model get(String tableName) {
         return tableNameMap.get(tableName);
-    }
+    }*/
 
     @Override
     public int getContextRefreshedSort() {
@@ -51,11 +51,11 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
 
     @Override
     public void onContextRefreshed() {
-        if (map != null || tableNameMap != null)
+        if (map != null )
             return;
 
         map = new ConcurrentHashMap<>();
-        tableNameMap = new ConcurrentHashMap<>();
+        //tableNameMap = new ConcurrentHashMap<>();
         if (!Validator.isEmpty(models))
             for (Model model : models)
                 parse(model);
@@ -117,6 +117,6 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
         }
 
         map.put(model.getClass(), modelTable);
-        tableNameMap.put(table.name(), model);
+        //tableNameMap.put(table.name(), model);
     }
 }

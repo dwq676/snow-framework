@@ -6,7 +6,7 @@ package com.zoe.snow.model.annotation;
 import java.lang.annotation.*;
 
 /**
- * 定义可转化为JSON的属性。
+ * 框架算定系列化根据此注解决定该字段是否系列化。
  *
  * @author lpw
  */

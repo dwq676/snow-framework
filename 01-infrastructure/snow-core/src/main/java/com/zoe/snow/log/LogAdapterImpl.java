@@ -6,6 +6,7 @@ import org.slf4j.Marker;
 import org.slf4j.helpers.BasicMarker;
 
 /**
+ * 日志适配器，除将日志适配到第三日志外，对日志的格式进行统一的包装
  * @author dwq
  */
 public class LogAdapterImpl implements LogAdapter {

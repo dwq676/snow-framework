@@ -3,7 +3,7 @@ package com.zoe.snow.model.annotation;
 import java.lang.annotation.*;
 
 /**
- * Unique
+ * 对方法参数增加注解判断是否允许为空
  *
  * @author Dai Wenqing
  * @date 2016/5/23

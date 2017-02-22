@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * 一键多值列表，并提供获取该键下值列表及首值，追加单值多值的接口；
  * @author <a href="dwq676@126.com">daiwenqing</a>
  * @version
  */

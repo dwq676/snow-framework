@@ -5,7 +5,7 @@ import com.zoe.snow.util.Validator;
 import net.sf.json.JSONObject;
 
 /**
- * 日志组件，
+ * 日志对外统一接口
  *
  * @author Dai Wenqing
  * @date 2016/1/11

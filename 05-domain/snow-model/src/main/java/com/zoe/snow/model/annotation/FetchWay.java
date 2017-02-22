@@ -5,7 +5,7 @@ import com.zoe.snow.model.enums.JoinType;
 import java.lang.annotation.*;
 
 /**
- * Fetch
+ * 多表不如
  *
  * @author Dai Wenqing
  * @date 2016/5/30

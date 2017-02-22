@@ -30,8 +30,6 @@ public class DataSourceManager implements ContextRefreshedListener {
     private static String defaultDatasource = "default";
     @Autowired
     private DaoConfiguration daoConfiguration;
-    /*@Autowired
-    private Set<Dialect> dialectSet;*/
     @Autowired
     private DataSources dataSources;
 
