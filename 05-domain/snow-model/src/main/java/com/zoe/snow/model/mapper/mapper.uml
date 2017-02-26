@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="477.5" y="99.5">com.zoe.snow.model.annotation.Jsonable</node>
+    <node x="691.0" y="223.5">com.zoe.snow.model.mapper.ModelTable</node>
+    <node x="656.0" y="342.5">com.zoe.snow.model.mapper.ModelTables</node>
+    <node x="204.0" y="494.5">com.zoe.snow.model.mapper.data.PropertyAnnotationData</node>
+    <node x="443.0" y="497.5">com.zoe.snow.model.mapper.data.JsonAnnotationData</node>
+    <node x="819.0" y="117.0">com.zoe.snow.listener.ContextRefreshedListener</node>
+    <node x="455.0" y="224.5">com.zoe.snow.model.mapper.ModelTableImpl</node>
+    <node x="208.0" y="375.5">com.zoe.snow.model.mapper.data.CustomAnnotationData</node>
+    <node x="843.0" y="342.5">com.zoe.snow.model.mapper.ModelTablesImpl</node>
+    <node x="478.0" y="344.5">com.zoe.snow.model.annotation.Property</node>
+    <node x="226.5" y="224.5">com.zoe.snow.model.mapper.data.ModelTableData</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.zoe.snow.model.mapper.ModelTableImpl" target="com.zoe.snow.model.annotation.Jsonable">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.ModelTablesImpl" target="com.zoe.snow.model.mapper.ModelTable">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.ModelTableImpl" target="com.zoe.snow.model.mapper.data.ModelTableData">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.ModelTablesImpl" target="com.zoe.snow.model.mapper.ModelTables">
+      <point x="-68.0" y="0.0" />
+      <point x="55.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.data.ModelTableData" target="com.zoe.snow.model.mapper.data.CustomAnnotationData">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.data.JsonAnnotationData" target="com.zoe.snow.model.mapper.data.CustomAnnotationData">
+      <point x="0.0" y="15.5" />
+      <point x="0.0" y="-15.5" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.data.PropertyAnnotationData" target="com.zoe.snow.model.mapper.data.CustomAnnotationData">
+      <point x="0.0" y="-15.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.ModelTablesImpl" target="com.zoe.snow.listener.ContextRefreshedListener">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.ModelTableImpl" target="com.zoe.snow.model.mapper.ModelTable">
+      <point x="65.0" y="0.0" />
+      <point x="-52.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.mapper.ModelTableImpl" target="com.zoe.snow.model.annotation.Property">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="490.5" y="360.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

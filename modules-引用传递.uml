@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>MODULES</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="350.0" y="396.0">mdl-snow-service-crud</node>
+    <node x="434.0" y="-5.0">mdl-snow-spring</node>
+    <node x="547.0" y="95.0">mdl-snow-configuration</node>
+    <node x="74.0" y="170.0">mdl-snow-dao-datasource</node>
+    <node x="231.0" y="68.0">mdl-snow-model</node>
+    <node x="138.0" y="274.0">mdl-snow-dao-hibernate</node>
+    <node x="375.0" y="520.0">mdl-snow-web</node>
+    <node x="395.0" y="177.0">mdl-snow-context</node>
+    <node x="154.0" y="-53.0">mdl-snow-core</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="mdl-snow-web" target="mdl-snow-service-crud">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="mdl-snow-context" target="mdl-snow-model">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="mdl-snow-service-crud" target="mdl-snow-dao-hibernate">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="mdl-snow-context" target="mdl-snow-spring">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="mdl-snow-dao-hibernate" target="mdl-snow-dao-datasource">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="mdl-snow-context" target="mdl-snow-configuration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="mdl-snow-service-crud" target="mdl-snow-context">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="mdl-snow-model" target="mdl-snow-core">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="649.0" y="297.0" />
+  <SelectedNodes>
+    <node>mdl-snow-core</node>
+  </SelectedNodes>
+  <Categories />
+</Diagram>
+

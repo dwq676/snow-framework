@@ -1,0 +1,18 @@
+@startuml
+ContainerImpl -[#green]> ModelTablesImpl: onContextRefreshed()
+note left: 解析实体
+ModelTablesImpl -[#0000FF]-> ContainerImpl: ok
+
+ContainerImpl -[#green]> DataSourceManager: onContextRefreshed()
+note left: 初始化数据源
+DataSourceManager -[#0000FF]-> ContainerImpl: ok
+
+ContainerImpl -[#green]> SessionManageImpl: onContextRefreshed()
+note left: 初始化hibernate
+SessionManageImpl -[#0000FF]-> ContainerImpl: ok
+
+
+ContainerImpl -[#green]> OrmManageImpl: onContextRefreshed()
+note left: 初始化orm
+OrmManageImpl -[#0000FF]-> ContainerImpl: ok
+@enduml

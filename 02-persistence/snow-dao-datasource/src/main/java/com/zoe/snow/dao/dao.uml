@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.zoe.snow.dao</OriginalElement>
+  <nodes>
+    <node x="-12.0" y="114.18513688957728">com.zoe.snow.dao.DataSourceBean</node>
+    <node x="0.0" y="6.185136889577279">com.zoe.snow.dao.DataSources</node>
+    <node x="-11.0" y="235.18513688957728">com.zoe.snow.dao.DataSourceHost</node>
+    <node x="185.0" y="8.18513688957728">com.zoe.snow.dao.DataSourceManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.zoe.snow.dao.DataSourceManager" target="com.zoe.snow.dao.DataSources">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.DataSourceBean" target="com.zoe.snow.dao.DataSourceHost">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.DataSources" target="com.zoe.snow.dao.DataSourceBean">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.DataSourceManager" target="com.zoe.snow.dao.DataSourceBean">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="301.5" y="324.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

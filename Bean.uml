@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="51.0" y="297.0">com.zoe.snow.dao.ConnectionManage</node>
+    <node x="655.0" y="81.0">com.zoe.snow.dao.orm.Orm</node>
+    <node x="686.0" y="250.0">com.zoe.snow.crud.service.OrmManage</node>
+    <node x="240.0" y="540.0">com.zoe.snow.dao.DataSourceManager</node>
+    <node x="504.0" y="279.0">com.zoe.snow.conf.CrudConfiguration</node>
+    <node x="572.0" y="178.0">com.zoe.snow.crud.service.OrmManageImpl</node>
+    <node x="341.0" y="248.0">com.zoe.snow.conf.Configuration</node>
+    <node x="102.0" y="407.0">com.zoe.snow.dao.ConnectionSupport</node>
+    <node x="724.0" y="438.0">com.zoe.snow.crud.CrudService</node>
+    <node x="709.0" y="9.0">com.zoe.snow.dao.hibernate.HibernateOrmImpl</node>
+    <node x="289.0" y="423.0">com.zoe.snow.conf.DaoConfiguration</node>
+    <node x="-263.0" y="748.0">com.zoe.snow.crud.enums.DeleteType</node>
+    <node x="435.0" y="495.0">com.zoe.snow.conf.CacheConfiguration</node>
+    <node x="562.0" y="0.0">com.zoe.snow.dao.lite.LiteOrmImpl</node>
+    <node x="385.0" y="351.0">com.zoe.snow.conf.ConfigurationImpl</node>
+    <node x="0.0" y="486.0">com.zoe.snow.dao.ConnectionManageImpl</node>
+    <node x="625.0" y="361.0">com.zoe.snow.crud.service.CrudServiceBasic</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.zoe.snow.dao.ConnectionManageImpl" target="com.zoe.snow.dao.ConnectionSupport">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.conf.ConfigurationImpl" target="com.zoe.snow.conf.DaoConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.hibernate.HibernateOrmImpl" target="com.zoe.snow.dao.orm.Orm">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.ConnectionSupport" target="com.zoe.snow.dao.ConnectionManage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.crud.service.OrmManageImpl" target="com.zoe.snow.conf.CrudConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.crud.service.CrudServiceBasic" target="com.zoe.snow.conf.CrudConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.DataSourceManager" target="com.zoe.snow.conf.DaoConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.ConnectionSupport" target="com.zoe.snow.conf.DaoConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.crud.service.CrudServiceBasic" target="com.zoe.snow.crud.CrudService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.crud.service.OrmManageImpl" target="com.zoe.snow.crud.service.OrmManage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.crud.service.CrudServiceBasic" target="com.zoe.snow.crud.service.OrmManage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.dao.lite.LiteOrmImpl" target="com.zoe.snow.dao.orm.Orm">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.conf.ConfigurationImpl" target="com.zoe.snow.conf.Configuration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.conf.ConfigurationImpl" target="com.zoe.snow.conf.CacheConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.crud.service.OrmManageImpl" target="com.zoe.snow.dao.orm.Orm">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.conf.ConfigurationImpl" target="com.zoe.snow.conf.CrudConfiguration">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="393.5" y="382.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

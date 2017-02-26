@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="21.0" y="421.0">com.zoe.snow.model.Model</node>
+    <node x="0.0" y="794.0">com.zoe.snow.model.IdGenerator</node>
+    <node x="466.0" y="421.0">com.zoe.snow.model.Page</node>
+    <node x="563.0" y="290.0">com.zoe.snow.model.NullAbleList</node>
+    <node x="393.0" y="794.0">com.zoe.snow.model.CustomGenerator</node>
+    <node x="506.0" y="0.0">com.zoe.snow.model.PageList</node>
+    <node x="0.0" y="671.0">com.zoe.snow.model.CustomDateDeSerializer</node>
+    <node x="190.0" y="421.0">com.zoe.snow.model.JsonDateValueProcessor</node>
+    <node x="0.0" y="0.0">com.zoe.snow.model.ModelHelper</node>
+    <node x="248.0" y="671.0">com.zoe.snow.model.CustomDateSerializer</node>
+    <node x="0.0" y="525.0">com.zoe.snow.model.RawModel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.zoe.snow.model.RawModel" target="com.zoe.snow.model.Model">
+      <point x="0.0" y="-50.5" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.ModelHelper" target="com.zoe.snow.model.JsonDateValueProcessor">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.zoe.snow.model.NullAbleList" target="com.zoe.snow.model.PageList">
+      <point x="0.0" y="-39.0" />
+      <point x="0.0" y="120.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.5" y="260.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

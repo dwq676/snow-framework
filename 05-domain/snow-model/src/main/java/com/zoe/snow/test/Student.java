@@ -2,11 +2,9 @@ package com.zoe.snow.test;
 
 import com.zoe.snow.model.annotation.Jsonable;
 import com.zoe.snow.model.support.BaseModelSupport;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Student
@@ -14,6 +12,9 @@ import javax.persistence.OneToOne;
  * @author Dai Wenqing
  * @date 2016/9/5
  */
+@Entity
+@Table(name = "crip_student")
+@Component("crip.user.student")
 public class Student extends BaseModelSupport {
     private String name;
     private School school;
