@@ -69,25 +69,6 @@ public class CrudServiceBasic implements CrudService, QueryService, ExecuteServi
         return false;
     }
 
-    /*
-     * public <T extends Model> T exists(Class<T> classZ, String key, Object
-     * value, boolean excludeDomain) { doMustNotNull(classZ); if (key == null ||
-     * value == null) return null;
-     * 
-     * Map<String, Criterion> criterionMap = new LinkedHashMap<>();
-     * criterionMap.put(key, Criterion.Equals); List<Object> args = new
-     * ArrayList<>(); args.add(value); PageList<T> pageList = query(classZ,
-     * criterionMap, args, -1, -1, excludeDomain, 1); if
-     * (pageList.getList().size() > 0) return pageList.getList().get(0); return
-     * null; }
-     * 
-     * public <T extends Model> T exists(Class<T> classZ, Map<String, Criterion>
-     * criterionMap, List<Object> args, boolean excludeDomain) { PageList<T>
-     * pageList = query(classZ, criterionMap, args, -1, -1, excludeDomain, 1);
-     * if (pageList.getList().size() > 0) return pageList.getList().get(0);
-     * return null; }
-     */
-
     protected List<Object> argsToList(Object... args) {
         List<Object> list = new ArrayList<>();
         for (int i = 0; i < args.length; i++) {

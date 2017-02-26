@@ -3,7 +3,6 @@ package com.zoe.snow.crud.service.proxy;
 import com.zoe.snow.crud.service.QueryService;
 import com.zoe.snow.dao.orm.OrmContext;
 import com.zoe.snow.dao.orm.Query;
-import com.zoe.snow.fun.CallInOne;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
@@ -11,9 +10,6 @@ import com.zoe.snow.model.enums.JoinType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.model.enums.OrderBy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * 提供一个全方位的，更灵活的查询操作
