@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * 查询基类
@@ -189,13 +190,14 @@ public class QueryImpl extends OrmContextImpl implements Query {
     }
 
     @Override
-    public Query where(String where) {
+    public Query where(Supplier<String> where) {
         return where(where, null);
     }
 
     @Override
-    public Query where(String where, Object[] args, Operator... operators) {
-        if (!Validator.isEmpty(where)) {
+    public Query where(Supplier<String> where, Object args, Operator... operators) {
+        String whereStr= where.get();
+        if (!Validator.isEmpty(whereStr)) {
 
             if (operators.length > 0)
                 this.whereBuffer.append(operators[0].getType());
@@ -203,11 +205,17 @@ public class QueryImpl extends OrmContextImpl implements Query {
                 this.whereBuffer.append(" and ");
             } else
                 this.whereBuffer.append(" ");
-            this.whereBuffer.append(where);
+            this.whereBuffer.append(whereStr);
             this.whereBuffer.append(" ");
 
             if (!Validator.isEmpty(args)) {
-                Arrays.asList(args).forEach(this.args::add);
+                Object[] values = null;
+                if (args.getClass().isArray()) {
+                    values = (Object[]) args;
+                    Arrays.asList(values).forEach(this.args::add);
+                } else {
+                    this.args.add(args);
+                }
             }
         }
         return this;
@@ -222,7 +230,6 @@ public class QueryImpl extends OrmContextImpl implements Query {
     @Override
     public Query group(String group) {
         this.group = group;
-
         return this;
     }
 

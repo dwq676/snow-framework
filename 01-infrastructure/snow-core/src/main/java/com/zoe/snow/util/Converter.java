@@ -147,6 +147,28 @@ public final class Converter {
     }
 
     /**
+     * 将可变数组转换成定长数组
+     *
+     * @param args
+     * @return
+     */
+    public static <T> List<T> toList(T... args) {
+        List<T> list = new ArrayList<>();
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] instanceof Collection<?>) {
+                //当T为object时
+                List<T> l = (List<T>) args[i];
+                for (T o : l) {
+                    list.add(o);
+                }
+            } else {
+                list.add(args[i]);
+            }
+        }
+        return list;
+    }
+
+    /**
      * 将字符串按指定分隔符转化为二维数组。
      *
      * @param string    要转化的字符串。

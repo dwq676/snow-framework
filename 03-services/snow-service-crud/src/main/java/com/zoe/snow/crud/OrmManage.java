@@ -1,4 +1,4 @@
-package com.zoe.snow.crud.service;
+package com.zoe.snow.crud;
 
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.conf.CrudConfiguration;
@@ -12,30 +12,26 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * CrudOrmManageImpl
+ * 获取orm框架
  *
  * @author Dai Wenqing
  * @date 2016/3/25
  */
-@Component("snow.crud.dao.orm.manage")
-public class OrmManageImpl implements OrmManage, ContextRefreshedListener {
+@Component("snow.crud.orm.manage")
+public class OrmManage implements  ContextRefreshedListener {
 
     @Autowired(required = false)
     private Set<Orm> ormSet;
-    @Autowired(required = false)
-    private Set<Query> querySet;
 
     @Autowired
     private CrudConfiguration crudConfiguration;
 
     private Orm<Query> orm;
 
-    @Override
     public Orm<Query> getOrm() {
         return orm;
     }
 
-    @Override
     public Orm<Query> getOrm(String ormName) {
         if (Validator.isEmpty(ormName)) return orm;
         for (Orm o : ormSet) {
@@ -43,17 +39,6 @@ public class OrmManageImpl implements OrmManage, ContextRefreshedListener {
                 return o;
         }
         return orm;
-    }
-
-    @Override
-    public Query getQuery() {
-        return BeanFactory.getBean("snow.dao.query." + crudConfiguration.getOrmName());
-    }
-
-    @Override
-    public Query getQuery(String ormName) {
-        if (Validator.isEmpty(ormName)) return BeanFactory.getBean("snow.dao.query." + crudConfiguration.getOrmName());
-        return BeanFactory.getBean("snow.dao.query." + ormName);
     }
 
     @Override

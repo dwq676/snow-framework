@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.conf.CrudConfiguration;
-import com.zoe.snow.crud.service.OrmManage;
+import com.zoe.snow.crud.OrmManage;
 import com.zoe.snow.dao.orm.Query;
 import com.zoe.snow.dao.orm.OrmContext;
 import com.zoe.snow.model.Model;
@@ -140,7 +140,7 @@ public class CrudDaoImpl implements CrudDao {
         StringBuilder where = setCriterionMap(criterionMap);
         if (args == null)
             args = new Object[]{};
-        crudOrmManage.getOrm().delete(query().from(modelClass).where(where.toString()));
+        crudOrmManage.getOrm().delete(query().from(modelClass).where(() -> where.toString()));
     }
 
     protected StringBuilder setCriterionMap(Map<String, Criterion> criterionMap, Operator... operator) {

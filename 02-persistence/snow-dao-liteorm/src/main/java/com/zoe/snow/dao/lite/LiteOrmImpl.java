@@ -54,7 +54,7 @@ public class LiteOrmImpl implements LiteOrm {
         if (Validator.isEmpty(id))
             return null;
         LiteQuery liteQuery = new LiteQuery();
-        liteQuery.from(modelClass).where("id =?");
+        liteQuery.from(modelClass).where(() -> "id =?");
         return queryOne(liteQuery);
     }
 

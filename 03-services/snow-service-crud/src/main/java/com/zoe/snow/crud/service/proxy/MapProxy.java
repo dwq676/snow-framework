@@ -1,10 +1,14 @@
 package com.zoe.snow.crud.service.proxy;
 
+import com.zoe.snow.crud.CrudServiceHelper;
 import com.zoe.snow.crud.service.QueryService;
 import com.zoe.snow.dao.orm.Query;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -16,18 +20,24 @@ import java.util.Map;
  * @author Dai Wenqing
  * @date 2016/7/18
  */
-//@Component("snow.crud.service.proxy.map")
-public class MapProxy {
+@Component("snow.crud.service.proxy.map")
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+public class MapProxy extends ProxySupport{
     private Map<String, Criterion> map = new LinkedHashMap<>();
-    private QueryService queryService;
     private int page = -1;
     private int size = -1;
     private Class<? extends Model> classZ;
     private boolean excludeDomain = false;
+    private Object[] args;
 
-    public MapProxy(Class<? extends Model> classZ, QueryService queryService) {
+    /*public MapProxy(Class<? extends Model> classZ, QueryService queryService) {
         this.queryService = queryService;
         this.classZ = classZ;
+    }*/
+
+    public MapProxy from(Class<? extends Model> from) {
+        this.classZ = from;
+        return this;
     }
 
     /**
@@ -37,8 +47,9 @@ public class MapProxy {
      * @param criterion 条件
      * @return
      */
-    public MapProxy put(String column, Criterion criterion) {
+    public MapProxy put(String column, Criterion criterion, Object... args) {
         map.put(column, criterion);
+        this.args = args;
         return this;
     }
 
@@ -48,8 +59,9 @@ public class MapProxy {
      * @param column
      * @return
      */
-    public MapProxy put(String column) {
+    public MapProxy put(String column, Object... args) {
         map.put(column, Criterion.Equals);
+        this.args = args;
         return this;
     }
 
@@ -68,9 +80,9 @@ public class MapProxy {
         return this;
     }
 
-    public <T extends Model> PageList<T> list(Object... args) {
+    public <T extends Model> PageList<T> list() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
-        Query query = queryService.mapToQuery(classZ, map, page, size, args);
+        Query query = CrudServiceHelper.mapToQuery(classZ, map, page, size, this.args);
         return queryService.list(query, excludeDomain);
     }
 
@@ -78,8 +90,8 @@ public class MapProxy {
         return one(false, args);
     }*/
 
-    public <T extends Model> T one(Object... args) {
-        Query query = queryService.mapToQuery(classZ, map, page, size, args);
+    public <T extends Model> T one() {
+        Query query = CrudServiceHelper.mapToQuery(classZ, map, page, size, this.args);
         return queryService.one(query, excludeDomain);
     }
 
@@ -87,8 +99,9 @@ public class MapProxy {
         return all(false, args);
     }*/
 
-    public <T extends Model> PageList<T> all(Object... args) {
-        Query query = queryService.mapToQuery(classZ, map, page, size, args);
+    public <T extends Model> PageList<T> all() {
+        Query query = CrudServiceHelper.mapToQuery(classZ, map, page, size, this.args);
         return queryService.all(query, excludeDomain);
     }
+
 }

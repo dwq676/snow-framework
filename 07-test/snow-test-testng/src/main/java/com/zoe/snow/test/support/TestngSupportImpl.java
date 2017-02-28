@@ -17,6 +17,7 @@ import com.zoe.snow.model.enums.OrderBy;
 import com.zoe.snow.model.mapper.ModelTables;
 import com.zoe.snow.message.MessageTool;
 import com.zoe.snow.test.School;
+import com.zoe.snow.test.Student;
 import com.zoe.snow.test.UserModel;
 import com.zoe.snow.test.UserResultModel;
 import com.zoe.snow.util.Generator;
@@ -366,12 +367,13 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         //UserModel userModel= crudService.execute()
         transactionSet.forEach(Transaction::beginTransaction);
 
-        userModel = crudService.query().from(UserModel.class).join(School.class, JoinType.Inner)
-                .where("id", Criterion.Equals, "00000a66-ce70-4a34-b3d9-1165d89d7cb0").one();
+        userModel = crudService.query().from(UserModel.class).join(Student.class, JoinType.Inner)
+                .join(School.class, JoinType.Inner)
+                .where("id", Criterion.Equals, "1").one();
 
         ModelHelper.fromJson(ModelHelper.toJson(userModel).toString(), UserModel.class);
 
-        crudService.sql("select * fRom crip_user t where  t.id=1").asJson();
+        crudService.sql("select * fRom crip_user t where  t.id= ?").asJson("1");
 
         userModel = new UserModel();
 
@@ -426,10 +428,11 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         //将id值为2的数据彻底删除
         crudService.execute().remove(UserModel.class, "2");
 
-        PageList<UserModel> tt = crudService.map(UserModel.class).put("id", Criterion.Like).put("userName", Criterion.Like).list("8a80811", "jack_3");
+        PageList<UserModel> tt = crudService.map(UserModel.class).put("id", Criterion.Like)
+                .put("userName", Criterion.Like, "8a80811", "jack_3").list();
         PageList<UserModel> r1 = null;
-        String sql = crudService.query().from(UserModel.class).join(School.class, JoinType.Inner).getSql();
-        PageList<UserResultModel> re = crudService.query().list();
+        //String sql = crudService.query().from(UserModel.class).join(School.class, JoinType.Inner).getSql();
+        //PageList<UserResultModel> re = crudService.query().list();
         PageList<UserModel> re1 = crudService.query().from(UserModel.class)
                 .where("userName", Criterion.In, "jack_28,jack_32").paging(1, 10).list();
         //将有效无效的数据都能查询出来
@@ -446,7 +449,8 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         // crudService.delete(UserModel.class,crudService.query().where())
 
         UserResultModel userResultModel = crudService.query().select("id,userName").from(UserModel.class).to(UserResultModel.class)
-                .where("(id like ? and userName like ?)").order("id", OrderBy.Asc).one("%8a80811%", "%jack_3%");
+                .where(() -> "(id like ? and userName like ?)", new Object[]{"%8a80811%", "%jack_3%"})
+                .order("id", OrderBy.Asc).one();
 
         //crudService.execute().recycle(UserModel.class).where("password", "c").invoke();
         transactionSet.forEach(Transaction::commit);

@@ -7,6 +7,8 @@ import com.zoe.snow.model.PageList;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import org.apache.commons.lang.NullArgumentException;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,6 +34,11 @@ public class SqlProxy {
      * this.classZ = classZ; this.sql = sql; return this; }
      */
 
+    /**
+     * 动态表名
+     * @param tableName
+     * @param sql
+     */
     public SqlProxy(String tableName, String sql) {
         this.sql = sql.replace("#", tableName);
     }

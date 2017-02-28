@@ -6,8 +6,10 @@ import com.zoe.snow.model.enums.JoinType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.model.enums.OrderBy;
 
+import java.util.function.Supplier;
+
 /**
- * 检索接口。
+ * 检索上下文，必须每个查询对象都不一样
  *
  * @author lpw
  */
@@ -27,7 +29,6 @@ public interface Query {
      * 设置FROM表名称集，至少必须包含一个表名称。如果为空则使用Model类对应的表名称。
      *
      * @param from FROM 对象类型。
-     * @param as   别名
      * @return 当前Query实例。
      */
     Query from(Class<? extends Model> from);
@@ -52,13 +53,13 @@ public interface Query {
      * @param column 字段
      * @return 当前Query实例。
      */
-    Query where(String column, Criterion criterion, Object value, Operator... operator);
+    Query where(String column, Object values, Operator... operator);
 
-    Query where(String column, Object value, Operator... operator);
+    Query where(String column, Criterion criterion, Object values, Operator... operator);
 
-    Query where(String where);
+    Query where(Supplier<String> where);
 
-    Query where(String where, Object[] args, Operator... operators);
+    Query where(Supplier<String> where, Object values, Operator... operators);
 
     /**
      * 设置ORDER BY片段。为空则不排序。

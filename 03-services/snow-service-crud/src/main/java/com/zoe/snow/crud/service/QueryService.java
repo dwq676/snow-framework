@@ -24,12 +24,10 @@ public interface QueryService {
      *            查询上下文
      * @param excludeDomain
      *            是否排除域的过滤
-     * @param args
-     *            参数
      * @param <T>
      * @return
      */
-    <T extends Model> T one(Query query, boolean excludeDomain, Object... args);
+    <T extends Model> T one(Query query, boolean excludeDomain);
 
     /**
      * 使用Query上下文查询所有有效的数据
@@ -38,12 +36,10 @@ public interface QueryService {
      *            查询上下文
      * @param excludeDomain
      *            是否排除域的过滤
-     * @param args
-     *            参数
      * @param <T>
      * @return
      */
-    <T extends Model> PageList<T> list(Query query, boolean excludeDomain, Object... args);
+    <T extends Model> PageList<T> list(Query query, boolean excludeDomain);
 
     /**
      * 使用Query上下文查询所有的数据，包括无效数据
@@ -52,24 +48,19 @@ public interface QueryService {
      *            查询上下文
      * @param excludeDomain
      *            是否排除域的过滤
-     * @param args
-     *            参数
      * @param <T>
      * @return
      */
-    <T extends Model> PageList<T> all(Query query, boolean excludeDomain, Object... args);
+    <T extends Model> PageList<T> all(Query query, boolean excludeDomain);
 
     /**
      * 计算总条件
      * @param query
      * @param excludeDomain
-     * @param args
      * @return
      */
-    int count(Query query, boolean excludeDomain, Object... args);
+    int count(Query query, boolean excludeDomain);
 
     JSONObject asJsonObject(Query query, String ormName);
     JSONArray asJsonArray(Query query, String ormName);
-
-    Query mapToQuery(Class<? extends Model> classZ, Map<String, Criterion> criterionMap, int page, int size, Object... args);
 }

@@ -1,5 +1,6 @@
 package com.zoe.snow.crud.service.proxy;
 
+import com.zoe.snow.crud.QueryManager;
 import com.zoe.snow.crud.service.QueryService;
 import com.zoe.snow.dao.orm.OrmContext;
 import com.zoe.snow.dao.orm.Query;
@@ -9,7 +10,13 @@ import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.JoinType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.model.enums.OrderBy;
+import com.zoe.snow.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import java.util.function.Supplier;
 
 /**
  * 提供一个全方位的，更灵活的查询操作
@@ -17,44 +24,38 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Dai Wenqing
  * @date 2016/3/31
  */
-//@Component("snow.crud.service.proxy.query")
-public class QueryProxy {
-    private Query query;
-    @Autowired
-    private QueryService queryService;
+@Component("snow.crud.service.proxy.query")
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+public class QueryProxy extends ProxySupport{
     private boolean excludeDomain = false;
 
-    public QueryProxy(Query query, QueryService queryService) {
-        this.query = query;
-        this.queryService = queryService;
+    public QueryProxy setQueryName(String queryName) {
+        this.queryName = queryName;
+        return this;
     }
 
-   /*public void setQuery(Query query) {
-        this.query = query;
-    }*/
-
     public QueryProxy select(String select) {
-        query.select(select);
+        getQuery().select(select);
         return this;
     }
 
     public QueryProxy from(Class<? extends Model> from, String... as) {
-        query.from(from);
+        getQuery().from(from);
         return this;
     }
 
     public QueryProxy to(Class<?> to) {
-        query.to(to);
+        getQuery().to(to);
         return this;
     }
 
     public QueryProxy join(Class<? extends Model> classZ, JoinType joinType) {
-        query.join(classZ, joinType);
+        getQuery().join(classZ, joinType);
         return this;
     }
 
     public QueryProxy where(String column, Criterion criterion, Object value, Operator... operator) {
-        query.where(column, criterion, value, operator);
+        getQuery().where(column, criterion, value, operator);
         return this;
     }
 
@@ -63,23 +64,23 @@ public class QueryProxy {
         return this;
     }
 
-    public QueryProxy where(String where) {
-        query.where(where);
+    public QueryProxy where(Supplier<String> where) {
+        getQuery().where(where);
         return this;
     }
 
-    public QueryProxy where(String where, Object[] args, Operator... operators) {
-        query.where(where, args);
+    public QueryProxy where(Supplier<String> where, Object args, Operator... operators) {
+        getQuery().where(where, args);
         return this;
     }
 
     public QueryProxy order(String order, OrderBy... orderBy) {
-        query.order(order, orderBy);
+        getQuery().order(order, orderBy);
         return this;
     }
 
     public QueryProxy group(String group) {
-        query.group(group);
+        getQuery().group(group);
         return this;
     }
 
@@ -89,7 +90,7 @@ public class QueryProxy {
     }
 
     public QueryProxy paging(int page, int size) {
-        query.paging(page, size);
+        getQuery().paging(page, size);
         return this;
     }
 
@@ -99,11 +100,11 @@ public class QueryProxy {
      * @return
      */
     public String getSql() {
-        return query.toSql();
+        return getQuery().toSql();
     }
 
     public Object[] getArgs() {
-        OrmContext ormContext = OrmContext.class.cast(query);
+        OrmContext ormContext = OrmContext.class.cast(getQuery());
         return ormContext.getArgs().toArray();
     }
 
@@ -111,29 +112,29 @@ public class QueryProxy {
         return list(false, args);
     }*/
 
-    public <T extends Model> PageList<T> list(Object... args) {
+    public <T extends Model> PageList<T> list() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
-        return queryService.list(query, excludeDomain, args);
+        return queryService.list(getQuery(), excludeDomain);
     }
 
     /*public <T extends Model> T one(Object... args) {
         return one(false, args);
     }*/
 
-    public <T extends Model> T one(Object... args) {
-        return queryService.one(query, excludeDomain, args);
+    public <T extends Model> T one() {
+        return queryService.one(getQuery(), excludeDomain);
     }
 
     /*public <T extends Model> PageList<T> all(Object... args) {
         return all(false, args);
     }*/
 
-    public <T extends Model> PageList<T> all(Object... args) {
+    public <T extends Model> PageList<T> all() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
-        return queryService.all(query, excludeDomain, args);
+        return queryService.all(getQuery(), excludeDomain);
     }
 
-    public int count(Object... args) {
-        return queryService.count(query, excludeDomain, args);
+    public int count() {
+        return queryService.count(getQuery(), excludeDomain);
     }
 }

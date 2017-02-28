@@ -37,7 +37,6 @@ public interface ExecuteService {
     /**
      * 被删除，但放入回收站数据，可从界面上恢复为正常数据
      *
-     * @param id
      *            对象id
      * @return
      */
@@ -49,5 +48,5 @@ public interface ExecuteService {
 
     <T extends Model> boolean deleteOrRecycle(Query query, DeleteType deleteType);
 
-    boolean update(Query query, Object... args);
+    boolean update(Query query);
 }
