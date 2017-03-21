@@ -90,7 +90,7 @@
             <element id="module-output" name="snow-dao-liteorm" />
           </element>
           <element id="archive" name="snow-shiro-1.0.0-SNAPSHOT.jar">
-            <element id="module-output" name="snow-shiro" />
+            <element id="module-output" name="snow-Authorization" />
           </element>
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.4" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.4" />

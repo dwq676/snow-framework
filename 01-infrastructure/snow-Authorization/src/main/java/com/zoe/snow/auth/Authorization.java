@@ -9,6 +9,6 @@ import org.apache.shiro.subject.PrincipalCollection;
  * @author Dai Wenqing
  * @date 2016/11/3
  */
-public interface Authorize {
+public interface Authorization {
     AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals, AuthorizationInfo authorizationInfo);
 }

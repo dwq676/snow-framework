@@ -7,19 +7,12 @@ import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.crud.Result;
 import com.zoe.snow.delivery.Http;
-import com.zoe.snow.delivery.Register;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
-import com.zoe.snow.model.TypeConverter;
 import com.zoe.snow.model.annotation.NotNull;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Validator;
-import javassist.*;
-import javassist.bytecode.CodeAttribute;
-import javassist.bytecode.LocalVariableAttribute;
-import javassist.bytecode.MethodInfo;
-import net.sf.json.JSONObject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -27,10 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -131,36 +120,7 @@ public class AccessAspect {
         return false;
     }
 
-    private String getParameterName(String clazzName, String methodName, int ndx)
-            throws NotFoundException {
-        String[] paramNames = getParameterNames(clazzName, methodName);
-        if (paramNames.length >= ndx)
-            return paramNames[ndx];
-        return "";
-    }
-
-    private String[] getParameterNames(String clazzName, String methodName) throws NotFoundException {
-        ClassPool pool = ClassPool.getDefault();
-        ClassClassPath classPath = new ClassClassPath(this.getClass());
-        pool.insertClassPath(classPath);
-
-        CtClass cc = pool.get(clazzName);
-        CtMethod cm = cc.getDeclaredMethod(methodName);
-        MethodInfo methodInfo = cm.getMethodInfo();
-        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
-        LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute
-                .getAttribute(LocalVariableAttribute.tag);
-        if (attr == null) {
-            // exception
-        }
-        String[] paramNames = new String[cm.getParameterTypes().length];
-        int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
-        for (int i = 0; i < paramNames.length; i++)
-            paramNames[i] = attr.variableName(i + pos);
-        return paramNames;
-    }
-
-    private Object rmi(Register register, Class<?> clazz, Method method, Object[] args) {
+    /*private Object rmi(Register register, Class<?> clazz, Method method, Object[] args) {
         if (register == null || clazz == null || method == null)
             return null;
         String url = getUrl(register, clazz, method);
@@ -217,7 +177,7 @@ public class AccessAspect {
             }
         }
         return urlBuffer.toString();
-    }
+    }*/
 
 
     /**

@@ -1,7 +1,7 @@
 package com.zoe.snow.auth.realm;
 
 import com.zoe.snow.auth.Authentication;
-import com.zoe.snow.auth.Authorize;
+import com.zoe.snow.auth.Authorization;
 import com.zoe.snow.auth.TokenProcessor;
 import com.zoe.snow.auth.service.BaseDomainService;
 import com.zoe.snow.auth.service.BaseRoleService;
@@ -49,10 +49,10 @@ public class UserRealm extends AuthorizingRealm {
         }
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setRoles(roles);
-        Authorize authorize = BeanFactory.getBean(Authorize.class);
-        Collection<Authorize> authorizeList = BeanFactory.getBeans(Authorize.class);
-        if (authorizeList != null) {
-            authorizeList.forEach(c -> {
+        Authorization authorization = BeanFactory.getBean(Authorization.class);
+        Collection<Authorization> authorizationList = BeanFactory.getBeans(Authorization.class);
+        if (authorizationList != null) {
+            authorizationList.forEach(c -> {
                 c.doGetAuthorizationInfo(principals, authorizationInfo);
             });
         }

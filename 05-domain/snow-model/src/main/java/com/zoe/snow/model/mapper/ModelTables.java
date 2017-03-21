@@ -21,5 +21,5 @@ public interface ModelTables {
      * @param tableName 表名
      * @return
      */
-    //Model get(String tableName);
+    Model get(String tableName);
 }

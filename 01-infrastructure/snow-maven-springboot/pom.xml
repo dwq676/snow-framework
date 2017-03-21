@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>com.zoe.snow</groupId>
-            <artifactId>snow-shiro</artifactId>
+            <artifactId>snow-Authorization</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

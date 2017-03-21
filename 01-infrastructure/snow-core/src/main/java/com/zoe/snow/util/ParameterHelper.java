@@ -1,6 +1,11 @@
 package com.zoe.snow.util;
 
 
+import javassist.*;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
+
 /**
  * ParameterHelper
  *
@@ -8,20 +13,20 @@ package com.zoe.snow.util;
  * @date 2017/1/12
  */
 public class ParameterHelper {
-    /*public static String getParameterName(String clazzName, String methodName, int ndx)
+    public static String getParameterName(Class<?> clazz, String methodName, int ndx)
             throws NotFoundException {
-        String[] paramNames = getParameterNames(clazzName, methodName);
+        String[] paramNames = getParameterNames(clazz, methodName);
         if (paramNames.length >= ndx)
             return paramNames[ndx];
         return "";
     }
 
-    public static String[] getParameterNames(String clazzName, String methodName) throws NotFoundException {
+    public static String[] getParameterNames(Class<?> clazz, String methodName) throws NotFoundException {
         ClassPool pool = ClassPool.getDefault();
-        ClassClassPath classPath = new ClassClassPath(this.getClass());
+        ClassClassPath classPath = new ClassClassPath(clazz);
         pool.insertClassPath(classPath);
 
-        CtClass cc = pool.get(clazzName);
+        CtClass cc = pool.get(clazz.getName());
         CtMethod cm = cc.getDeclaredMethod(methodName);
         MethodInfo methodInfo = cm.getMethodInfo();
         CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
@@ -35,5 +40,5 @@ public class ParameterHelper {
         for (int i = 0; i < paramNames.length; i++)
             paramNames[i] = attr.variableName(i + pos);
         return paramNames;
-    }*/
+    }
 }

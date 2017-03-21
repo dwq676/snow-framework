@@ -68,6 +68,11 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+        </dependency>
         <!-- <dependency>
                     <groupId>org.javassist</groupId>
                     <artifactId>javassist</artifactId>
