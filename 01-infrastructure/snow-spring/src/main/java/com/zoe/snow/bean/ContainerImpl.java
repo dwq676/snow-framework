@@ -2,6 +2,7 @@ package com.zoe.snow.bean;
 
 import com.zoe.snow.listener.ContextClosedListener;
 import com.zoe.snow.listener.ContextRefreshedListener;
+import com.zoe.snow.listener.StartListenerList;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.log.Logger;
 import org.springframework.beans.BeansException;
@@ -28,9 +29,14 @@ public class ContainerImpl implements Container, ApplicationListener<Application
     @Autowired(required = false)
     protected List<ContextClosedListener> closedListeners;
     protected ApplicationContext applicationContext;
+
+    @Autowired
+    protected StartListenerList startListenerList;
+
     protected Map<String, String> map = new HashMap<>();
     protected Set<String> set = new HashSet<>();
     private boolean firstRunning = true;
+
     // protected boolean useStartLogger = true;
 
     @Override
@@ -122,9 +128,11 @@ public class ContainerImpl implements Container, ApplicationListener<Application
 
         Collections.sort(refreshedListeners, (a, b) -> a.getContextRefreshedSort() - b.getContextRefreshedSort());
         refreshedListeners.forEach(listener -> {
-            listener.onContextRefreshed();
-            if (Logger.isDebugEnable())
-                Logger.info("正在初始第[{}]个加载器，名称是：[{}]", listener.getContextRefreshedSort(), listener.getClass().getName());
+            if (startListenerList.getListenerList().contains(listener.getName())) {
+                listener.onContextRefreshed();
+                if (Logger.isDebugEnable())
+                    Logger.info("正在初始第[{}]个加载器，名称是：[{}]", listener.getContextRefreshedSort(), listener.getClass().getName());
+            }
         });
 
         if (Logger.isInfoEnable())

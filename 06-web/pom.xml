@@ -13,6 +13,7 @@
     <modules>
         <module>snow-web-mvc</module>
         <module>snow-web</module>
+        <module>snow-web-swagger</module>
     </modules>
 
 </project>

@@ -48,7 +48,9 @@
     <file url="file://$PROJECT_DIR$/06-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/06-web/snow-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/06-web/snow-web-mvc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06-web/snow-web-swagger" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/07-test" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/07-test/snow-test-phoenix" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/07-test/snow-test-testng" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

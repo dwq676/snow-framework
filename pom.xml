@@ -522,12 +522,12 @@
         <repository>
             <id>releases</id>
             <name>发布版本</name>
-            <url>http://maven.dev.zoenet.cn:8000/nexus/content/groups/public/</url>
+            <url>http://10.8.208.104:8081/nexus/content/groups/public/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
             <name>快照版本</name>
-            <url>http://maven.dev.zoenet.cn:8000/nexus/content/repositories/snapshots/</url>
+            <url>http://10.8.208.104:8081/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

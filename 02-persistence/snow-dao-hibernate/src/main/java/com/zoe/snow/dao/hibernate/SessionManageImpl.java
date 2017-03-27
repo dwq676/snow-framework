@@ -27,7 +27,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2016/1/23
  */
 @Repository("snow.dao.hibernate.session")
-public class SessionManageImpl extends ConnectionSupport<Session> implements SessionManage, ContextRefreshedListener {
+public class SessionManageImpl extends ConnectionSupport<Session>
+        implements SessionManage, ContextRefreshedListener {
     /*private HDialect hDialect;
     @Autowired
     private Set<HDialect> hDialects;*/
@@ -51,6 +52,11 @@ public class SessionManageImpl extends ConnectionSupport<Session> implements Ses
             });
         }*/
         createAllSessionFactoryBean();
+    }
+
+    @Override
+    public String getName() {
+        return "SessionManage";
     }
 
     protected void createAllSessionFactoryBean() {

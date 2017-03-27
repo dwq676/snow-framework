@@ -41,10 +41,12 @@
         <module name="snow-shiro" />
         <module name="snow-spark" />
         <module name="snow-spring" />
+        <module name="snow-test-phoenix" />
         <module name="snow-test-testng" />
         <module name="snow-validator" />
         <module name="snow-web" />
         <module name="snow-web-mvc" />
+        <module name="snow-web-swagger" />
         <module name="snow-word" />
         <module name="snow-zookeeper" />
       </profile>
@@ -99,10 +101,12 @@
       <module name="snow-shiro" target="1.8" />
       <module name="snow-spark" target="1.8" />
       <module name="snow-spring" target="1.8" />
+      <module name="snow-test-phoenix" target="1.8" />
       <module name="snow-test-testng" target="1.8" />
       <module name="snow-validator" target="1.8" />
       <module name="snow-web" target="1.8" />
       <module name="snow-web-mvc" target="1.8" />
+      <module name="snow-web-swagger" target="1.8" />
       <module name="snow-word" target="1.8" />
       <module name="snow-zookeeper" target="1.8" />
     </bytecodeTargetLevel>

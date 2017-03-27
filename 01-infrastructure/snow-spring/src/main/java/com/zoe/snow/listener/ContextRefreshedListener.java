@@ -20,4 +20,9 @@ public interface ContextRefreshedListener {
      * 当Bean环境初始化完成时，自动执行此方法。
      */
     void onContextRefreshed();
+
+    /*
+    * 监听器的名称
+    */
+    String getName();
 }

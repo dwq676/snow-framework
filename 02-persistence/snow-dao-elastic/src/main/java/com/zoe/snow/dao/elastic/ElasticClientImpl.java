@@ -24,7 +24,8 @@ import java.util.List;
  * @date 2016/9/27
  */
 @Repository("snow.dao.elastic.client")
-public class ElasticClientImpl extends ConnectionSupport<Client> implements ElasticClient, ContextRefreshedListener {
+public class ElasticClientImpl extends ConnectionSupport<Client>
+        implements ElasticClient, ContextRefreshedListener {
     @Autowired
     private DataSources dataSources;
     private DataSourceHost dataSourceHost = null;
@@ -124,5 +125,10 @@ public class ElasticClientImpl extends ConnectionSupport<Client> implements Elas
             dataSourceHost = dataSources.getDataSourceBeanMap().get("elastic").getWriteAbleHost();
         if (dataSourceHost.getHostSwitch())
             get(Mode.Read, "elastic");
+    }
+
+    @Override
+    public String getName() {
+        return "Elastic";
     }
 }

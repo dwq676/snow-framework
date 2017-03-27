@@ -109,6 +109,11 @@ public class DataSourceManager implements ContextRefreshedListener {
         createDataSource();
     }
 
+    @Override
+    public String getName() {
+        return "DataSourceManage";
+    }
+
     /**
      * 创建可能存在的多数据源
      */

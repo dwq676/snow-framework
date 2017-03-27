@@ -64,4 +64,9 @@ public class RabbitmqImpl implements Rabbitmq, ContextRefreshedListener {
             logger.error("rabbitmq 初始化发现了异常", ex);
         }
     }
+
+    @Override
+    public String getName() {
+        return "Rabbitmq";
+    }
 }

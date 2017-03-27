@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>snow-test-testng</module>
+        <module>snow-test-phoenix</module>
     </modules>
 
 

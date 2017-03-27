@@ -274,4 +274,9 @@ public class HttpImpl implements Http, ContextRefreshedListener {
             Logger.warn(e, "初始化HTTP/S客户端时发生异常！");
         }
     }
+
+    @Override
+    public String getName() {
+        return "Http";
+    }
 }

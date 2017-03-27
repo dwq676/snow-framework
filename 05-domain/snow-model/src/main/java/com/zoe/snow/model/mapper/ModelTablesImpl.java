@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.model.Model;
-import com.zoe.snow.model.annotation.Jsonable;
-import com.zoe.snow.model.annotation.Property;
 import com.zoe.snow.model.annotation.Unique;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
@@ -59,6 +57,11 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
         if (!Validator.isEmpty(models))
             for (Model model : models)
                 parse(model);
+    }
+
+    @Override
+    public String getName() {
+        return "ModelTables";
     }
 
     protected void parse(Model model) {

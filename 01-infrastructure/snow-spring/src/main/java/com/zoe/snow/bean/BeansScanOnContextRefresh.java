@@ -48,4 +48,9 @@ public class BeansScanOnContextRefresh implements ContextRefreshedListener {
             });
         }
     }
+
+    @Override
+    public String getName() {
+        return "BeanScan";
+    }
 }

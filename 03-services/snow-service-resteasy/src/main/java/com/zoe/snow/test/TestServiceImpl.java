@@ -24,6 +24,7 @@ import javax.annotation.Resource;
  */
 @Path("/resteasy")
 @Service("snow.service.resteasy.test")
+//@Api("Demo-api")
 public class TestServiceImpl {
 
     @GET
@@ -31,6 +32,7 @@ public class TestServiceImpl {
     @Produces("application/json")
     @Transactional
     @NoNeedVerify
+    //@ApiOperation(value="通过主键获取用户信息")
     public String getMessage(@PathParam("msg") String msg) {
         return "[Hello dear! ]" + msg;
     }

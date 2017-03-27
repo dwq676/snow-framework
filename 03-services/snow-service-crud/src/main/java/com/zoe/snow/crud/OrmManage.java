@@ -60,4 +60,9 @@ public class OrmManage implements  ContextRefreshedListener {
          * orm.getOrmName());
          */
     }
+
+    @Override
+    public String getName() {
+        return "OrmManage";
+    }
 }

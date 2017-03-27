@@ -14,7 +14,7 @@ import com.zoe.snow.listener.ContextRefreshedListener;
 public class RedisCache implements CacheStrategy ,ContextRefreshedListener {
     @Override
     public String getName() {
-        return null;
+        return "RedisCache";
     }
 
     @Override

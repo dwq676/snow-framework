@@ -45,10 +45,12 @@
       <module fileurl="file://$PROJECT_DIR$/03-services/snow-service-springboot/snow-service-springboot.iml" filepath="$PROJECT_DIR$/03-services/snow-service-springboot/snow-service-springboot.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-spark/snow-spark.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-spark/snow-spark.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-spring/snow-spring.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-spring/snow-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/07-test/snow-test-phoenix/snow-test-phoenix.iml" filepath="$PROJECT_DIR$/07-test/snow-test-phoenix/snow-test-phoenix.iml" />
       <module fileurl="file://$PROJECT_DIR$/07-test/snow-test-testng/snow-test-testng.iml" filepath="$PROJECT_DIR$/07-test/snow-test-testng/snow-test-testng.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-validator/snow-validator.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-validator/snow-validator.iml" />
       <module fileurl="file://$PROJECT_DIR$/06-web/snow-web/snow-web.iml" filepath="$PROJECT_DIR$/06-web/snow-web/snow-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/06-web/snow-web-mvc/snow-web-mvc.iml" filepath="$PROJECT_DIR$/06-web/snow-web-mvc/snow-web-mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06-web/snow-web-swagger/snow-web-swagger.iml" filepath="$PROJECT_DIR$/06-web/snow-web-swagger/snow-web-swagger.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-word/snow-word.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-word/snow-word.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-zookeeper/snow-zookeeper.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-zookeeper/snow-zookeeper.iml" />
     </modules>

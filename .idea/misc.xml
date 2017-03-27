@@ -34,6 +34,7 @@
     <file type="web" url="file://$PROJECT_DIR$/03-services/snow-service-resteasy" />
     <file type="web" url="file://$PROJECT_DIR$/03-services/snow-service-springboot" />
     <file type="web" url="file://$PROJECT_DIR$/06-web/snow-web" />
+    <file type="web" url="file://$PROJECT_DIR$/06-web/snow-web-swagger" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="E:/javadoc" />
