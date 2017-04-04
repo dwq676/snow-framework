@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -44,15 +45,21 @@ public class DataSourceManager implements ContextRefreshedListener {
     /**
      * 根据关键字获取数据源bean
      *
-     * @param key
+     * @param keys
      * @return
      */
-    public static DataSourceBean getDataSourceBean(String... key) {
-        if (key.length > 0) {
-            if (!Validator.isEmpty(key[0]))
-                return dataSourceBeanMap.get(key[0]);
+    public static DataSourceBean getDataSourceBean(String... keys) {
+        DataSourceBean dataSourceBean = null;
+        String key = getDefaultDatasourceKey();
+        if (keys.length > 0) {
+            if (!Validator.isEmpty(keys[0]))
+                key = keys[0];
         }
-        return dataSourceBeanMap.get(DataSourceManager.getDefaultDatasourceKey());
+        dataSourceBean = dataSourceBeanMap.get(key);
+        if (Validator.isEmpty(dataSourceBean))
+            throw new DataSourceNotFundException(MessageFormat
+                    .format("未找到任何key值为[{}]的数据源DataSourceBean,可能是原因是未在配置文件中配置数据源", key));
+        return dataSourceBean;
     }
 
     /*

@@ -17,6 +17,7 @@
         <module>snow-dao-liteorm</module>
         <module>snow-dao-mongodb</module>
         <module>snow-dao-elastic</module>
+        <module>snow-dao-hbase</module>
     </modules>
 
 

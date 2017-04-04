@@ -55,6 +55,8 @@ public interface CrudService {
 
     ElasticProxy elastic(String... index);
 
+    HBaseProxy hbase();
+
     /**
      * 获取指定ID的相关实体
      * 此方法不管数据有效无效均能查询出来

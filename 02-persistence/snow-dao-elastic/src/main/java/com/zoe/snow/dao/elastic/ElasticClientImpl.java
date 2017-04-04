@@ -107,24 +107,7 @@ public class ElasticClientImpl extends ConnectionSupport<Client>
 
     @Override
     public void onContextRefreshed() {
-        if (Validator.isEmpty(dataSources) || Validator.isEmpty(dataSources.getDataSourceBeanMap()))
-            throw new NullArgumentException("DataSources相关的Bean节点不能为空");
-
-        if (Validator.isEmpty(dataSources.getDataSourceBeanMap().get("elastic")))
-            throw new NullArgumentException("没有找到key='elastic'相关的数据源配置！");
-
-
-        dataSourceHost = dataSources.getDataSourceBeanMap().get("elastic").getWriteAbleHost();
-        if (Validator.isEmpty(dataSourceHost))
-            throw new NullArgumentException("未找到elastic可读可写的主机节点！");
-        if (dataSourceHost.getHostSwitch())
-            get(Mode.Write, "elastic");
-
-        dataSourceHost = dataSources.getDataSourceBeanMap().get("elastic").getReadOnlyHost();
-        if (Validator.isEmpty(dataSourceHost))
-            dataSourceHost = dataSources.getDataSourceBeanMap().get("elastic").getWriteAbleHost();
-        if (dataSourceHost.getHostSwitch())
-            get(Mode.Read, "elastic");
+        initDatasource("elastic");
     }
 
     @Override

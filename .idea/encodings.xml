@@ -32,6 +32,7 @@
     <file url="file://$PROJECT_DIR$/02-persistence" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-datasource" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-elastic" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-hbase" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-hibernate" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-liteorm" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/02-persistence/snow-dao-mongodb" charset="UTF-8" />

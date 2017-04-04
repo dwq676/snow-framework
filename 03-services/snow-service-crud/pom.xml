@@ -33,6 +33,11 @@
         </dependency>
         <dependency>
             <groupId>com.zoe.snow</groupId>
+            <artifactId>snow-dao-hbase</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zoe.snow</groupId>
             <artifactId>snow-configuration</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

@@ -19,6 +19,7 @@
         <module name="snow-core" />
         <module name="snow-dao-datasource" />
         <module name="snow-dao-elastic" />
+        <module name="snow-dao-hbase" />
         <module name="snow-dao-hibernate" />
         <module name="snow-dao-liteorm" />
         <module name="snow-dao-mongodb" />
@@ -75,6 +76,7 @@
       <module name="snow-core" target="1.8" />
       <module name="snow-dao-datasource" target="1.8" />
       <module name="snow-dao-elastic" target="1.8" />
+      <module name="snow-dao-hbase" target="1.8" />
       <module name="snow-dao-hibernate" target="1.8" />
       <module name="snow-dao-liteorm" target="1.8" />
       <module name="snow-dao-mongodb" target="1.8" />

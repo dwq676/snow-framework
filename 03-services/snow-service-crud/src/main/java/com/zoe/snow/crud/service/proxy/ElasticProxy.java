@@ -24,7 +24,7 @@ import java.util.function.Supplier;
  */
 @Component("snow.crud.service.proxy.elastic")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class ElasticProxy extends ProxySupport{
+public class ElasticProxy extends ProxySupport {
     /*private Query query;
     private ExecuteService executeService;
     private QueryService queryService;*/
@@ -40,6 +40,10 @@ public class ElasticProxy extends ProxySupport{
             this.ndx = index[0];
         }
     }*/
+
+    public ElasticProxy() {
+        this.queryName = "elastic";
+    }
 
     public ElasticProxy from(String fromType) {
         getQuery().from(fromType);

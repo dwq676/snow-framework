@@ -4,6 +4,7 @@ import com.zoe.snow.conf.DaoConfiguration;
 import com.zoe.snow.dao.dialect.Dialect;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
+import org.apache.commons.lang.NullArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.MappedSuperclass;
@@ -29,6 +30,10 @@ public abstract class ConnectionSupport<T> implements ConnectionManage<T> {
     protected int minCount = 20;
     @Autowired
     protected DaoConfiguration daoConfiguration;
+
+    @Autowired
+    private DataSources dataSources;
+    private DataSourceHost dataSourceHost = null;
 
     @Override
     public boolean isCommit() {
@@ -214,5 +219,26 @@ public abstract class ConnectionSupport<T> implements ConnectionManage<T> {
         transactional.remove();
         connections.remove();
 
+    }
+
+    protected void initDatasource(String dataSource) {
+        if (Validator.isEmpty(dataSources) || Validator.isEmpty(dataSources.getDataSourceBeanMap()))
+            throw new NullArgumentException("DataSources相关的Bean节点不能为空");
+
+        if (Validator.isEmpty(dataSources.getDataSourceBeanMap().get(dataSource)))
+            throw new NullArgumentException("没有找到key='" + dataSource + "'相关的数据源配置！");
+
+
+        dataSourceHost = dataSources.getDataSourceBeanMap().get(dataSource).getWriteAbleHost();
+        if (Validator.isEmpty(dataSourceHost))
+            throw new NullArgumentException("未找到" + dataSource + "可读可写的主机节点！");
+        if (dataSourceHost.getHostSwitch())
+            get(Mode.Write, dataSource);
+
+        dataSourceHost = dataSources.getDataSourceBeanMap().get(dataSource).getReadOnlyHost();
+        if (Validator.isEmpty(dataSourceHost))
+            dataSourceHost = dataSources.getDataSourceBeanMap().get(dataSource).getWriteAbleHost();
+        if (dataSourceHost.getHostSwitch())
+            get(Mode.Read, dataSource);
     }
 }

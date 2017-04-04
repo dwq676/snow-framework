@@ -23,6 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/01-infrastructure/snow-core/snow-core.iml" filepath="$PROJECT_DIR$/01-infrastructure/snow-core/snow-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-datasource/snow-dao-datasource.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-datasource/snow-dao-datasource.iml" />
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-elastic/snow-dao-elastic.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-elastic/snow-dao-elastic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-hbase/snow-dao-hbase.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-hbase/snow-dao-hbase.iml" />
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-hibernate/snow-dao-hibernate.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-hibernate/snow-dao-hibernate.iml" />
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-liteorm/snow-dao-liteorm.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-liteorm/snow-dao-liteorm.iml" />
       <module fileurl="file://$PROJECT_DIR$/02-persistence/snow-dao-mongodb/snow-dao-mongodb.iml" filepath="$PROJECT_DIR$/02-persistence/snow-dao-mongodb/snow-dao-mongodb.iml" />

@@ -96,6 +96,11 @@ public class CrudServiceImpl implements CrudService {
     }
 
     @Override
+    public HBaseProxy hbase() {
+        return BeanFactory.getBean(HBaseProxy.class);
+    }
+
+    @Override
     public MapProxy map(Class<? extends Model> classZ) {
         MapProxy mapProxy = BeanFactory.getBean(MapProxy.class);
         mapProxy.from(classZ);

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -36,7 +37,6 @@ public class UserCtrl {
         r.add(userModel);
         return r;
     }
-
     /*@ApiOperation(value = "getUser", notes = "get user info by user id")
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

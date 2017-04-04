@@ -30,5 +30,6 @@
         <module>snow-spring</module>
         <module>snow-resteasy</module>
         <module>snow-delivery</module>
+        <!--<module>snow-phoenix</module>-->
     </modules>
 </project>
