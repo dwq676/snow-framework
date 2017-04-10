@@ -12,6 +12,7 @@
         <module name="resteasy-servlet-initializer" />
         <module name="resteasy-spring" />
         <module name="snow-Authorization" />
+        <module name="snow-authorization" />
         <module name="snow-cache" />
         <module name="snow-communication" />
         <module name="snow-configuration" />
@@ -67,6 +68,7 @@
       <module name="resteasy-servlet-initializer" target="1.8" />
       <module name="resteasy-spring" target="1.8" />
       <module name="snow-aop" target="1.8" />
+      <module name="snow-authorization" target="1.8" />
       <module name="snow-Authorization" target="1.8" />
       <module name="snow-cache" target="1.8" />
       <module name="snow-citrus-webx" target="1.8" />

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>07-test</artifactId>
+        <groupId>com.zoe.snow</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>snow-test-phoenix</artifactId>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.phoenix/phoenix-core -->
+        <!--<dependency>
+            <groupId>org.apache.phoenix</groupId>
+            <artifactId>phoenix-core</artifactId>
+            <version>4.10.0-HBase-1.2-cdh-SNAPSHOT</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.phoenix/phoenix-server-client -->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-thrift</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

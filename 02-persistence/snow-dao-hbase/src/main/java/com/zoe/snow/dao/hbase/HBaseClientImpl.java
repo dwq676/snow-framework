@@ -2,14 +2,14 @@ package com.zoe.snow.dao.hbase;
 
 import com.zoe.snow.dao.*;
 import com.zoe.snow.dao.dialect.Dialect;
+import com.zoe.snow.enums.EPlatformEnum;
 import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.log.Logger;
+import com.zoe.snow.util.OSinfo;
 import com.zoe.snow.util.Validator;
-import org.apache.commons.lang.NullArgumentException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.security.UserGroupInformation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -30,7 +30,11 @@ public class HBaseClientImpl extends ConnectionSupport<Configuration>
 
     @Override
     public Configuration open(String datasource, Mode mode) {
-        String classPath = Configuration.class.getResource("/").getPath().substring(1);
+        String classPath = Configuration.class.getResource("/").getPath();
+        EPlatformEnum ePlatformEnum = OSinfo.getOSname();
+        Logger.info(ePlatformEnum.toString());
+        if (ePlatformEnum == EPlatformEnum.WINDOWS)
+            classPath = classPath.substring(1);
         if (Validator.isEmpty(System.getProperty(HBaseProperty.HADOOP_HOME_DIR)))
             System.setProperty(HBaseProperty.HADOOP_HOME_DIR, classPath + HBaseProperty.HADOOP_BIN);
         System.out.println(classPath + HBaseProperty.KRB5_CONF);

@@ -105,7 +105,7 @@ public class HBaseDaoImpl implements HBaseDao {
                     //familyJsonObject.put(f,Bytes.toString(CellUtil.cloneValue(cell)));
                     JSONArray cellValues = new JSONArray();
                     for (Cell cell : values) {
-                        cellValues.add(Bytes.toString(CellUtil.cloneValue(cell)));
+                        cellValues.add(Bytes.toString(CellUtil.cloneValue(cell)).replace("\"", "'"));
                     }
                     fJsonObject.put(f, cellValues);
                 }

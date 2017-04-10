@@ -48,7 +48,7 @@
                         </connector>
                     </connectors>
                     <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
-                    <contextPath>/api</contextPath>
+                    <contextPath>/</contextPath>
                 </configuration>
             </plugin>
         </plugins>

@@ -87,7 +87,7 @@
         </dependency>
         <dependency>
             <groupId>com.zoe.snow</groupId>
-            <artifactId>snow-Authorization</artifactId>
+            <artifactId>snow-authorization</artifactId>
             <version>${snow.project.version}</version>
         </dependency>
         <dependency>

@@ -73,6 +73,26 @@
                         </property>
                     </bean>
                 </entry>
+
+                <entry key="hbase">
+                    <bean class="com.zoe.snow.dao.DataSourceBean">
+                        <property name="cluster" value="s2,s3,s4"/>
+                        <property name="driver" value="thrift"/>
+                        <property name="schema" value="raw"/>
+                        <property name="type" value=""/>
+                        <property name="writeAbleHost">
+                            <bean class="com.zoe.snow.dao.DataSourceHost">
+                                <!--主机IP地址，可以输入对称加密后的地址-->
+                                <property name="ip" value="s4"/>
+                                <!--端口号，默认可以不填写-->
+                                <property name="port" value="9090"/>
+                                <!--节点控制开关，默认为开的-->
+                                <property name="hostSwitch" value="true"/>
+                                <property name="password" value="hbase/s4"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </entry>
             </map>
         </property>
     </bean>

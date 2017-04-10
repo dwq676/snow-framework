@@ -4,6 +4,7 @@ import com.zoe.snow.Global;
 import com.zoe.snow.auth.TokenProcessor;
 import com.zoe.snow.crud.CrudService;
 import com.zoe.snow.crud.Result;
+import com.zoe.snow.crud.service.proxy.HBaseProxy;
 import com.zoe.snow.crud.service.proxy.QueryProxy;
 import com.zoe.snow.dao.Closable;
 import com.zoe.snow.dao.Transaction;
@@ -22,6 +23,8 @@ import com.zoe.snow.test.UserModel;
 import com.zoe.snow.test.UserResultModel;
 import com.zoe.snow.util.Generator;
 import com.zoe.snow.util.PinYinUtil;
+import com.zoe.snow.util.Validator;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
@@ -65,6 +68,20 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
     @Transactional
     public void myTest() {
 
+    }
+
+    @Test
+    public void testHbase() {
+        String rowKey = "46.31.178.2_207.226.247.1";
+        if (Validator.isEmpty(rowKey))
+            return;
+        String[] rowKeys = rowKey.split(",");
+        HBaseProxy hBaseProxy = crudService.hbase().select("dat").from("rdc_rawdata_mping");
+        for (String key : rowKeys) {
+            hBaseProxy.where(Generator.uuid(), key);
+        }
+        System.out.println(hBaseProxy.asJsonObject().toString());
+        return;
     }
 
     @Test

@@ -17,7 +17,7 @@
         <module>snow-configuration</module>
         <module>snow-maven</module>
         <module>snow-context</module>
-        <module>snow-Authorization</module>
+        <module>snow-authorization</module>
         <module>snow-maven-dubbox</module>
         <module>snow-rabbitmq</module>
         <module>snow-spark</module>
