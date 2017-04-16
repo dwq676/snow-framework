@@ -213,10 +213,12 @@ public class Result<T> implements Serializable {
         if (!Validator.isEmpty(code))
             msg = messageTool.get(code.getType(), lastArgs.toArray());
         this.data = data;
-        if (!Validator.isEmpty(code))
-            this.code = code.getType();
+        String msgCode = code.getType();
+        if (msgCode.startsWith("msg"))
+            msgCode = msgCode.substring(4);
+        if (!Validator.isEmpty(msgCode))
+            this.code = msgCode;
         this.message = msg;
-
         return this;
     }
 

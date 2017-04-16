@@ -1,6 +1,7 @@
 package com.zoe.snow.crud.service;
 
 import com.zoe.snow.Global;
+import com.zoe.snow.auth.NoNeedVerify;
 import com.zoe.snow.context.aop.annotation.LogTo;
 import com.zoe.snow.crud.CrudServiceHelper;
 import com.zoe.snow.crud.OrmManage;
@@ -25,6 +26,7 @@ import java.util.Map;
  * @date 2017/2/26
  */
 @Component("snow.crud.service.basic")
+@NoNeedVerify
 public class ServiceBasic implements QueryService, ExecuteService {
     //protected CrudDao crudDao;
     @Autowired

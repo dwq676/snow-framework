@@ -5,10 +5,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -42,11 +42,20 @@ public class RestApiConfig extends WebMvcConfigurationSupport {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
+        /*return new ApiInfoBuilder()
                 .title("QoS APIs")
                 .termsOfServiceUrl("")
                 .contact("QUANTIL,INC.")
                 .version("1.1")
-                .build();
+                .build();*/
+        Contact contact = new Contact("QUANTIL,INC.", "", "");
+        return new ApiInfo("QoS APIs",//大标题 title
+                "",//小标题
+                "0.1",//版本
+                "",//termsOfServiceUrl
+                contact,//作者
+                "RDC",//链接显示文字
+                ""//网站链接
+        );
     }
 }

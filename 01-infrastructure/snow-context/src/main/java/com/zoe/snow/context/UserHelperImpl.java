@@ -30,11 +30,14 @@ public class UserHelperImpl implements UserHelper {
     @Override
     public BaseUserModelSupport getUser(String... token) {
         BaseUserModelSupport baseUserModelSupport = null;
-        if (session != null)
-            baseUserModelSupport = session.get("##user");
+        if (token.length > 0) {
+            baseUserModelSupport = session.get(token[0]);
+            if (baseUserModelSupport == null)
+                baseUserModelSupport = Cache.getInstance().get(token[0]);        }
+
         if (baseUserModelSupport == null)
-            if (token.length > 0)
-                baseUserModelSupport = Cache.getInstance().get(token[0]);
+            baseUserModelSupport = session.get("##user");
+
         return baseUserModelSupport;
     }
 

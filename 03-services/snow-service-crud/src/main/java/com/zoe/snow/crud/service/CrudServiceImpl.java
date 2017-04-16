@@ -3,6 +3,7 @@ package com.zoe.snow.crud.service;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import com.zoe.snow.auth.NoNeedVerify;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.conf.CrudConfiguration;
 import com.zoe.snow.context.aop.annotation.LogTo;
@@ -43,6 +44,7 @@ import javax.persistence.Transient;
  * @date 2015/11/6
  */
 @Component("snow.crud.service")
+@NoNeedVerify
 public class CrudServiceImpl implements CrudService {
     //protected CrudDao crudDao;
     @Autowired

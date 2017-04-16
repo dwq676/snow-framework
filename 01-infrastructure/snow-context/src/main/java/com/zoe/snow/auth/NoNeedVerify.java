@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * @date 2016/11/11
  */
 @Documented
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NoNeedVerify {
 }

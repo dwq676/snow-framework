@@ -11,7 +11,7 @@ public enum Message {
     /**
      * 成功操作
      */
-    Success("success"),
+    Success("msg.200"),
 
     /**
      * 业务逻辑相关
@@ -23,7 +23,7 @@ public enum Message {
     Error("error"),
 
     /* 调用服务失败 */
-    ServiceError("error.service"),
+    ServiceError("msg.50001"),
 
     /**
      * 非法输入
@@ -35,7 +35,7 @@ public enum Message {
      */
     Exist("error.exists"),
 
-    NoExist("error.not.exists"),
+    NoExist("msg.30001"),
 
     /**
      * 添加失败
@@ -55,7 +55,7 @@ public enum Message {
     /**
      * 无法查询到相关记录
      */
-    SelectNoAnyRecord("error.select.not.record"),
+    SelectNoAnyRecord("msg.30002"),
 
     /**
      * 重复操作
@@ -69,7 +69,7 @@ public enum Message {
     /**
      * 未授权
      */
-    UnAuthorized("error.unauthorized"),
+    UnAuthorized("msg.40005"),
     /**
      * 不允许为空
      */

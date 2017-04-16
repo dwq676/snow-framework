@@ -15,13 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Dai Wenqing
  * @date 2016/8/4
  */
-@Controller("snow.web.index")
+//@Controller("snow.web.index")
 public class IndexCtrl {
 
     @Autowired
     private Request request;
 
-    @RequestMapping("/")
+    //@RequestMapping("/")
     public ModelAndView getIndexView() {
         return new ModelAndView("/module/index/index");
     }

@@ -59,8 +59,6 @@ public class ServiceFilter implements Filter {
         String uri = request.getRequestURI();
 
         File file = new File(context.getAbsolutePath(uri));
-        /*if (!file.exists())
-            return false;*/
 
         long time = request.getDateHeader("If-Modified-Since");
         if (time > 0) {
@@ -73,8 +71,6 @@ public class ServiceFilter implements Filter {
         }
         response.addDateHeader("Last-Modified", file.lastModified());
         response.setHeader("ETag", Converter.toString(file.lastModified()));
-        /*if (Logger.isDebugEnable())
-            Logger.debug("请求资源[{}]已变更，重新获取最新资源。", uri);*/
         return false;
     }
 

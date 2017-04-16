@@ -79,7 +79,10 @@ public class ReplyHelper {
         StackTraceElement stack[] = Thread.currentThread().getStackTrace();
         // String callName = stack[2].getClassName();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", message.getType());
+        String msgCode = message.getType();
+        if (msgCode.startsWith("msg"))
+            msgCode = msgCode.substring(4);
+        jsonObject.put("code", msgCode);
         if (data != null)
             jsonObject.put("data", data);
         // 获取操作失败的原因

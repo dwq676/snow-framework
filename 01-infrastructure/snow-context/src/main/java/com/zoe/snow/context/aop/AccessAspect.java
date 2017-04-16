@@ -210,7 +210,11 @@ public class AccessAspect {
     }
 
     private boolean auth(Method method, Object[] args) {
-        NoNeedVerify noNeedVerify = method.getAnnotation(NoNeedVerify.class);
+        if (method == null)
+            return false;
+        NoNeedVerify noNeedVerify = method.getDeclaringClass().getAnnotation(NoNeedVerify.class);
+        if (noNeedVerify == null)
+            noNeedVerify = method.getAnnotation(NoNeedVerify.class);
         /*为空证明这个不是特殊方法*/
         if (noNeedVerify == null) {
             if (authBean != null) {
@@ -218,7 +222,8 @@ public class AccessAspect {
                 if (authBean.getAuthSwitch()) {
                     if (method.getParameters().length == 0)
                         return false;
-                    String token = args[method.getParameters().length - 1].toString();
+                    String token = args[method.getParameters().length - 1] == null ?
+                            "" : args[method.getParameters().length - 1].toString();
                     if (Validator.isEmpty(token))
                         token = BeanFactory.getBean(Request.class).get("token");
                     BaseUserModelSupport user = userHelper.getUser(token);
