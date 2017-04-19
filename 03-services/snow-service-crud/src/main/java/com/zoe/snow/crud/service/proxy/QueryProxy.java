@@ -16,6 +16,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -26,7 +27,7 @@ import java.util.function.Supplier;
  */
 @Component("snow.crud.service.proxy.query")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class QueryProxy extends ProxySupport{
+public class QueryProxy extends ProxySupport {
     private boolean excludeDomain = false;
 
     public QueryProxy setQueryName(String queryName) {
@@ -112,9 +113,14 @@ public class QueryProxy extends ProxySupport{
         return list(false, args);
     }*/
 
-    public <T extends Model> PageList<T> list() {
+    public <T extends Model> PageList<T> pageList() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
         return queryService.list(getQuery(), excludeDomain);
+    }
+
+    public <T extends Model> List<T> list() {
+        //pageList 一定不为空
+        return (List<T>) pageList().getList();
     }
 
     /*public <T extends Model> T one(Object... args) {

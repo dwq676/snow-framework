@@ -12,6 +12,7 @@ import com.zoe.snow.dao.Mode;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.enums.Criterion;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.mapper.ModelTable;
 import com.zoe.snow.model.mapper.ModelTables;
 import com.zoe.snow.util.Converter;
@@ -145,7 +146,7 @@ public class HibernateOrmImpl implements HibernateOrm {
     }
 
     @Override
-    public <T extends Model> boolean save(T model, String... datasource) {
+    public <T extends Model> boolean save(T model, InterventionType interventionType, String... datasource) {
         if (model == null) {
             Logger.warn(null, "要保存的Model为null！");
             return false;
@@ -159,7 +160,12 @@ public class HibernateOrmImpl implements HibernateOrm {
             check(model, datasource);
         Session session = sessionManage.get(Mode.Write, datasource);
         try {
-            session.saveOrUpdate(model);
+            if (interventionType == InterventionType.INSERT)
+                session.save(model);
+            else if (interventionType == InterventionType.UPDATE)
+                session.update(model);
+            else
+                session.saveOrUpdate(model);
             session.flush();
         } catch (HibernateException e) {
             object = session.merge(model);

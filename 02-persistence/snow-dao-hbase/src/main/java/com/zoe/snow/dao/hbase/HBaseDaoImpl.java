@@ -7,6 +7,7 @@ import com.zoe.snow.dao.orm.WhereContext;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -60,7 +61,7 @@ public class HBaseDaoImpl implements HBaseDao {
     }
 
     @Override
-    public <T extends Model> boolean save(T model, String... datasource) {
+    public <T extends Model> boolean save(T model, InterventionType interventionType, String... datasource) {
         return false;
     }
 

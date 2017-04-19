@@ -88,13 +88,18 @@ public class HibernateQuery extends QueryImpl implements Query {
                 whereStr = whereStr.replace(k.getSimpleName(), tableNameAlias.get(k));
             }
             hql.append(" WHERE (").append(whereStr).append(")");
-        } else
-            hql.append(" WHERE ");
+        }
+        /*else
+            hql.append(" WHERE ");*/
         boolean starting = false;
 
         for (String k : this.getQueryContext().keySet()) {
             if (starting || !Validator.isEmpty(this.getWhere()))
                 hql.append(" and ");
+            else {
+                if (!starting)
+                    hql.append(" WHERE ");
+            }
             hql.append(k).append(Criterion.Equals.getType());
             // query.getArgs().add(query.getQueryContext().get(k));
             starting = true;

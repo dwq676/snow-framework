@@ -11,6 +11,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * SqlProxy
  *
@@ -36,6 +38,7 @@ public class SqlProxy {
 
     /**
      * 动态表名
+     *
      * @param tableName
      * @param sql
      */
@@ -53,10 +56,16 @@ public class SqlProxy {
         return this;
     }
 
-    public <T extends Model> PageList<T> list(Object... args) {
+    public <T extends Model> PageList<T> pageList(Object... args) {
         Sql sqlOrm = BeanFactory.getBean(Sql.class);
         return sqlOrm.getList(this.classZ, this.sql, size, page, args);
     }
+
+    public <T extends Model> List<T> list(Object... args) {
+        //pageList 一定不为空
+        return (List<T>) pageList(args).getList();
+    }
+
 
     public <T extends Model> T one(Object... args) {
         Sql sqlOrm = BeanFactory.getBean(Sql.class);

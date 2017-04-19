@@ -15,6 +15,7 @@ import com.zoe.snow.model.Model;
 import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.mapper.ModelTable;
 import com.zoe.snow.model.mapper.ModelTables;
 import com.zoe.snow.model.support.BaseModel;
@@ -137,7 +138,7 @@ public class LiteOrmImpl implements LiteOrm {
 
 
     @Override
-    public <T extends Model> boolean save(T model, String... datasource) {
+    public <T extends Model> boolean save(T model, InterventionType interventionType, String... datasource) {
         if (model == null) {
             Logger.warn(null, "要保存的Model为null！");
 

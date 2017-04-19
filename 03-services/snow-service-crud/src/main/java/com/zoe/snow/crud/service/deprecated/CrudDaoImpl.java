@@ -12,6 +12,7 @@ import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.annotation.Datasource;
 import com.zoe.snow.model.enums.Criterion;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,7 +97,7 @@ public class CrudDaoImpl implements CrudDao {
      */
     @Override
     public <T extends Model> boolean save(T model) {
-        return crudOrmManage.getOrm().save(model, getDatasource(model.getClass()));
+        return crudOrmManage.getOrm().save(model, InterventionType.NOTHING, getDatasource(model.getClass()));
     }
 
     @Override

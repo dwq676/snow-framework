@@ -446,12 +446,12 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         crudService.execute().remove(UserModel.class, "2");
 
         PageList<UserModel> tt = crudService.map(UserModel.class).put("id", Criterion.Like)
-                .put("userName", Criterion.Like, "8a80811", "jack_3").list();
+                .put("userName", Criterion.Like, "8a80811", "jack_3").pageList();
         PageList<UserModel> r1 = null;
         //String sql = crudService.query().from(UserModel.class).join(School.class, JoinType.Inner).getSql();
         //PageList<UserResultModel> re = crudService.query().list();
         PageList<UserModel> re1 = crudService.query().from(UserModel.class)
-                .where("userName", Criterion.In, "jack_28,jack_32").paging(1, 10).list();
+                .where("userName", Criterion.In, "jack_28,jack_32").paging(1, 10).pageList();
         //将有效无效的数据都能查询出来
         QueryProxy queryProxy = crudService.query().from(UserModel.class).to(UserResultModel.class)
                 .where("id", Criterion.Like, "8a80811")

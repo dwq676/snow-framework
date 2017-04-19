@@ -8,6 +8,7 @@ import com.zoe.snow.dao.orm.WhereContext;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
@@ -102,7 +103,7 @@ public class ElasticDaoImpl implements ElasticDao {
     }
 
     @Override
-    public <T extends Model> boolean save(T model, String... datasource) {
+    public <T extends Model> boolean save(T model, InterventionType interventionType, String... datasource) {
         return false;
     }
 

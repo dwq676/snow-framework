@@ -10,6 +10,7 @@ import com.zoe.snow.dao.orm.Query;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.support.BaseModel;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
@@ -86,14 +87,21 @@ public class ServiceBasic implements QueryService, ExecuteService {
         if (query == null)
             return false;
         PageList<T> modelList = all(query, false);
-        modelList.getList().forEach(model -> {
-            deleteOrRecycle(deleteType, model);
-        });
-        return true;
+        boolean re = true;
+        for (Model model : modelList.getList()) {
+            re = re && deleteOrRecycle(deleteType, model);
+        }
+        return re;
     }
 
-    public void deleteOrRecycle(DeleteType deleteType, Model model) {
-        if (model != null) {
+    /**
+     * 更改状态的删除，为假删除，建立了实体实际BaseModel接口，有一个有效标记字段
+     *
+     * @param deleteType
+     * @param model
+     */
+    public boolean deleteOrRecycle(DeleteType deleteType, Model model) {
+        if (model != null && model instanceof BaseModel) {
             switch (deleteType) {
                 case Recycle:
                     // criterionMap.put("validFlag", Criterion.Equals);
@@ -108,9 +116,14 @@ public class ServiceBasic implements QueryService, ExecuteService {
                     ((BaseModel) model).setValidFlag(DeleteType.Delete.getType());
                     break;
             }
-            ormManage.getOrm().save(model, CrudServiceHelper.getDatasource(model.getClass()));
+            return ormManage.getOrm().save(model, InterventionType.UPDATE, CrudServiceHelper.getDatasource(model.getClass()));
+        } else {
+            if (deleteType == DeleteType.Remove)
+                return ormManage.getOrm().delete(model);
         }
+        return false;
     }
+
 
     @LogTo("crud")
     @Override

@@ -2,6 +2,7 @@ package com.zoe.snow.crud;
 
 import com.zoe.snow.crud.service.proxy.*;
 import com.zoe.snow.model.Model;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.validator.exception.ExistsException;
 import com.zoe.snow.validator.exception.ExistsInRecycleBinException;
 
@@ -78,7 +79,7 @@ public interface CrudService {
     <T extends Model> boolean deleteById(Class<T> classZ, String id);
 
     /**
-     * 保存数据，
+     * 保存数据
      * 1、会做数据重复性检查，只需在需要判断重复性字上增加注解：@Unique
      * 2、能进行级联保存操作
      * 3、根据ID值是否为空进行更新或插入判断
@@ -87,10 +88,11 @@ public interface CrudService {
      * 1、实体ID为空时为新增行数据；
      * 2、实休ID不为空时为更新行数据，非ID字段的值为空时，会将其空值保存到数据库(更新操作慎用)
      *
-     * @param model 实体对象
+     * @param model            实体对象
+     * @param interventionType 强制干预字段，正常操作会根据ID是否为空判断进行更新或者新增，但此字段不为空时会按其意思进行
      * @return
      */
-    <T extends Model> Boolean save(T model);
+    <T extends Model> Boolean save(T model, InterventionType... interventionType);
 
     /**
      * 批量保存

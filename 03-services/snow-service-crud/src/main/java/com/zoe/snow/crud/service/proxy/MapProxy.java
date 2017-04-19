@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,7 +23,7 @@ import java.util.Map;
  */
 @Component("snow.crud.service.proxy.map")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class MapProxy extends ProxySupport{
+public class MapProxy extends ProxySupport {
     private Map<String, Criterion> map = new LinkedHashMap<>();
     private int page = -1;
     private int size = -1;
@@ -80,10 +81,15 @@ public class MapProxy extends ProxySupport{
         return this;
     }
 
-    public <T extends Model> PageList<T> list() {
+    public <T extends Model> PageList<T> pageList() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
         Query query = CrudServiceHelper.mapToQuery(classZ, map, page, size, this.args);
         return queryService.list(query, excludeDomain);
+    }
+
+    public <T extends Model> List<T> list() {
+        //pageList 一定不为空
+        return (List<T>) pageList().getList();
     }
 
     /*public <T extends Model> T one(Object... args) {

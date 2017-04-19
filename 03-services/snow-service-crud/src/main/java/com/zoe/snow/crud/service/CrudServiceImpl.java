@@ -16,6 +16,7 @@ import com.zoe.snow.crud.service.proxy.*;
 import com.zoe.snow.dao.orm.OrmContext;
 import com.zoe.snow.dao.orm.Query;
 import com.zoe.snow.log.Logger;
+import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.model.mapper.ModelTables;
 import com.zoe.snow.model.support.BaseModelSupport;
@@ -146,15 +147,18 @@ public class CrudServiceImpl implements CrudService {
 
     @LogTo("crud")
     @Override
-    public <T extends Model> Boolean save(T model) {
+    public <T extends Model> Boolean save(T model, InterventionType... interventionTypes) {
         if (Validator.isEmpty(model))
             return false;
         if (baseModelHelper != null)
-            baseModelHelper.initBaseModel((BaseModel) model);
+            if (model instanceof BaseModel)
+                baseModelHelper.initBaseModel((BaseModel) model);
 
         hasExist(model);
-
-        return ormManage.getOrm().save(model, CrudServiceHelper.getDatasource(model.getClass()));
+        InterventionType interventionType = InterventionType.NOTHING;
+        if (interventionTypes.length > 0)
+            interventionType = interventionTypes[0];
+        return ormManage.getOrm().save(model, interventionType, CrudServiceHelper.getDatasource(model.getClass()));
     }
 
     /**
@@ -185,7 +189,7 @@ public class CrudServiceImpl implements CrudService {
         });
         PageList<T> pageList = BeanFactory.getBean(PageList.class);
         if (args.size() > 0) {
-            pageList = queryProxy.list();
+            pageList = queryProxy.pageList();
         }
         if (pageList.getList().size() > 0) {
             // 如果是修改，当前修改的实体的ID不能与库里有ID相等
@@ -251,7 +255,7 @@ public class CrudServiceImpl implements CrudService {
     public <T extends Model> Boolean update(T model, boolean toValidator) {
         if (Validator.isEmpty(model))
             return false;
-        if (toValidator)
+        if (toValidator && model instanceof BaseModel)
             hasExist(model);
         Query query = queryManager.getQuery();
         for (Method method : model.getClass().getMethods()) {
