@@ -289,6 +289,9 @@ public final class Security {
 
     public static void main(String[] args) {
         try {
+
+            System.out.println(Security.md5("DN:clound.apple.qtlcdn.com"));
+
             System.out.println("#####开始加密#####");
             System.out.println("root:" + Security.AESEncode("root"));
             System.out.println("192.168.2.39 :" + Security.AESEncode("192.168.2.39"));

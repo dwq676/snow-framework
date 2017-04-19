@@ -35,7 +35,7 @@ public enum Message {
      */
     Exist("error.exists"),
 
-    NoExist("msg.30001"),
+    NoExist("msg.40051"),
 
     /**
      * 添加失败
@@ -55,7 +55,7 @@ public enum Message {
     /**
      * 无法查询到相关记录
      */
-    SelectNoAnyRecord("msg.30002"),
+    SelectNoAnyRecord("msg.40052"),
 
     /**
      * 重复操作
@@ -69,11 +69,11 @@ public enum Message {
     /**
      * 未授权
      */
-    UnAuthorized("msg.40005"),
+    UnAuthorized("msg.40003"),
     /**
      * 不允许为空
      */
-    NotEmpty("error.parameter.not.empty"),
+    NotEmpty("msg.40021"),
     /**
      * 超过最大长度
      */

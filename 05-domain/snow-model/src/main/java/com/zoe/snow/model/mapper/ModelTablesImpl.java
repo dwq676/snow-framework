@@ -1,5 +1,6 @@
 package com.zoe.snow.model.mapper;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Set;
@@ -49,7 +50,7 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
 
     @Override
     public void onContextRefreshed() {
-        if (map != null )
+        if (map != null)
             return;
 
         map = new ConcurrentHashMap<>();
@@ -65,6 +66,8 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
     }
 
     protected void parse(Model model) {
+        if (model == null)
+            return;
         Table table = model.getClass().getAnnotation(Table.class);
         if (table == null)
             return;
@@ -78,34 +81,48 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
         modelTable.setTableName(table.name());
 
         Method[] methods = model.getClass().getMethods();
+
+        fromMethod(model, modelTable, methods);
+        fromField(model, modelTable);
+
+        map.put(model.getClass(), modelTable);
+        //tableNameMap.put(table.name(), model);
+    }
+
+    private void fromField(Model model, ModelTable modelTable) {
+        try {
+            for (Field field : model.getClass().getDeclaredFields()) {
+                //modelTable.addGetMethod(model.getClass(), field.getName(), method);
+                addColumn(modelTable, field.getAnnotation(Column.class), field.getName());
+                addUnique(modelTable, field.getAnnotation(Unique.class), field.getName());
+                addJoinColumn(modelTable, field.getAnnotation(JoinColumn.class),
+                        (Class<? extends Model>) field.getDeclaringClass(), field.getName());
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    private void fromMethod(Model model, ModelTable modelTable, Method[] methods) {
         for (Method method : methods) {
             String name = method.getName();
             if (name.length() < 3)
                 continue;
 
             if (name.equals("getId")) {
-                modelTable.setIdColumnName(method.getAnnotation(Column.class).name());
-
+                if (method.getAnnotation(Column.class) != null)
+                    modelTable.setIdColumnName(method.getAnnotation(Column.class).name());
                 continue;
             }
 
             String fieldName = name.substring(3);
             if (name.startsWith("get")) {
                 modelTable.addGetMethod(model.getClass(), fieldName, method);
-                Column column = method.getAnnotation(Column.class);
-                if (column != null)
-                    modelTable.addColumnAndProperties(column.name(), fieldName);
-                Unique unique = method.getAnnotation(Unique.class);
-                if (!Validator.isEmpty(unique))
-                    modelTable.addUniqueColumn(Converter.toFirstLowerCase(fieldName));
-                JoinColumn joinColumn = method.getAnnotation(JoinColumn.class);
-                if (!Validator.isEmpty(joinColumn)) {
-                    Class<? extends Model> clazz = (Class<? extends Model>) method.getReturnType();
-                    modelTable.addJoinColumn(joinColumn.name(), clazz);
-                    modelTable.addJoinColumnName(joinColumn.name(), fieldName);
-                    modelTable.addJoinReferenceName(joinColumn.name(), joinColumn.referencedColumnName());
-                    modelTable.getJoinColumn().put(clazz, joinColumn);
-                }
+                addColumn(modelTable, method.getAnnotation(Column.class), fieldName);
+                addUnique(modelTable, method.getAnnotation(Unique.class), fieldName);
+                addJoinColumn(modelTable, method.getAnnotation(JoinColumn.class),
+                        (Class<? extends Model>) method.getReturnType(), fieldName);
                 /*FetchWay fetch = method.getAnnotation(FetchWay.class);
                 if (!Validator.isEmpty(fetch))
                     modelTable.addFetchClass((Class<? extends Model>) method.getReturnType(), fetch);*/
@@ -114,12 +131,28 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
 
             if (name.startsWith("set")) {
                 modelTable.addSetMethod(model.getClass(), fieldName, method);
-
                 continue;
             }
         }
+    }
 
-        map.put(model.getClass(), modelTable);
-        //tableNameMap.put(table.name(), model);
+    private void addJoinColumn(ModelTable modelTable, JoinColumn joinColumn, Class<? extends Model> clazz, String fieldName) {
+        if (!Validator.isEmpty(joinColumn)) {
+            //Class<? extends Model> clazz = (Class<? extends Model>) method.getReturnType();
+            modelTable.addJoinColumn(joinColumn.name(), clazz);
+            modelTable.addJoinColumnName(joinColumn.name(), fieldName);
+            modelTable.addJoinReferenceName(joinColumn.name(), joinColumn.referencedColumnName());
+            modelTable.getJoinColumn().putIfAbsent(clazz, joinColumn);
+        }
+    }
+
+    private void addUnique(ModelTable modelTable, Unique unique, String fieldName) {
+        if (!Validator.isEmpty(unique))
+            modelTable.addUniqueColumn(Converter.toFirstLowerCase(fieldName));
+    }
+
+    private void addColumn(ModelTable modelTable, Column column, String fieldName) {
+        if (column != null)
+            modelTable.addColumnAndProperties(column.name(), fieldName);
     }
 }

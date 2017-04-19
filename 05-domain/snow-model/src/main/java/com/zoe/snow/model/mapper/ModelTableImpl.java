@@ -137,29 +137,30 @@ public class ModelTableImpl implements ModelTable {
     public void addColumnAndProperties(String columnName, String propertyName) {
         if (Validator.isEmpty(columnName) || Validator.isEmpty(propertyName))
             return;
-        columns.put(columnName.toLowerCase(), propertyName);
-        fieldMap.put(propertyName, columnName.toLowerCase());
+        columns.putIfAbsent(columnName.toLowerCase(), propertyName);
+        fieldMap.putIfAbsent(propertyName, columnName.toLowerCase());
         addLowerCase(propertyName);
     }
 
     @Override
     public void addJoinColumn(String columnName, Class<? extends Model> clazz) {
-        joinColumns.put(columnName.toLowerCase(), clazz);
+        joinColumns.putIfAbsent(columnName.toLowerCase(), clazz);
     }
 
     @Override
     public void addJoinColumnName(String columnName, String propertyName) {
-        joinColumnNames.put(columnName.toLowerCase(), propertyName);
+        joinColumnNames.putIfAbsent(columnName.toLowerCase(), propertyName);
         addLowerCase(propertyName);
     }
 
     @Override
     public void addJoinReferenceName(String columnName, String referenceName) {
-        joinReferenceNames.put(columnName, referenceName);
+        joinReferenceNames.putIfAbsent(columnName, referenceName);
     }
 
     protected void addLowerCase(String name) {
-        lowerCases.put(name.substring(0, 1).toLowerCase() + name.substring(1), name);
+        String key = name.substring(0, 1).toLowerCase() + name.substring(1);
+        lowerCases.putIfAbsent(key, name);
     }
 
     @SuppressWarnings("unchecked")
@@ -398,7 +399,8 @@ public class ModelTableImpl implements ModelTable {
     @Override
     public void addUniqueColumn(String columnName) {
         if (!Validator.isEmpty(columnName))
-            uniqueColumnList.add(columnName);
+            if (!uniqueColumnList.contains(uniqueColumnList))
+                uniqueColumnList.add(columnName);
     }
 
     /*@Override
