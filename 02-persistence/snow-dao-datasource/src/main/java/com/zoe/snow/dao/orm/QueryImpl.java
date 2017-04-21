@@ -117,11 +117,6 @@ public class QueryImpl extends OrmContextImpl implements Query {
                 whereContext.setOperator(operator[0]);
             }
         }
-        /*if (!Validator.isEmpty(getAs())) {
-            if (!column.contains(getAs())) {
-                this.whereBuffer.append(getAs() + ".");
-            }
-        }*/
         String from = this.getFrom() != null ? this.getFrom().getSimpleName() : this.getFromType();
         this.whereBuffer.append(from).append(".");
         if (byOrm || column.equals("id"))
@@ -130,62 +125,30 @@ public class QueryImpl extends OrmContextImpl implements Query {
             this.whereBuffer.append(modelTables.get(this.getFrom()).getFields().get(Converter.toFirstUpperCase(column)));
         if (!Validator.isEmpty(criterion))
             this.whereBuffer.append(criterion.getType());
+        boolean hasAdd = false;
         if (criterion == Criterion.In || criterion == Criterion.NotIN) {
-
-            String[] valueSplit = value.toString().split(",");
-            this.whereBuffer.append("(");
-            boolean add = false;
-            for (int i = 0; i < valueSplit.length; i++) {
-                if (add && i > 0)
+            int count = addArgs(value, Criterion.In, whereContext);
+            this.whereBuffer.append(" (");
+            for (int i = 0; i < count; i++) {
+                if (i > 0)
                     this.whereBuffer.append(",");
                 this.whereBuffer.append("?");
-                add = true;
             }
-            this.whereBuffer.append(")");
-        }
-
-        if (criterion == Criterion.Like) {
+            this.whereBuffer.append(") ");
+            hasAdd = true;
+        } else if (criterion == Criterion.Like) {
             if (value.toString().contains("%"))
-                value = value.toString().replace("%", "\\" + value);
+                value = value.toString().replace("%", "\\%");
             else if (value.toString().equals("_"))
-                value = value.toString().replace("_", "\\" + value);
-            args.add("%" + value + "%");
-            whereContext.setValue(value);
+                value = value.toString().replace("_", "\\_");
+            value = "%" + value + "%";
         } else if (criterion == Criterion.StartsWith) {
-            args.add(value + "%");
-            whereContext.setValue(value);
+            value = value + "%";
         } else if (criterion == Criterion.EndsWith) {
-            args.add("%" + value);
-            whereContext.setValue(value);
-        } else if (criterion == Criterion.Between) {
-            if (value.getClass().isArray()) {
-                Object[] values = (Object[]) value;
-                if (values.length > 1) {
-                    args.add(values[0]);
-                    args.add(values[1]);
-                    whereContext.setValue(values[0], values[1]);
-                } else
-                    throw new ParameterMisuseException("参数个数不对，对于Between and 需要2个参数");
-
-            } else {
-                String[] valueSplit = value.toString().split(",");
-                if (valueSplit.length > 1) {
-                    args.add(valueSplit[0]);
-                    args.add(valueSplit[1]);
-                    whereContext.setValue(valueSplit[0], valueSplit[1]);
-                } else {
-                    throw new ParameterMisuseException("参数个数不对，对于Between and 需要2个参数");
-                }
-            }
-        } else if (criterion == Criterion.In || criterion == Criterion.NotIN) {
-            String[] valueSplit = value.toString().split(",");
-            for (String v : valueSplit) {
-                args.add(v);
-            }
-        } else {
-            args.add(value);
-            whereContext.setValue(value);
+            value = "%" + value;
         }
+        if (!hasAdd)
+            addArgs(value, criterion, whereContext);
         return this;
     }
 
@@ -195,8 +158,8 @@ public class QueryImpl extends OrmContextImpl implements Query {
     }
 
     @Override
-    public Query where(Supplier<String> where, Object args, Operator... operators) {
-        String whereStr= where.get();
+    public Query where(Supplier<String> where, Object value, Operator... operators) {
+        String whereStr = where.get();
         if (!Validator.isEmpty(whereStr)) {
 
             if (operators.length > 0)
@@ -207,19 +170,54 @@ public class QueryImpl extends OrmContextImpl implements Query {
                 this.whereBuffer.append(" ");
             this.whereBuffer.append(whereStr);
             this.whereBuffer.append(" ");
-
-            if (!Validator.isEmpty(args)) {
-                Object[] values = null;
-                if (args.getClass().isArray()) {
-                    values = (Object[]) args;
-                    Arrays.asList(values).forEach(this.args::add);
-                } else {
-                    this.args.add(args);
-                }
-            }
+            if (whereStr.toLowerCase().indexOf("in") > -1)
+                addArgs(value, Criterion.In, null);
+            else if (whereStr.toLowerCase().indexOf("between") > -1)
+                addArgs(value, Criterion.Between, null);
+            else
+                addArgs(value, Criterion.Equals, null);
         }
         return this;
     }
+
+    /**
+     * @param value
+     * @param criterion
+     * @return
+     */
+    private int addArgs(Object value, Criterion criterion, WhereContext whereContext) {
+        int count = value == null ? 0 : 1;
+        if (!Validator.isEmpty(value)) {
+            Object[] values = null;
+            if (value.getClass().isArray()) {
+                values = (Object[]) value;
+                count = values.length;
+                Arrays.asList(values).forEach(this.args::add);
+                if (whereContext != null)
+                    Arrays.asList(values).forEach(whereContext::setValue);
+            } else {
+                if (criterion == Criterion.Between || criterion == Criterion.In) {
+                    String[] valueSplit = value.toString().split(",");
+                    count = valueSplit.length;
+                    for (String v : valueSplit) {
+                        this.args.add(v);
+                        if (whereContext != null)
+                            whereContext.setValue(v);
+                    }
+                } else {
+                    this.args.add(value);
+                    if (whereContext != null)
+                        whereContext.setValue(value);
+                }
+            }
+        }
+        if (criterion == Criterion.Between) {
+            if (count != 2)
+                throw new ParameterMisuseException("参数个数不对，对于Between and 需要2个参数");
+        }
+        return count;
+    }
+
 
     /**
      * 设置GROUP BY片段。为空则不分组。

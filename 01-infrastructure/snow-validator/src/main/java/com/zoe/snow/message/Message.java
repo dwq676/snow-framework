@@ -28,7 +28,7 @@ public enum Message {
     /**
      * 非法输入
      */
-    InputIllegal("error.input.illegal"),
+    InputIllegal("msg.40022"),
 
     /**
      * 信息已经存在

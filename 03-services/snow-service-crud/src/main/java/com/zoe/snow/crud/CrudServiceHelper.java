@@ -144,7 +144,8 @@ public class CrudServiceHelper {
         return query;
     }
 
-    public static Query mapToQuery(Class<? extends Model> classZ, Map<String, Criterion> criterionMap, int page, int size, Object... args) {
+    public static Query mapToQuery(Class<? extends Model> classZ, Map<String, Criterion> criterionMap
+            , int page, int size, Object... args) {
         QueryManager queryManager = BeanFactory.getBean(QueryManager.class);
         Query query = queryManager.getQuery();
         if (criterionMap == null)
