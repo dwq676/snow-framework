@@ -16,7 +16,7 @@ public enum Message {
     /**
      * 业务逻辑相关
      */
-    Business("business"),
+    Business("msg.40001"),
     /**
      * 通用错误提醒，可追加原因
      */

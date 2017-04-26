@@ -39,8 +39,22 @@ public class ServiceFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         setContext((HttpServletRequest) request, (HttpServletResponse) response);
+
+        HttpServletResponse res = (HttpServletResponse) response;
+        /*res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        res.setHeader("Access-Control-Max-Age", "3600");
+        res.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");*/
+
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Headers", " content-type");
+        res.setHeader("Access-Control-Allow-Methods", " POST");
+
+
         if (!ignore((HttpServletRequest) request, (HttpServletResponse) response))
             chain.doFilter(request, response);
+
+
     }
 
     @Override

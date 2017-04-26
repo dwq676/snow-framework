@@ -38,6 +38,9 @@ public class UserRealm extends AuthorizingRealm {
     }
 
     @Override
+    /**
+     *  /为当前登陆成功的用户授予权限和角色，针对已经登陆成功的用户
+     */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) throws AuthorizationException {
         String username = (String) principals.getPrimaryPrincipal();
         baseUserService = BeanFactory.getBean(BaseUserService.class);

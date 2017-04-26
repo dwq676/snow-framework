@@ -1,6 +1,6 @@
 package com.zoe.snow.test.support;
 
-import com.zoe.snow.model.support.user.BaseModelHelperImpl;
+import com.zoe.snow.model.support.user.ModelHelperImpl;
 import com.zoe.snow.test.School;
 import com.zoe.snow.test.Student;
 import com.zoe.snow.test.UserModel;
@@ -11,16 +11,16 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 /**
- * BaseModelHelperImplTest
+ * ModelHelperImplTest
  *
  * @author <a href="mailto:dwq676@126.com">daiwenqing</a>
  * @date 2017/2/26
  */
 @Service
 @ContextConfiguration(locations = {"/configuration.spring.xml"})
-public class BaseModelHelperImplTest extends AbstractTestNGSpringContextTests {
+public class ModelHelperImplTest extends AbstractTestNGSpringContextTests {
     @Autowired
-    private BaseModelHelperImpl baseModelHelper;
+    private ModelHelperImpl baseModelHelper;
 
     @Test
     public void testInitModel() {
@@ -29,7 +29,7 @@ public class BaseModelHelperImplTest extends AbstractTestNGSpringContextTests {
         userModel.setStudent(student);
         School school = new School();
         student.setSchool(school);
-        baseModelHelper.initBaseModel(userModel);
+        baseModelHelper.initModel(userModel);
     }
 
 

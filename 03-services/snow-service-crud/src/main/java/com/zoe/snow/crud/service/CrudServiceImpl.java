@@ -19,8 +19,8 @@ import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.model.mapper.ModelTables;
-import com.zoe.snow.model.support.BaseModelSupport;
-import com.zoe.snow.model.support.user.BaseModelHelper;
+import com.zoe.snow.model.support.ValidFlag;
+import com.zoe.snow.model.support.user.ModelHelper;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
@@ -57,7 +57,7 @@ public class CrudServiceImpl implements CrudService {
     @Autowired
     protected ExecuteService executeService;
     @Autowired(required = false)
-    protected BaseModelHelper baseModelHelper;
+    protected ModelHelper modelHelper;
     @Autowired
     protected CrudConfiguration crudConfiguration;
     @Autowired(required = false)
@@ -150,9 +150,9 @@ public class CrudServiceImpl implements CrudService {
     public <T extends Model> Boolean save(T model, InterventionType... interventionTypes) {
         if (Validator.isEmpty(model))
             return false;
-        if (baseModelHelper != null)
-            if (model instanceof BaseModel)
-                baseModelHelper.initBaseModel((BaseModel) model);
+
+        //初始化实体
+        modelHelper.initModel((BaseModel) model);
 
         hasExist(model);
         InterventionType interventionType = InterventionType.NOTHING;
@@ -195,9 +195,10 @@ public class CrudServiceImpl implements CrudService {
             // 如果是修改，当前修改的实体的ID不能与库里有ID相等
             if ((!Validator.isEmpty(model.getId()) && !pageList.getList().get(0).getId().equals(model.getId()))
                     || Validator.isEmpty(model.getId())) {
-                BaseModelSupport baseModelSupport = BaseModelSupport.class.cast(pageList.getList().get(0));
+                Model m = pageList.getList().get(0);
+                //BaseModelSupport baseModelSupport = BaseModelSupport.class.cast(pageList.getList().get(0));
                 //model.setId(baseModelSupport.getId());
-                int valid = baseModelSupport.getValidFlag();
+                int valid = ((ValidFlag) m).getValidFlag();
                 if (valid == 1)
                     throw new ExistsException(existList.toArray()).setModelName(model.getClass().getSimpleName());
 
@@ -255,7 +256,7 @@ public class CrudServiceImpl implements CrudService {
     public <T extends Model> Boolean update(T model, boolean toValidator) {
         if (Validator.isEmpty(model))
             return false;
-        if (toValidator && model instanceof BaseModel)
+        if (toValidator && model instanceof ValidFlag)
             hasExist(model);
         Query query = queryManager.getQuery();
         for (Method method : model.getClass().getMethods()) {

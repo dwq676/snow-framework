@@ -9,11 +9,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *  验证器，提供诸如邮件，手机号码正则表达式验证，同时支持对象包括是否为空
+ * 验证器，提供诸如邮件，手机号码正则表达式验证，同时支持对象包括是否为空
+ *
  * @author dwq
  */
 public final class Validator {
     private static final String EMAIL = "^(?:\\w+\\.?-?)*\\w+@(?:\\w+\\.?-?)*\\w+$";
+    private static final String IP_ADDRESS = "(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)";
 
     protected static Map<String, Pattern> patterns = new ConcurrentHashMap<>();
 
@@ -54,6 +56,10 @@ public final class Validator {
         return isEmpty(email) ? false : isMatchRegex(EMAIL, email);
     }
 
+    public static boolean isIP(String ipAddress) {
+        return isEmpty(ipAddress) ? false : isMatchRegex(IP_ADDRESS, ipAddress);
+    }
+
     /**
      * 验证字符串是否符合指定正则表达式所定义的规则。
      *
@@ -88,6 +94,10 @@ public final class Validator {
                 return false;
         }
         return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isIP("1.208.8.35"));
     }
 
 }

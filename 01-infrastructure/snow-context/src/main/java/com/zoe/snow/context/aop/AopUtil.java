@@ -33,7 +33,7 @@ public class AopUtil {
         if (r == null) {
             if (resultType.equals(Result.class)) {
                 Result result = Result.class.cast(r);
-                result.setResult(null, Message.ServiceError);
+                result.setResult(null, false, Message.ServiceError);
             } else
                 r = TypeConverter.converter(r, resultType);
         }

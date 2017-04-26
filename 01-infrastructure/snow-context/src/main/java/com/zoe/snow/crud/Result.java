@@ -35,6 +35,7 @@ public class Result<T> implements Serializable {
     private String message;
     // @JsonProperty
     private String code;
+    private boolean success = true;
 
     public Result(T data, Message message) {
         this.data = data;
@@ -64,51 +65,59 @@ public class Result<T> implements Serializable {
             data = callable.call();
         } catch (ExistsException e) {
             // 数据已经存在
-            return result.setResult(false, Message.Exist, e.getMessage());
+            return result.setResult(null, false, Message.Exist, e.getMessage());
         } catch (ExistsInRecycleBinException e) {
-            return result.setResult(false, Message.ExistsRecycle, e.getMessage());
+            return result.setResult(null, false, Message.ExistsRecycle, e.getMessage());
         } catch (ListExistsException e) {
-            return result.setResult(false, Message.Exist, e.getMessage());
+            return result.setResult(null, false, Message.Exist, e.getMessage());
         } catch (NotEmptyException | OverLengthException
                 | IllegalStateException | SessionException e) {
-            return result.setResult(false, e.getMessage());
+            return result.setResult(null, false, Message.Error, e.getMessage());
         } catch (Exception e) {
             Logger.error(e, "执行服务时发生了异常!");
-            return result.setResult(null, Message.ServiceError, args);
+            return result.setResult(null, false, Message.ServiceError, args);
         }
         if (Validator.isEmpty(data)) {
-            result.setResult(data, Message.NoExist, args);
+            result.setResult(data, true, Message.NoExist, args);
         } else {
             if (data instanceof Model) {
-                result.setResult(data, Message.Success, args);
+                result.setResult(data, true, Message.Success, args);
             } else if (data instanceof PageList) {
                 if (PageList.class.cast(data).getList().size() > 0)
-                    result.setResult(data, Message.Success, args);
+                    result.setResult(data, true, Message.Success, args);
                 else
-                    result.setResult(data, Message.SelectNoAnyRecord, args);
+                    result.setResult(data, true, Message.SelectNoAnyRecord, args);
             } else if (data instanceof JSONArray) {
                 if (JSONArray.class.cast(data).size() > 0)
-                    result.setResult(data, Message.Success, args);
+                    result.setResult(data, true, Message.Success, args);
                 else
-                    result.setResult(data, Message.SelectNoAnyRecord, args);
+                    result.setResult(data, true, Message.SelectNoAnyRecord, args);
             } else if (data instanceof Message) {
                 Message message = Message.class.cast(data);
                 if (!Validator.isEmpty(message.getArgs()))
-                    result.setResult(false, message, message.getArgs());
+                    result.setResult(null, false, message, message.getArgs());
                 else
-                    result.setResult(false, message, args);
+                    result.setResult(null, false, message, args);
             } else {
                 if (data.toString().toLowerCase().equals("true") || data.toString().toLowerCase().equals("false")) {
                     boolean r = Boolean.valueOf(data.toString());
                     if (r)
-                        result.setResult(true, Message.Success, args);
+                        result.setResult(true, true, Message.Success, args);
                     else
-                        result.setResult(false, Message.Error, args);
+                        result.setResult(false, false, Message.Error, args);
                 } else
-                    result.setResult(data, Message.Success, args);
+                    result.setResult(data, true, Message.Success, args);
             }
         }
         return result;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     /*
@@ -174,14 +183,14 @@ public class Result<T> implements Serializable {
         return this;
     }
 
-    public Result setResult(T data, Message code, String... args) {
+    public Result setResult(T data, boolean isSuccess, Message code, String... args) {
         MessageTool messageTool = BeanFactory.getBean(MessageTool.class);
 
         Class<?> classZ = null;
         if (!Validator.isEmpty(data)) {
             classZ = data.getClass();
         }
-
+        this.success = isSuccess;
         String packageName;
         if (classZ == null)
             packageName = this.getClass().getGenericSuperclass().getTypeName();
