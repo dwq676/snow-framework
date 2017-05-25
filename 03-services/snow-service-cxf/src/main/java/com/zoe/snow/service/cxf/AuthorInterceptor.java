@@ -1,6 +1,5 @@
 package com.zoe.snow.service.cxf;
 
-import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.service.cxf.user.Dept;
 import net.sf.json.JSONObject;
 import org.apache.cxf.binding.soap.SoapMessage;
@@ -77,16 +76,16 @@ public class AuthorInterceptor extends AbstractPhaseInterceptor<SoapMessage> {
         userModel.setPhone("1386595925");
         userModel.setUsername("dwq7878");
         userModel.setNickname("嘎嘎");
-        userModel.setCreateTime(new Date());
+        userModel.setCreatedAt(new Date());
 
         Role role = new Role();
-        role.setCreateTime(new Date());
+        role.setCreatedAt(new Date());
         role.setName("111yyy");
-        role.setCreateTime(new Date());
+        role.setCreatedAt(new Date());
         role.setDomain("1");
 
         Team team = new Team();
-        team.setCreateTime(new Date());
+        team.setCreatedAt(new Date());
         team.setCode("team001");
 
         Dept dept = new Dept();

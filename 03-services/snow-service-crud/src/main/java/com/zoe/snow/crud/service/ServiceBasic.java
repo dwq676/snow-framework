@@ -12,6 +12,7 @@ import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.InterventionType;
 import com.zoe.snow.model.support.BaseModel;
+import com.zoe.snow.model.support.ValidFlag;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -95,25 +96,25 @@ public class ServiceBasic implements QueryService, ExecuteService {
     }
 
     /**
-     * 更改状态的删除，为假删除，建立了实体实际BaseModel接口，有一个有效标记字段
+     * 更改状态的删除，为假删除，建立了实体实际ValidFlag接口，有一个有效标记字段
      *
      * @param deleteType
      * @param model
      */
     public boolean deleteOrRecycle(DeleteType deleteType, Model model) {
-        if (model != null && model instanceof BaseModel) {
+        if (model != null && model instanceof ValidFlag) {
             switch (deleteType) {
                 case Recycle:
                     // criterionMap.put("validFlag", Criterion.Equals);
-                    ((BaseModel) model).setValidFlag(DeleteType.Recycle.getType());
+                    ((ValidFlag) model).setValidFlag(DeleteType.Recycle.getType());
                     // crudDao.updateById(metaData.getDataSource(),
                     // metaData.getModelClass(), model.getId());
                     break;
                 case Remove:
-                    ((BaseModel) model).setValidFlag(DeleteType.Remove.getType());
+                    ((ValidFlag) model).setValidFlag(DeleteType.Remove.getType());
                     break;
                 case Delete:
-                    ((BaseModel) model).setValidFlag(DeleteType.Delete.getType());
+                    ((ValidFlag) model).setValidFlag(DeleteType.Delete.getType());
                     break;
             }
             return ormManage.getOrm().save(model, InterventionType.UPDATE, CrudServiceHelper.getDatasource(model.getClass()));

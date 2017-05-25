@@ -3,6 +3,7 @@ package com.zoe.snow.context;
 import com.zoe.snow.cache.Cache;
 import com.zoe.snow.cache.ExpirationWay;
 import com.zoe.snow.context.session.Session;
+import com.zoe.snow.model.support.Domain;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class UserHelperImpl implements UserHelper {
         if (token.length > 0) {
             baseUserModelSupport = session.get(token[0]);
             if (baseUserModelSupport == null)
-                baseUserModelSupport = Cache.getInstance().get(token[0]);        }
+                baseUserModelSupport = Cache.getInstance().get(token[0]);
+        }
 
         if (baseUserModelSupport == null)
             baseUserModelSupport = session.get("##user");
@@ -44,12 +46,12 @@ public class UserHelperImpl implements UserHelper {
     @Override
     public String getUsername(String... token) {
         BaseUserModelSupport user = getUser(token);
-        return user == null ? "" : user.getUserName();
+        return user == null ? "" : user.getUsername();
     }
 
     @Override
     public String getDomain(String... token) {
-        BaseUserModelSupport user = getUser(token);
+        Domain user = (Domain) getUser(token);
         return user == null ? "0" : user.getDomain();
     }
 

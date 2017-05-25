@@ -4,11 +4,10 @@ import com.zoe.snow.auth.AuthBean;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.context.response.RedirectTo;
-import com.zoe.snow.context.response.Response;
 import com.zoe.snow.context.session.Session;
 import com.zoe.snow.message.Message;
 import com.zoe.snow.model.support.user.UserHelper;
-import com.zoe.snow.resource.CustomizedPropertyConfigurer;
+import com.zoe.snow.context.CoreConfig;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.validator.Checker;
@@ -46,7 +45,7 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (max == 0)
-            max = Integer.valueOf(CustomizedPropertyConfigurer.getContextProperty("snow.request.count.max").toString());
+            max = Integer.valueOf(CoreConfig.getContextProperty("snow.request.count.max").toString());
         return preValidate(request, response, handler);
     }
 

@@ -64,6 +64,8 @@ public class PhoenixClient {
         List<Get> gets = new ArrayList<>();
         gets.add(get1);
         gets.add(get2);
+
+
         get1.setMaxVersions(MAX_VERSIONS);
 
         Result[] results = table.get(gets);

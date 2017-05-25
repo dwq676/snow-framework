@@ -26,9 +26,12 @@ public class ModelHelperImpl implements ModelHelper {
             return;
         //初始化BaseModel中字段
         //initBaseModelField(model);
-        initDomain((Domain) model);
-        initUserAtBy(model, (UserAtBy) model);
-        initValid(model, (ValidFlag) model);
+        if (model instanceof Domain)
+            initDomain((Domain) model);
+        if (model instanceof UserAtBy)
+            initUserAtBy(model, (UserAtBy) model);
+        if (model instanceof ValidFlag)
+            initValid(model, (ValidFlag) model);
         //遍历递归实体是否嵌套有类型为BaseModel的字段
         initModelOfBaseModelField(model);
     }
@@ -50,25 +53,25 @@ public class ModelHelperImpl implements ModelHelper {
     private void initUserAtBy(Model model, UserAtBy userAtBy) {
         if (userHelper == null)
             return;
-        if (userAtBy.getCreateTime() == null) {
-            userAtBy.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        if (userAtBy.getCreatedAt() == null) {
+            userAtBy.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         }
 
-        if (userAtBy.getModifyTime() == null) {
-            userAtBy.setModifyTime(new Timestamp(System.currentTimeMillis()));
+        if (userAtBy.getUpdatedAt() == null) {
+            userAtBy.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         } else {
             if (!Validator.isEmpty(model.getId()))
-                userAtBy.setModifyTime(new Timestamp(System.currentTimeMillis()));
+                userAtBy.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         }
 
-        if (userAtBy.getModifyUser() == null) {
-            userAtBy.setModifyUser(userHelper.getUsername());
+        if (userAtBy.getUpdatedBy() == null) {
+            userAtBy.setUpdatedBy(userHelper.getUsername());
         } else {
             if (!Validator.isEmpty(model.getId()))
-                userAtBy.setModifyUser(userHelper.getUsername());
+                userAtBy.setUpdatedBy(userHelper.getUsername());
         }
-        if (userAtBy.getCreateUser() == null) {
-            userAtBy.setCreateUser(userHelper.getUsername());
+        if (userAtBy.getCreateBy() == null) {
+            userAtBy.setCreatedBy(userHelper.getUsername());
         }
     }
 

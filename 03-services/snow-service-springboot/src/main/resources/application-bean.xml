@@ -68,7 +68,7 @@
         <property name="showSql" value="true"/>
         <property name="useSecondLevel" value="false"/>
     </bean>
-    <bean id="snow:p" class="com.zoe.snow.resource.CustomizedPropertyConfigurer">
+    <bean id="snow:p" class="com.zoe.snow.context.CoreConfig">
         <property name="location" value="classpath:core.conf.properties"/>
     </bean>
     <bean id="redirectTo" class="com.zoe.snow.context.response.RedirectTo">

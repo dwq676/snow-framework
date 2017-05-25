@@ -243,7 +243,7 @@ public final class Converter {
             return 0;
 
         try {
-            return Integer.parseInt(object.toString());
+            return (int) Math.ceil(Converter.toDouble(object));
         } catch (Exception e) {
             Logger.warn(e, "将对象[{}]转化为数值时发生异常！", object);
 
@@ -277,7 +277,7 @@ public final class Converter {
             return 0L;
 
         try {
-            return Long.parseLong(object.toString());
+            return (long) Math.ceil(Converter.toDouble(object));
         } catch (Exception e) {
             Logger.warn(e, "将对象[{}]转化为数值时发生异常！", object);
 

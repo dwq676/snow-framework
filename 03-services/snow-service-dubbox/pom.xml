@@ -81,7 +81,7 @@
         </dependency>-->
     </dependencies>
     <build>
-        <finalName>zmip-web-mp</finalName>
+        <finalName>snow-dubbox</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>

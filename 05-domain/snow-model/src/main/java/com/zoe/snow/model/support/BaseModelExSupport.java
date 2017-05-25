@@ -38,10 +38,10 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
 /*
     public void initBaseField(RawModel baseModel) {
         this.validFlag = baseModel.getValidFlag();
-        this.createTime = baseModel.getCreateTime();
-        this.createUser = baseModel.getCreateUser();
-        this.modifyTime = baseModel.getModifyTime();
-        this.modifyUser = baseModel.getModifyUser();
+        this.createTime = baseModel.getCreatedAt();
+        this.createUser = baseModel.getCreateBy();
+        this.modifyTime = baseModel.getUpdatedAt();
+        this.modifyUser = baseModel.getUpdatedBy();
         this.remark = baseModel.getRemark();
         this.domain = baseModel.getDomain();
     }
@@ -67,26 +67,26 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @JsonSerialize(using = CustomDateSerializer.class)
     @Jsonable
     @Property(name = "创建时间")
-    public Date getCreateTime() {
+    public Date getCreatedAt() {
         return createTime;
     }
 
     @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatedAt(Date createdAt) {
+        this.createTime = createdAt;
     }
 
     @Override
     @Column(name = "create_user")
     @Jsonable
     @Property(name = "创建者")
-    public String getCreateUser() {
+    public String getCreateBy() {
         return createUser;
     }
 
     @Override
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
+    public void setCreatedBy(String createdBy) {
+        this.createUser = createdBy;
     }
 
     @Override
@@ -96,26 +96,26 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @JsonSerialize(using = CustomDateSerializer.class)
     @Jsonable
     @Property(name = "修改时间")
-    public Date getModifyTime() {
+    public Date getUpdatedAt() {
         return modifyTime;
     }
 
     @Override
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setUpdatedAt(Date updatedAt) {
+        this.modifyTime = updatedAt;
     }
 
     @Override
     @Column(name = "modify_user")
     @Jsonable
     @Property(name = "修改者")
-    public String getModifyUser() {
+    public String getUpdatedBy() {
         return modifyUser;
     }
 
     @Override
-    public void setModifyUser(String modifyUser) {
-        this.modifyUser = modifyUser;
+    public void setUpdatedBy(String updatedBy) {
+        this.modifyUser = updatedBy;
     }
 
     @Override

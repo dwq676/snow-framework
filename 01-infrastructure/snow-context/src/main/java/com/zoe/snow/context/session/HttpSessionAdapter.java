@@ -34,8 +34,13 @@ public class HttpSessionAdapter implements SessionAdapter, HttpSessionAware {
     }
 
     @Override
-    public long getExpiration() {
+    public int getExpiration() {
         return httpSession.getMaxInactiveInterval();
+    }
+
+    @Override
+    public void setExpiration(int time) {
+        httpSession.setMaxInactiveInterval(time);
     }
 
     @Override

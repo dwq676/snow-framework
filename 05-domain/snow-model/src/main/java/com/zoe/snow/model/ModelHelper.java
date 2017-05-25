@@ -209,8 +209,8 @@ public class ModelHelper {
             if (!Validator.isEmpty(sort))
                 sort.setSort(0);
         }
-        baseModel.setCreateTime(new Date());
-        baseModel.setModifyTime(new Date());
+        baseModel.setCreatedAt(new Date());
+        baseModel.setUpdatedAt(new Date());
         baseModel.setRemark("");
         baseModel.setDomain("0");
         baseModel.setValidFlag(0);

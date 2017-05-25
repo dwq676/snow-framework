@@ -1,6 +1,6 @@
 package com.zoe.snow.model.support.user;
 
-import com.zoe.snow.model.support.BaseModel;
+import com.zoe.snow.model.Model;
 
 /**
  * BaseUserModelSupport
@@ -8,11 +8,11 @@ import com.zoe.snow.model.support.BaseModel;
  * @author Dai Wenqing
  * @date 2015/9/14
  */
-public interface BaseUserModelSupport extends BaseModel {
+public interface BaseUserModelSupport extends Model {
 
-    String getUserName();
+    String getUsername();
 
-    void setUserName(String username);
+    void setUsername(String username);
 
     /*
      * String getDomain();
@@ -38,13 +38,13 @@ public interface BaseUserModelSupport extends BaseModel {
      *
      * @return
      */
-    boolean getMulti();
+    /*boolean getMulti();
 
     void setMulti(boolean multi);
 
     String getSalt();
 
-    void setSalt(String salt);
+    void setSalt(String salt);*/
 
     String getToken();
 

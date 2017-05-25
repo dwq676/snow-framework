@@ -27,10 +27,16 @@ public class SessionImpl implements Session, SessionAdapterAware {
     }
 
     @Override
-    public long getExpiration() {
+    public int getExpiration() {
         if (sessionThreadLocal.get() != null)
             return sessionThreadLocal.get().getExpiration();
-        return 0L;
+        return 0;
+    }
+
+    @Override
+    public void setExpiration(int time) {
+        if (sessionThreadLocal.get() != null)
+            sessionThreadLocal.get().setExpiration(time);
     }
 
     @Override

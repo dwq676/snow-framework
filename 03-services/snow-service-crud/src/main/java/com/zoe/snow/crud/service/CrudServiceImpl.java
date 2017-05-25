@@ -26,7 +26,6 @@ import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
-import com.zoe.snow.model.support.BaseModel;
 import com.zoe.snow.validator.exception.ExistsException;
 import com.zoe.snow.validator.exception.ExistsInRecycleBinException;
 import com.zoe.snow.validator.exception.ListExistsException;
@@ -152,7 +151,7 @@ public class CrudServiceImpl implements CrudService {
             return false;
 
         //初始化实体
-        modelHelper.initModel((BaseModel) model);
+        modelHelper.initModel(model);
 
         hasExist(model);
         InterventionType interventionType = InterventionType.NOTHING;

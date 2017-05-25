@@ -11,7 +11,8 @@ import com.zoe.snow.model.Model;
 import com.zoe.snow.model.annotation.Datasource;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.JoinType;
-import com.zoe.snow.model.support.BaseModel;
+import com.zoe.snow.model.support.Domain;
+import com.zoe.snow.model.support.ValidFlag;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Converter;
@@ -66,7 +67,7 @@ public class CrudServiceHelper {
             return query;
         }
         if (!Validator.isEmpty(model)) {
-            if (model instanceof BaseModel) {
+            if (model instanceof ValidFlag) {
                 if (queryFlag.getType() < 1) {
                     // criterionMap.put("validFlag", Criterion.Equals);
                     if (queryFlag == Global.QueryFlag.Valid)
@@ -118,7 +119,6 @@ public class CrudServiceHelper {
     public static Query setDomain(Query query, boolean excludeDomain) {
         if (query == null)
             return null;
-        // 测定实现实现了BaseModel
         OrmContext ormContext = OrmContext.class.cast(query);
         Model model = null;
         try {
@@ -128,7 +128,7 @@ public class CrudServiceHelper {
             return query;
         }
         if (!Validator.isEmpty(model)) {
-            if (model instanceof BaseModel) {
+            if (model instanceof Domain) {
                 // ormContext.getQueryContext().put("t0.validFlag", 1);
                 UserHelper userHelper = BeanFactory.getBean(UserHelper.class);
                 if (!excludeDomain) {

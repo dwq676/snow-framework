@@ -353,7 +353,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
 
         UserModel userModel = new UserModel();
        /* userModel = new UserModel();
-        userModel.setUserName("myTest");
+        userModel.setUsername("myTest");
         userModel.setPassword("1111111");
         userModel.setId("2");
         crudService.update(userModel);*/

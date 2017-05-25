@@ -39,8 +39,13 @@ public class CacheSessionAdapter implements SessionAdapter, HttpSessionAware {
     }
 
     @Override
-    public long getExpiration() {
+    public int getExpiration() {
         return 0;
+    }
+
+    @Override
+    public void setExpiration(int time) {
+
     }
 
     @Override

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.conf.Configuration;
 import com.zoe.snow.context.Context;
+import com.zoe.snow.context.CoreConfig;
 import com.zoe.snow.context.request.HttpServletRequestAware;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.context.response.HttpServletResponseAware;
@@ -51,8 +52,8 @@ public class ServiceFilter implements Filter {
         res.setHeader("Access-Control-Allow-Methods", " POST");
 
 
-        if (!ignore((HttpServletRequest) request, (HttpServletResponse) response))
-            chain.doFilter(request, response);
+        //if (!ignore((HttpServletRequest) request, (HttpServletResponse) response))
+        chain.doFilter(request, response);
 
 
     }
@@ -111,6 +112,7 @@ public class ServiceFilter implements Filter {
 
         Session session = BeanFactory.getBean(Session.class);
         ((SessionAdapterAware) session).setSession(sessionAdapter);
+        session.setExpiration(Converter.toInt(CoreConfig.getContextProperty("snow.session.time-out")) * 60);
 
         Response rp = BeanFactory.getBean(Response.class);
         ((HttpServletResponseAware) rp).set(response);

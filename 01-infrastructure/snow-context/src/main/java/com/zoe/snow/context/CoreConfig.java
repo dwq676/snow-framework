@@ -1,4 +1,4 @@
-package com.zoe.snow.resource;
+package com.zoe.snow.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * CustomizedPropertyConfigurer
+ * CoreConfig
  *
  * @author Dai Wenqing
  * @date 2016/3/15
  */
-public class CustomizedPropertyConfigurer extends PropertyPlaceholderConfigurer {
+public class CoreConfig extends PropertyPlaceholderConfigurer {
 
     private static Map<String, Object> ctxPropertiesMap;
 

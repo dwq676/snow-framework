@@ -7,6 +7,7 @@ import com.zoe.snow.auth.service.BaseDomainService;
 import com.zoe.snow.auth.service.BaseRoleService;
 import com.zoe.snow.auth.service.BaseUserService;
 import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.model.support.Domain;
 import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import org.apache.commons.lang.NotImplementedException;
@@ -88,7 +89,7 @@ public class UserRealm extends AuthorizingRealm {
         if (null != user) {
             String password = new String(usernamePasswordToken.getPassword());
             // 密码校验移交给了shiro的提供的一个接口实现类，所以这里注释掉
-            authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(), getName());
+            authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
             authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username + "_snow"));
             user.setToken(TokenProcessor.getInstance().generateToken(authenticationInfo.getCredentials().toString(), true));
 
@@ -98,11 +99,15 @@ public class UserRealm extends AuthorizingRealm {
                 user.setIsAdmin(baseRoleService.getIsAdmin(user));
             else {*/
             BaseDomainService baseDomainService = BeanFactory.getBean(BaseDomainService.class);
-            if (baseDomainService != null)
-                user.setIsAdmin(baseDomainService.getIsAdmin(user.getDomain()));
-            else if (user.getDomain().equals("0"))
-                user.setIsAdmin(true);
-            //}
+
+            Domain domain = (Domain) user;
+            if (domain != null) {
+                if (baseDomainService != null)
+                    user.setIsAdmin(baseDomainService.getIsAdmin(domain.getDomain()));
+                else if (domain.getDomain().equals("0"))
+                    user.setIsAdmin(true);
+            }
+
             //--------设置管理--------------------------------------------------------------------
 
             UserHelper userHelper = BeanFactory.getBean(UserHelper.class);

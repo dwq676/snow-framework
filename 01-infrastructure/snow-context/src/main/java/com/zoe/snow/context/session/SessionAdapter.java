@@ -11,7 +11,12 @@ public interface SessionAdapter {
 
     String getName();
 
-    long getExpiration();
+    int getExpiration();
+
+    /** 秒
+     * @param time
+     */
+    void setExpiration(int time);
 
     /**
      * @param key

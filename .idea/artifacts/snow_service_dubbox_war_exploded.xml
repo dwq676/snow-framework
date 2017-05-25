@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="snow-service-dubbox:war exploded">
-    <output-path>$PROJECT_DIR$/03-services/snow-service-dubbox/target/zmip-web-mp</output-path>
+    <output-path>$PROJECT_DIR$/03-services/snow-service-dubbox/target/snow-dubbox</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -174,7 +174,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/03-services/snow-service-dubbox/target/zmip-web-mp/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/03-services/snow-service-dubbox/target/snow-dubbox/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="snow-service-dubbox/web/Web" />
       <element id="artifact" artifact-name="snow-web:war exploded" />
