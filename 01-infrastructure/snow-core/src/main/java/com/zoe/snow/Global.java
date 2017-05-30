@@ -13,13 +13,14 @@ public class Global {
     public static final String split = "#split#";
     public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
     public static final String dateFormat = "yyyy-MM-dd";
+    public static final String DOMAIN = "domainId";
 
     /*
     * elastic启动是否准备好
     */
     public static boolean elasticReady = false;
-    public static ThreadLocal<Object> user = new ThreadLocal<>();
-    public static ThreadLocal<String> token = new ThreadLocal<>();
+    /*public static ThreadLocal<Object> user = new ThreadLocal<>();
+    public static ThreadLocal<String> token = new ThreadLocal<>();*/
 
     public enum JsonType {
         /**

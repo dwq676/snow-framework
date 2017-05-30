@@ -1,8 +1,5 @@
 package com.zoe.snow.auth;
 
-import com.zoe.snow.model.support.user.BaseUserModelSupport;
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
@@ -30,10 +27,10 @@ public class PasswordHelper {
         System.out.println(encryptPassword("lang", "lang"));
         System.out.println("admin："+encryptPassword("admin", "admin123"));
 
-        System.out.println("wangyangcheng：" + encryptPassword("wangyangcheng", "wyc"));
-        System.out.println("chenjia：" + encryptPassword("chenjia", "chenjia"));
-        System.out.println("xuyanying：" + encryptPassword("xuyanying", "xuyanying"));
-        System.out.println("wumengxin：" + encryptPassword("wumengxin", "wumengxin"));
+        System.out.println("quantil：" + encryptPassword("quantil", "quantil@123456"));
+        System.out.println("admin：" + encryptPassword("admin", "quantil@admin"));
+        System.out.println("dwq：" + encryptPassword("dwq", "dwq"));
+        System.out.println("zxf：" + encryptPassword("zxf", "zxf"));
         System.out.println("qiuxiuxiu：" + encryptPassword("qiuxiuxiu", "qiuxiuxiu"));
         System.out.println("zhoujunyi" + encryptPassword("zhoujunyi", "zhoujunyi"));
         System.out.println("zhangchunrong：" + encryptPassword("zhoujunyi", "zhoujunyi"));

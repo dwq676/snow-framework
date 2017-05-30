@@ -1,5 +1,8 @@
 package com.zoe.snow.auth;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.zoe.snow.model.support.user.role.BaseRoleModel;
+
 /**
  * Token
  *
@@ -9,9 +12,11 @@ package com.zoe.snow.auth;
 public class Token {
     private String appid;
     private String uid;
-    private long time;
+    private long expiration;
     private String token;
-    private String roleid;
+
+    @JSONField(name = "role")
+    private BaseRoleModel baseRoleModel;
 
     public String getAppid() {
         return appid;
@@ -29,14 +34,6 @@ public class Token {
         this.uid = uid;
     }
 
-    public Long getTime() {
-        return time;
-    }
-
-    public void setTime(Long time) {
-        this.time = time;
-    }
-
     public String getToken() {
         return token;
     }
@@ -45,11 +42,19 @@ public class Token {
         this.token = token;
     }
 
-    public String getRoleid() {
-        return roleid;
+    public long getExpiration() {
+        return expiration;
     }
 
-    public void setRoleid(String roleid) {
-        this.roleid = roleid;
+    public void setExpiration(long expiration) {
+        this.expiration = expiration;
+    }
+
+    public BaseRoleModel getBaseRoleModel() {
+        return baseRoleModel;
+    }
+
+    public void setBaseRoleModel(BaseRoleModel baseRoleModel) {
+        this.baseRoleModel = baseRoleModel;
     }
 }

@@ -1,14 +1,15 @@
 package com.zoe.snow.model.support.user;
 
 import com.zoe.snow.model.Model;
+import com.zoe.snow.model.support.Domain;
 
 /**
- * BaseUserModelSupport
+ * BaseUserModel
  *
  * @author Dai Wenqing
  * @date 2015/9/14
  */
-public interface BaseUserModelSupport extends Model {
+public interface BaseUserModel extends Model, Domain {
 
     String getUsername();
 

@@ -39,6 +39,11 @@ public class ResponseImpl implements Response, HttpServletResponseAware {
     }
 
     @Override
+    public void setStatusCode(int code) {
+        responseThreadLocal.get().setStatus(code);
+    }
+
+    @Override
     public void set(HttpServletResponse httpServletResponse) {
         this.responseThreadLocal.set(httpServletResponse);
     }

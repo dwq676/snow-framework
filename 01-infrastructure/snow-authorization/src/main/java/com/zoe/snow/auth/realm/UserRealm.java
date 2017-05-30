@@ -1,5 +1,6 @@
 package com.zoe.snow.auth.realm;
 
+import com.zoe.snow.Global;
 import com.zoe.snow.auth.Authentication;
 import com.zoe.snow.auth.Authorization;
 import com.zoe.snow.auth.TokenProcessor;
@@ -7,20 +8,26 @@ import com.zoe.snow.auth.service.BaseDomainService;
 import com.zoe.snow.auth.service.BaseRoleService;
 import com.zoe.snow.auth.service.BaseUserService;
 import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.model.support.Domain;
-import com.zoe.snow.model.support.user.BaseUserModelSupport;
-import com.zoe.snow.model.support.user.UserHelper;
+import com.zoe.snow.context.CoreConfig;
+import com.zoe.snow.model.support.user.BaseUserModel;
+import com.zoe.snow.util.Converter;
+import com.zoe.snow.util.Security;
+import com.zoe.snow.util.Validator;
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -65,61 +72,103 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        //可能是手机号、用户名、邮箱等
         String key = (String) token.getPrincipal();
+        Subject currentUser = SecurityUtils.getSubject();
+        Session session = currentUser.getSession();
         baseUserService = BeanFactory.getBean(BaseUserService.class);
         if (baseUserService == null)
             throw new NotImplementedException("BaseUserServiceSupport must be Implemented");
-        BaseUserModelSupport user = baseUserService.findByUsername(key);
-        if (user == null) {
-            user = baseUserService.findByPhone(key);
-            if (user == null) {
-                user = baseUserService.findByIdCard(key);
-                if (user == null) {
-                    throw new UnknownAccountException();// 没找到帐号
+        BaseUserModel baseUserModel = null;
+
+        Object domainObject = session.getAttribute(Global.DOMAIN);
+        String domainId = domainObject == null ? "" : domainObject.toString();
+        List<BaseUserModel> userModels = baseUserService.findByUsername(key, domainId);
+        if (!Validator.isEmpty(domainId)) {
+            if (userModels != null) {
+                if (userModels.size() > 0) {
+                    baseUserModel = userModels.get(0);
                 }
             }
         }
-        if (Boolean.TRUE.equals(user.getLocked())) {
-            throw new LockedAccountException(); // 帐号锁定
+
+        if (baseUserModel == null) {
+            baseUserModel = baseUserService.findByPhone(key);
+            if (baseUserModel == null) {
+                baseUserModel = baseUserService.findByIdCard(key);
+                /*if (baseUserModel != null) {
+                    throw new UnknownAccountException();// 没找到帐号
+                }*/
+            }
         }
 
-        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-        String username = String.valueOf(usernamePasswordToken.getUsername());
-        SimpleAuthenticationInfo authenticationInfo = null;
-        if (null != user) {
-            String password = new String(usernamePasswordToken.getPassword());
-            // 密码校验移交给了shiro的提供的一个接口实现类，所以这里注释掉
-            authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
-            authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username + "_snow"));
-            user.setToken(TokenProcessor.getInstance().generateToken(authenticationInfo.getCredentials().toString(), true));
+        /*if (!Validator.isEmpty(domainId)) {
+            //Tenant tenant=bas
+            BaseTenantService baseTenantService = BeanFactory.getBean(BaseTenantService.class);
+            if (baseTenantService != null) {
+                Tenant tenant = null;
+                for (BaseUserModel u : userModels) {
+                    tenant = baseTenantService.getTenant(domainId, u.getId());
+                    if (tenant != null) {
+                        baseUserModel = u;
+                        break;
+                    }
+                }
+                //如果多租户的接口有被实现
+                if (tenant == null) {
+                    throw new UnknownAccountException();
+                }
+            }
+        }*/
 
-            //--------设置管理--------------------------------------------------------------------
+        /*if (Boolean.TRUE.equals(baseUserModel.getLocked())) {
+            throw new LockedAccountException(); // 帐号锁定
+        }*/
+        SimpleAuthenticationInfo authenticationInfo = null;
+        if (baseUserModel != null) {
+            UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+            String username = String.valueOf(usernamePasswordToken.getUsername());
+
+
+            authenticationInfo = new SimpleAuthenticationInfo(baseUserModel.getUsername(), baseUserModel.getPassword(), getName());
+            authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username + "_snow"));
+            baseUserModel.setToken(TokenProcessor.getInstance().generateToken(authenticationInfo.getCredentials().toString(), true));
+
             BaseRoleService baseRoleService = BeanFactory.getBean(BaseRoleService.class);
             /*if (baseRoleService != null)
                 user.setIsAdmin(baseRoleService.getIsAdmin(user));
             else {*/
             BaseDomainService baseDomainService = BeanFactory.getBean(BaseDomainService.class);
 
-            Domain domain = (Domain) user;
-            if (domain != null) {
-                if (baseDomainService != null)
-                    user.setIsAdmin(baseDomainService.getIsAdmin(domain.getDomain()));
-                else if (domain.getDomain().equals("0"))
-                    user.setIsAdmin(true);
+        /*Domain domain = null;
+        if (baseUserModel instanceof Domain)
+            domain = (Domain) baseUserModel;
+        if (domain != null) {
+            if (baseDomainService != null)
+                baseUserModel.setIsAdmin(baseDomainService.getIsAdmin(domain.getDomain()));
+            else if (domain.getDomain().equals("0"))
+                baseUserModel.setIsAdmin(true);
+        }*/
+
+            //UserHelper userHelper = BeanFactory.getBean(UserHelper.class);
+        /*
+        同一个账户多地同时连接到服务端，应该使用各自的token缓存用户信息
+        避免一个地方长久没有交互，另一个地方一直交互，结果没有交互的地方会话一直不过期
+        产生此原因是认证与业务逻辑相关服务分开部署
+        */
+            String userInfo = Security.md5(Validator.isEmpty(domainId) ? "" : domainId + baseUserModel.getUsername());
+            session.setAttribute(token.getCredentials().toString(), baseUserModel);
+            session.setAttribute(userInfo, baseUserModel);
+            session.setTimeout(Converter.toLong(CoreConfig.getContextProperty("snow.session.time-out")) * 60 * 1000);
+            //执行认证完全的回调
+            Collection<Authentication> authenticationList = BeanFactory.getBeans(Authentication.class);
+            if (authenticationList != null) {
+                authenticationList.forEach(c -> {
+                    c.doGetAuthenticationInfo(token);
+                });
             }
-
-            //--------设置管理--------------------------------------------------------------------
-
-            UserHelper userHelper = BeanFactory.getBean(UserHelper.class);
-            userHelper.setUser(user);
-        }
-
-        Collection<Authentication> authenticationList = BeanFactory.getBeans(Authentication.class);
-        if (authenticationList != null) {
-            authenticationList.forEach(c -> {
-                c.doGetAuthenticationInfo(token);
-            });
-        }
+        } else
+            authenticationInfo = new SimpleAuthenticationInfo();
         return authenticationInfo;
     }
 

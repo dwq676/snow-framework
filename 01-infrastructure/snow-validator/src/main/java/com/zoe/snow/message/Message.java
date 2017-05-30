@@ -118,7 +118,7 @@ public enum Message {
 
     Busy("error.system.dispatch.busy"),
 
-    LoginLock("error.login.lock"),
+    LoginLock("msg.40006"),
 
     ExistsRecycle("error.exists.recycle"),
 
@@ -126,7 +126,7 @@ public enum Message {
 
     CheckerNotFound("error.checker.not.find"),
 
-    LoginError("error.login.error");
+    LoginError("msg.40002");
 
     private String type;
     private String[] args;

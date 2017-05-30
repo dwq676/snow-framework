@@ -13,8 +13,7 @@ public interface Response {
     /**
      * 设置类容类型。
      *
-     * @param contentType
-     *            类容类型。
+     * @param contentType 类容类型。
      */
     void setContentType(String contentType);
 
@@ -28,8 +27,9 @@ public interface Response {
     /**
      * 跳转到指定URL地址。
      *
-     * @param url
-     *            目标URL地址。
+     * @param url 目标URL地址。
      */
     void redirectTo(String url);
+
+    void setStatusCode(int code);
 }

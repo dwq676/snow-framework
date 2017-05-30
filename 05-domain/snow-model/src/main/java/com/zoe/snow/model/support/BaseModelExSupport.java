@@ -24,7 +24,7 @@ import java.util.Date;
  * @date 2016/5/23
  */
 @MappedSuperclass()
-@SupperClass(value = "snow.model..base")
+@SupperClass(value = "snow.model.base")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class BaseModelExSupport extends RawModel implements BaseModel, Automation {
     protected int validFlag = Integer.MIN_VALUE;
@@ -39,7 +39,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     public void initBaseField(RawModel baseModel) {
         this.validFlag = baseModel.getValidFlag();
         this.createTime = baseModel.getCreatedAt();
-        this.createUser = baseModel.getCreateBy();
+        this.createUser = baseModel.getCreatedBy();
         this.modifyTime = baseModel.getUpdatedAt();
         this.modifyUser = baseModel.getUpdatedBy();
         this.remark = baseModel.getRemark();
@@ -80,7 +80,7 @@ public class BaseModelExSupport extends RawModel implements BaseModel, Automatio
     @Column(name = "create_user")
     @Jsonable
     @Property(name = "创建者")
-    public String getCreateBy() {
+    public String getCreatedBy() {
         return createUser;
     }
 

@@ -28,7 +28,7 @@ public interface UserAtBy {
      *
      * @return 创建人。
      */
-    String getCreateBy();
+    String getCreatedBy();
 
     /**
      * 设置创建人。

@@ -70,7 +70,7 @@ public class ModelHelperImpl implements ModelHelper {
             if (!Validator.isEmpty(model.getId()))
                 userAtBy.setUpdatedBy(userHelper.getUsername());
         }
-        if (userAtBy.getCreateBy() == null) {
+        if (userAtBy.getCreatedBy() == null) {
             userAtBy.setCreatedBy(userHelper.getUsername());
         }
     }

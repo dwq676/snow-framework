@@ -20,4 +20,8 @@ public interface Domain {
      * @param domain 域。
      */
     void setDomain(String domain);
+
+    default String getDomainName() {
+        return "domain";
+    }
 }

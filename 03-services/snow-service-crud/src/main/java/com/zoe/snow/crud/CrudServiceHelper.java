@@ -1,7 +1,6 @@
 package com.zoe.snow.crud;
 
 import com.zoe.snow.Global;
-import com.zoe.snow.auth.Auth;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.crud.service.ModelTableNullException;
 import com.zoe.snow.dao.orm.OrmContext;
@@ -10,10 +9,8 @@ import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.annotation.Datasource;
 import com.zoe.snow.model.enums.Criterion;
-import com.zoe.snow.model.enums.JoinType;
 import com.zoe.snow.model.support.Domain;
 import com.zoe.snow.model.support.ValidFlag;
-import com.zoe.snow.model.support.user.BaseUserModelSupport;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
@@ -68,14 +65,15 @@ public class CrudServiceHelper {
         }
         if (!Validator.isEmpty(model)) {
             if (model instanceof ValidFlag) {
+                ValidFlag validFlag = (ValidFlag) model;
                 if (queryFlag.getType() < 1) {
                     // criterionMap.put("validFlag", Criterion.Equals);
                     if (queryFlag == Global.QueryFlag.Valid)
                         ormContext.getQueryContext().put(ormContext.getTableNameAlias().get(ormContext.getFrom())
-                                + ".validFlag", Global.ValidFlag.Valid.getType());
+                                + "." + validFlag.getValidFlagName(), Global.ValidFlag.Valid.getType());
                     else {
                         ormContext.getQueryContext().put(ormContext.getTableNameAlias().get(ormContext.getFrom())
-                                + ".validFlag", Global.ValidFlag.Delete.getType());
+                                + "." + validFlag.getValidFlagName(), Global.ValidFlag.Delete.getType());
                     }
                 }
             }
@@ -89,8 +87,8 @@ public class CrudServiceHelper {
      * @param query
      * @return
      */
-    public static Query authFilter(Query query) {
-        BaseUserModelSupport user = BaseUserModelSupport.class.cast(Global.user.get());
+    /*public static Query authFilter(Query query) {
+        BaseUserModel user = BaseUserModel.class.cast(Global.user.get());
         if (user == null)
             return query;
         else if (user.getIsAdmin())
@@ -106,13 +104,13 @@ public class CrudServiceHelper {
             }
         }
         return query;
-    }
-
+    }*/
     public static Query setQueryCondition(Query query, boolean excludeDomain, Global.QueryFlag queryFlag) {
         setDomain(query, excludeDomain);
         // 获取有效的数据
         setValidFlag(query, queryFlag);
-        authFilter(query);
+        // 细粒度，数据级别的过滤
+        //authFilter(query);
         return query;
     }
 
@@ -134,7 +132,7 @@ public class CrudServiceHelper {
                 if (!excludeDomain) {
                     if (userHelper != null) {
                         ormContext.getQueryContext().put(ormContext.getTableNameAlias().get(ormContext.getFrom()) +
-                                ".domain", userHelper.getDomain(Global.token.get()));
+                                "." + ((Domain) model).getDomainName(), userHelper.getDomain());
                     } else {
                         throw new NotImplementedException("no implement the userHelper interface,please check again");
                     }

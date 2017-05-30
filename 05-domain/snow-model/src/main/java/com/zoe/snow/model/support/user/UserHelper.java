@@ -13,10 +13,10 @@ public interface UserHelper {
 
     String getDomain(String... token);
 
-    BaseUserModelSupport getUser(String... token);
+    BaseUserModel getUser(String... token);
 
     /**
      * 将用户数据缓存到会话或缓存中
      */
-    void setUser(BaseUserModelSupport user, String... token);
+    //void setUser(BaseUserModelSupport user, String... token);
 }

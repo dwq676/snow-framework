@@ -20,4 +20,8 @@ public interface ValidFlag {
      * @param validFlag 标志。
      */
     void setValidFlag(int validFlag);
+
+    default String getValidFlagName() {
+        return "validFlag";
+    }
 }
