@@ -13,6 +13,8 @@ public enum Message {
      */
     Success("msg.200"),
 
+    Failed("msg.424"),
+
     /**
      * 业务逻辑相关
      */
@@ -69,7 +71,7 @@ public enum Message {
     /**
      * 未授权
      */
-    UnAuthorized("msg.40003"),
+    UnAuthorized("msg.401"),
     /**
      * 不允许为空
      */
@@ -118,7 +120,7 @@ public enum Message {
 
     Busy("error.system.dispatch.busy"),
 
-    LoginLock("msg.40006"),
+    LoginLock("msg.423"),
 
     ExistsRecycle("error.exists.recycle"),
 

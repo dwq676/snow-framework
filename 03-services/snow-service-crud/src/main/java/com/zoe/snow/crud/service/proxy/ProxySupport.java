@@ -33,7 +33,7 @@ public class ProxySupport {
 
     protected Query getQuery() {
         if (query == null) {
-            Logger.info("正使用的query name为：" + queryName);
+            Logger.debug("正使用的query name为：" + queryName);
             if (!Validator.isEmpty(queryName))
                 query = queryManager.getQuery(queryName);
             else

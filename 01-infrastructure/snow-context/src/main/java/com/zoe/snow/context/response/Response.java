@@ -32,4 +32,6 @@ public interface Response {
     void redirectTo(String url);
 
     void setStatusCode(int code);
+
+    void addHeader(String key, String value);
 }

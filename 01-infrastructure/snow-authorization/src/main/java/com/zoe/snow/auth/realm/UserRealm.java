@@ -8,6 +8,8 @@ import com.zoe.snow.auth.service.BaseDomainService;
 import com.zoe.snow.auth.service.BaseRoleService;
 import com.zoe.snow.auth.service.BaseUserService;
 import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.cache.Cache;
+import com.zoe.snow.cache.ExpirationWay;
 import com.zoe.snow.context.CoreConfig;
 import com.zoe.snow.model.support.user.BaseUserModel;
 import com.zoe.snow.util.Converter;
@@ -26,6 +28,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -132,7 +135,8 @@ public class UserRealm extends AuthorizingRealm {
 
             authenticationInfo = new SimpleAuthenticationInfo(baseUserModel.getUsername(), baseUserModel.getPassword(), getName());
             authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username + "_snow"));
-            baseUserModel.setToken(TokenProcessor.getInstance().generateToken(authenticationInfo.getCredentials().toString(), true));
+            baseUserModel.setToken(TokenProcessor.getInstance()
+                    .generateToken(authenticationInfo.getCredentials().toString() + domainId, true));
 
             BaseRoleService baseRoleService = BeanFactory.getBean(BaseRoleService.class);
             /*if (baseRoleService != null)
@@ -160,6 +164,8 @@ public class UserRealm extends AuthorizingRealm {
             session.setAttribute(token.getCredentials().toString(), baseUserModel);
             session.setAttribute(userInfo, baseUserModel);
             session.setTimeout(Converter.toLong(CoreConfig.getContextProperty("snow.session.time-out")) * 60 * 1000);
+            Cache.getInstance().put(baseUserModel.getToken(), baseUserModel, ExpirationWay.SlidingTime,
+                    Converter.toLong(CoreConfig.getContextProperty("snow.session.time-out")) * 60 * 1000);
             //执行认证完全的回调
             Collection<Authentication> authenticationList = BeanFactory.getBeans(Authentication.class);
             if (authenticationList != null) {

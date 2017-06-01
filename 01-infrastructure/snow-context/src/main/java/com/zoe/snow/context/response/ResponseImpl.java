@@ -44,6 +44,12 @@ public class ResponseImpl implements Response, HttpServletResponseAware {
     }
 
     @Override
+    public void addHeader(String key, String value) {
+        if (responseThreadLocal.get() != null)
+            responseThreadLocal.get().addHeader(key, value);
+    }
+
+    @Override
     public void set(HttpServletResponse httpServletResponse) {
         this.responseThreadLocal.set(httpServletResponse);
     }

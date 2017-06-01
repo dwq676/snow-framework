@@ -12,7 +12,8 @@ import com.zoe.snow.model.support.user.role.BaseRoleModel;
 public class Token {
     private String appid;
     private String uid;
-    private long expiration;
+    @JSONField(name = "expired_in")
+    private long expiredIn;
     private String token;
 
     @JSONField(name = "role")
@@ -42,12 +43,12 @@ public class Token {
         this.token = token;
     }
 
-    public long getExpiration() {
-        return expiration;
+    public long getExpiredIn() {
+        return expiredIn;
     }
 
-    public void setExpiration(long expiration) {
-        this.expiration = expiration;
+    public void setExpiredIn(long expiredIn) {
+        this.expiredIn = expiredIn;
     }
 
     public BaseRoleModel getBaseRoleModel() {

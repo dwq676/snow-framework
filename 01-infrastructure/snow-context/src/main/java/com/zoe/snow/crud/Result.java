@@ -94,10 +94,13 @@ public class Result<T> implements Serializable {
                     result.setResult(data, true, Message.SelectNoAnyRecord, args);
             } else if (data instanceof Message) {
                 Message message = Message.class.cast(data);
+                boolean isSuccess = false;
+                if (message == Message.Success)
+                    isSuccess = true;
                 if (!Validator.isEmpty(message.getArgs()))
-                    result.setResult(null, false, message, message.getArgs());
+                    result.setResult(null, isSuccess, message, message.getArgs());
                 else
-                    result.setResult(null, false, message, args);
+                    result.setResult(null, isSuccess, message, args);
             } else {
                 if (data.toString().toLowerCase().equals("true") || data.toString().toLowerCase().equals("false")) {
                     boolean r = Boolean.valueOf(data.toString());

@@ -4,6 +4,8 @@ package com.zoe.snow.context;
 import com.zoe.snow.cache.ExpirationWay;
 import com.zoe.snow.context.session.Session;*/
 
+import com.zoe.snow.cache.Cache;
+import com.zoe.snow.context.session.Session;
 import com.zoe.snow.model.support.Domain;
 import com.zoe.snow.model.support.user.BaseUserModel;
 import com.zoe.snow.model.support.user.UserHelper;
@@ -23,8 +25,8 @@ import org.springframework.stereotype.Component;
  */
 @Component("snow.service.user.helper")
 public class UserHelperImpl implements UserHelper {
-    /*@Autowired
-    private Session session;*/
+    @Autowired
+    private Session session;
 
     @Override
     public String getUserId(String... token) {
@@ -34,7 +36,7 @@ public class UserHelperImpl implements UserHelper {
 
     @Override
     public BaseUserModel getUser(String... token) {
-        /*BaseUserModelSupport baseUserModelSupport = null;
+        BaseUserModel baseUserModelSupport = null;
         if (token.length > 0) {
             baseUserModelSupport = session.get(token[0]);
             if (baseUserModelSupport == null)
@@ -44,14 +46,14 @@ public class UserHelperImpl implements UserHelper {
         if (baseUserModelSupport == null)
             baseUserModelSupport = session.get("##user");
 
-        return baseUserModelSupport;*/
+        return baseUserModelSupport;
 
-        if (token.length == 0) {
+        /*if (token.length == 0) {
             return null;
         }
 
         Subject subject = SecurityUtils.getSubject();
-        return (BaseUserModel) subject.getSession().getAttribute(token);
+        return (BaseUserModel) subject.getSession().getAttribute(token);*/
     }
 
     @Override

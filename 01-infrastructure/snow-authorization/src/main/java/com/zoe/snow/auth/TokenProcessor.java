@@ -2,6 +2,7 @@ package com.zoe.snow.auth;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 /*
  * 令牌生成器
@@ -34,7 +35,8 @@ public class TokenProcessor {
                 byte now[] = (new Long(current)).toString().getBytes();
                 md.update(now);
             }
-            return toHex(md.digest());
+            return Base64.getEncoder().encodeToString(toHex(md.digest())
+                    .getBytes()).replace("=", "");
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
