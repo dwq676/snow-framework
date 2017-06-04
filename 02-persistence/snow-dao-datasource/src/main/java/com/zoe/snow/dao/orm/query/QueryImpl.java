@@ -1,5 +1,7 @@
-package com.zoe.snow.dao.orm;
+package com.zoe.snow.dao.orm.query;
 
+import com.zoe.snow.dao.orm.context.OrmContextImpl;
+import com.zoe.snow.dao.orm.context.WhereContext;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.JoinType;

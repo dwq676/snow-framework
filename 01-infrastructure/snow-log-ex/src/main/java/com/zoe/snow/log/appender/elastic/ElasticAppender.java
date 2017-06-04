@@ -4,7 +4,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import com.zoe.snow.Global;
 import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.dao.elastic.ElasticDao;
+import com.zoe.snow.dao.orm.ElasticDao;
 import com.zoe.snow.log.BasicLogType;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONObject;

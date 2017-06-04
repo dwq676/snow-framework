@@ -1,8 +1,6 @@
 package com.zoe.snow.crud.service.proxy;
 
-import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.crud.QueryManager;
-import com.zoe.snow.dao.elastic.ElasticDao;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.Operator;
 import net.sf.json.JSONArray;

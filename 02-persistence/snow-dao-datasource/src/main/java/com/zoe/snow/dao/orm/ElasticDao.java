@@ -1,6 +1,7 @@
-package com.zoe.snow.dao.elastic;
+package com.zoe.snow.dao.orm;
 
 import com.zoe.snow.dao.orm.Orm;
+import com.zoe.snow.dao.orm.query.ElasticQuery;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

@@ -1,13 +1,10 @@
 package com.zoe.snow.crud.service;
 
-import com.zoe.snow.dao.orm.Query;
+import com.zoe.snow.dao.orm.query.Query;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
-import com.zoe.snow.model.enums.Criterion;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-import java.util.Map;
 
 /**
  * 查询服务

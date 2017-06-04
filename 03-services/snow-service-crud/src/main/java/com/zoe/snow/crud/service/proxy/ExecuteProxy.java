@@ -1,14 +1,9 @@
 package com.zoe.snow.crud.service.proxy;
 
-import com.zoe.snow.crud.QueryManager;
 import com.zoe.snow.crud.enums.DeleteType;
-import com.zoe.snow.crud.service.ExecuteService;
-import com.zoe.snow.crud.service.QueryService;
-import com.zoe.snow.dao.orm.Query;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.Operator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

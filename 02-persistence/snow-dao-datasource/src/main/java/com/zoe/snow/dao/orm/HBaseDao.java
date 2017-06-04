@@ -1,8 +1,8 @@
-package com.zoe.snow.dao.hbase;
+package com.zoe.snow.dao.orm;
 
 import com.zoe.snow.dao.orm.Orm;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.zoe.snow.dao.orm.query.HBaseQuery;
+
 /**
  * HBaseDao
  *

@@ -1,17 +1,12 @@
 package com.zoe.snow.crud.service.proxy;
 
-import com.zoe.snow.crud.QueryManager;
-import com.zoe.snow.crud.service.QueryService;
-import com.zoe.snow.dao.orm.OrmContext;
-import com.zoe.snow.dao.orm.Query;
+import com.zoe.snow.dao.orm.context.OrmContext;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.JoinType;
 import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.model.enums.OrderBy;
-import com.zoe.snow.util.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

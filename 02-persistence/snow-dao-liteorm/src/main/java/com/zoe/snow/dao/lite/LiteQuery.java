@@ -3,8 +3,8 @@
  */
 package com.zoe.snow.dao.lite;
 
-import com.zoe.snow.dao.orm.Query;
-import com.zoe.snow.dao.orm.QueryImpl;
+import com.zoe.snow.dao.orm.query.Query;
+import com.zoe.snow.dao.orm.query.QueryImpl;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * Lite检索构造器。用于构造非级联ORM检索语句。
  *
  * @author lpw
- * @see com.zoe.snow.dao.orm.QueryImpl
+ * @see QueryImpl
  */
 @Repository("snow.dao.query.lite")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)

@@ -1,4 +1,4 @@
-package com.zoe.snow.dao.orm;
+package com.zoe.snow.dao.orm.context;
 
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.Operator;

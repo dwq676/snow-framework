@@ -6,20 +6,16 @@ import com.zoe.snow.context.aop.annotation.LogTo;
 import com.zoe.snow.crud.CrudServiceHelper;
 import com.zoe.snow.crud.OrmManage;
 import com.zoe.snow.crud.enums.DeleteType;
-import com.zoe.snow.dao.orm.Query;
+import com.zoe.snow.dao.orm.query.Query;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
-import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.model.enums.InterventionType;
-import com.zoe.snow.model.support.BaseModel;
 import com.zoe.snow.model.support.ValidFlag;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 /**
  * ServiceBasic

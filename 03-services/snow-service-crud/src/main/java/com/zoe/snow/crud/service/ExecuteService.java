@@ -1,11 +1,8 @@
 package com.zoe.snow.crud.service;
 
 import com.zoe.snow.crud.enums.DeleteType;
-import com.zoe.snow.dao.orm.Query;
+import com.zoe.snow.dao.orm.query.Query;
 import com.zoe.snow.model.Model;
-import com.zoe.snow.model.enums.Criterion;
-
-import java.util.Map;
 
 /**
  * 删除服务

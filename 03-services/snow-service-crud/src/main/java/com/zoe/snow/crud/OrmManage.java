@@ -1,9 +1,8 @@
 package com.zoe.snow.crud;
 
-import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.conf.CrudConfiguration;
 import com.zoe.snow.dao.orm.Orm;
-import com.zoe.snow.dao.orm.Query;
+import com.zoe.snow.dao.orm.query.Query;
 import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;

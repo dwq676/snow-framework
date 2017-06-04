@@ -1,5 +1,6 @@
 package com.zoe.snow.dao.orm;
 
+import com.zoe.snow.dao.orm.query.Query;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.InterventionType;

@@ -1,10 +1,11 @@
 package com.zoe.snow.dao.elastic;
 
-import com.zoe.snow.conf.deprecated.ElasticConfiguration;
 import com.zoe.snow.dao.DataSourceManager;
 import com.zoe.snow.dao.DataSources;
 import com.zoe.snow.dao.Mode;
-import com.zoe.snow.dao.orm.WhereContext;
+import com.zoe.snow.dao.orm.ElasticDao;
+import com.zoe.snow.dao.orm.context.WhereContext;
+import com.zoe.snow.dao.orm.query.ElasticQuery;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
@@ -13,7 +14,6 @@ import com.zoe.snow.model.enums.Operator;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.elasticsearch.action.fieldstats.FieldStats;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -25,7 +25,6 @@ import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.MultiBucketsAggregation;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

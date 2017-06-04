@@ -1,7 +1,7 @@
 package com.zoe.snow.dao.hibernate;
 
-import com.zoe.snow.dao.orm.Query;
-import com.zoe.snow.dao.orm.QueryImpl;
+import com.zoe.snow.dao.orm.query.Query;
+import com.zoe.snow.dao.orm.query.QueryImpl;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.enums.Criterion;
 import com.zoe.snow.util.Validator;
@@ -26,7 +26,7 @@ public class HibernateQuery extends QueryImpl implements Query {
     /**
      * 检索构造器。     *
      *
-     * @see com.zoe.snow.dao.orm.QueryImpl
+     * @see QueryImpl
      */
     /*public <T extends Model> HibernateQuery(Class<T> modelClass) {
         this.whereBuffer = new StringBuffer();

@@ -1,7 +1,7 @@
-package com.zoe.snow.dao.elastic;
+package com.zoe.snow.dao.orm.query;
 
-import com.zoe.snow.dao.orm.Query;
-import com.zoe.snow.dao.orm.QueryImpl;
+import com.zoe.snow.dao.orm.query.Query;
+import com.zoe.snow.dao.orm.query.QueryImpl;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;

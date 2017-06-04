@@ -13,12 +13,12 @@
     <dependencies>
         <dependency>
             <groupId>com.zoe.snow</groupId>
-            <artifactId>snow-dao-elastic</artifactId>
+            <artifactId>snow-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zoe.snow</groupId>
-            <artifactId>snow-core</artifactId>
+            <artifactId>snow-dao-datasource</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>

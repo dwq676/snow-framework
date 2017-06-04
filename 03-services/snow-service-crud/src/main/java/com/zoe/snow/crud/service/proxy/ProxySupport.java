@@ -3,7 +3,7 @@ package com.zoe.snow.crud.service.proxy;
 import com.zoe.snow.crud.QueryManager;
 import com.zoe.snow.crud.service.ExecuteService;
 import com.zoe.snow.crud.service.QueryService;
-import com.zoe.snow.dao.orm.Query;
+import com.zoe.snow.dao.orm.query.Query;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;

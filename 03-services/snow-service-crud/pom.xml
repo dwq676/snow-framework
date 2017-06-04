@@ -26,7 +26,7 @@
             <artifactId>snow-dao-liteorm</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.zoe.snow</groupId>
             <artifactId>snow-dao-elastic</artifactId>
             <version>${project.parent.version}</version>
@@ -35,7 +35,7 @@
             <groupId>com.zoe.snow</groupId>
             <artifactId>snow-dao-hbase</artifactId>
             <version>${project.parent.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.zoe.snow</groupId>
             <artifactId>snow-configuration</artifactId>

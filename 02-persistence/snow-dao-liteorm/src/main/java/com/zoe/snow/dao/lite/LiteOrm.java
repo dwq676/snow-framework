@@ -5,7 +5,6 @@ package com.zoe.snow.dao.lite;
 
 
 import com.zoe.snow.dao.orm.Orm;
-import com.zoe.snow.dao.orm.QueryImpl;
 import com.zoe.snow.model.Model;
 
 /**

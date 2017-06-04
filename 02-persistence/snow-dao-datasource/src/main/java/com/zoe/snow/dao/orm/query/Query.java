@@ -1,4 +1,4 @@
-package com.zoe.snow.dao.orm;
+package com.zoe.snow.dao.orm.query;
 
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.enums.Criterion;
