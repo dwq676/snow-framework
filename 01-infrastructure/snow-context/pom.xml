@@ -29,6 +29,11 @@
         </dependency>
         <dependency>
             <groupId>com.zoe.snow</groupId>
+            <artifactId>snow-authorization</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zoe.snow</groupId>
             <artifactId>snow-cache</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

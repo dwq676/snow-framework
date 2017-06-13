@@ -2,6 +2,7 @@ package com.zoe.snow.crud;
 
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.fun.Callable;
+import com.zoe.snow.model.ResultSet;
 import com.zoe.snow.validator.exception.*;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 @Service("snow.crud.result")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class Result<T> implements Serializable {
+public class Result<T> implements Serializable, ResultSet<T> {
     private T data;
     // @JsonProperty
     private String message;
@@ -115,45 +116,25 @@ public class Result<T> implements Serializable {
         return result;
     }
 
+    @Override
     public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    /*
-     * public void setData(T data) { this.data = data; }
-     */
-
+    @Override
     public T getData() {
         return data;
     }
 
-    /*
-     * public void setMessage(String message) { this.message = message; }
-     */
-
+    @Override
     public String getMessage() {
         return message;
     }
 
-    /*
-     * public void setCode(String code) { this.code = code; }
-     */
-
+    @Override
     public String getCode() {
         return code;
     }
-
-                /*try {
-                // 数据已经存在收回站，系统尝试自动回收数据
-                CrudService crudService = BeanFactory.getBean(CrudService.class);
-                crudService.execute().recycle((Class<Model>) data.getClass(), Model.class.cast(data).getId());
-            } catch (Exception ex) {
-                result.setResult(data, Message.ExistsRecycleFailure, args);
-            }*/
 
     public Object toJson() {
         return toJsonObject();

@@ -7,7 +7,7 @@ import com.zoe.snow.context.response.RedirectTo;
 import com.zoe.snow.context.session.Session;
 import com.zoe.snow.message.Message;
 import com.zoe.snow.model.support.user.UserHelper;
-import com.zoe.snow.context.CoreConfig;
+import com.zoe.snow.conf.CoreConfig;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
 import com.zoe.snow.validator.Checker;

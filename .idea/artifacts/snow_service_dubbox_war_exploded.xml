@@ -104,11 +104,18 @@
           <element id="archive" name="snow-validator-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-validator" />
           </element>
-          <element id="archive" name="snow-cache-1.0.0-SNAPSHOT.jar">
-            <element id="module-output" name="snow-cache" />
+          <element id="archive" name="snow-authorization-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="snow-authorization" />
           </element>
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.4" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-spring:1.2.4" />
           <element id="archive" name="snow-configuration-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-configuration" />
+          </element>
+          <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.22" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.3.4.RELEASE" />
+          <element id="archive" name="snow-cache-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="snow-cache" />
           </element>
           <element id="archive" name="snow-delivery-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-delivery" />

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.conf.Configuration;
 import com.zoe.snow.context.Context;
-import com.zoe.snow.context.CoreConfig;
+import com.zoe.snow.conf.CoreConfig;
 import com.zoe.snow.context.request.HttpServletRequestAware;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.context.response.HttpServletResponseAware;

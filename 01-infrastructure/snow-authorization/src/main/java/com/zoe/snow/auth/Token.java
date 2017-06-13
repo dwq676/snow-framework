@@ -1,7 +1,14 @@
 package com.zoe.snow.auth;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.conf.AuthenticationConf;
+import com.zoe.snow.model.ResultSet;
 import com.zoe.snow.model.support.user.role.BaseRoleModel;
+import net.sf.json.JSONObject;
+
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Token
@@ -18,6 +25,41 @@ public class Token {
 
     @JSONField(name = "role")
     private BaseRoleModel baseRoleModel;
+
+    /**
+     * 第三方认证或本地认证
+     *
+     * @param token
+     * @return
+     */
+    public static boolean verify(String token) {
+        AuthenticationConf conf = BeanFactory.getBean(AuthenticationConf.class);
+        Authentication authentication = null;
+        String remoteAuthBeanName = "snow.auth.service.remote";
+        ResultSet result = null;
+        boolean remoteResult = false;
+        boolean isRemote = false;
+        if (conf.getAuthIsThirdPart()) {
+            authentication = BeanFactory.getBean(remoteAuthBeanName);
+            JSONObject jsonObject = JSONObject.fromObject(authentication.verify(token).toString());
+            remoteResult = jsonObject.getBoolean("success");
+            isRemote = true;
+        } else {
+            Collection<Authentication> authentications = BeanFactory.getBeans(Authentication.class);
+            for (Authentication auth : authentications) {
+                if (!(auth instanceof Remote))
+                    authentication = auth;
+            }
+            result = ResultSet.class.cast(authentication.verify(token));
+        }
+        if (!isRemote)
+            if (result != null)
+                return result.isSuccess();
+            else
+                return false;
+        else
+            return remoteResult;
+    }
 
     public String getAppid() {
         return appid;

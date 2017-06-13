@@ -1,4 +1,4 @@
-package com.zoe.snow.context;
+package com.zoe.snow.conf;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;

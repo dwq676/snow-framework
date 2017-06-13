@@ -6,6 +6,7 @@ import com.zoe.snow.context.session.Session;*/
 
 import com.zoe.snow.cache.Cache;
 import com.zoe.snow.context.session.Session;
+import com.zoe.snow.delivery.Http;
 import com.zoe.snow.model.support.Domain;
 import com.zoe.snow.model.support.user.BaseUserModel;
 import com.zoe.snow.model.support.user.UserHelper;
@@ -27,6 +28,8 @@ import org.springframework.stereotype.Component;
 public class UserHelperImpl implements UserHelper {
     @Autowired
     private Session session;
+    @Autowired
+    private Http http;
 
     @Override
     public String getUserId(String... token) {

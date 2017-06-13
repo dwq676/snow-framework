@@ -1,4 +1,4 @@
-package com.zoe.snow.auth.permission;
+package com.zoe.snow.auth.shiro.permission;
 
 import org.apache.shiro.authz.Permission;
 

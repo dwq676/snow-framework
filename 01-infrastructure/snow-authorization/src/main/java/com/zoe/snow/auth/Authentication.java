@@ -1,14 +1,23 @@
 package com.zoe.snow.auth;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationToken;
 
 /**
- * 认证预留扩展接口
+ * Authentication
  *
- * @author Dai Wenqing
- * @date 2016/11/3
+ * @author <a href="mailto:dwq676@126.com">daiwenqing</a>
+ * @date 2017/6/11
  */
 public interface Authentication {
-    void doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException;
+    /**
+     * 登录
+     *
+     * @param appId 平台或者租户
+     * @param ip    登录IP
+     * @return
+     */
+    Object login(String appId, String ip, AccountViewModel accountViewModel);
+
+    Object logout(String token);
+
+    Object verify(String token);
 }

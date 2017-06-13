@@ -1,4 +1,4 @@
-package com.zoe.snow.auth.realm;
+package com.zoe.snow.auth.shiro.realm;
 
 import com.zoe.snow.auth.PasswordHelper;
 import com.zoe.snow.cache.Cache;

@@ -3,6 +3,7 @@ package com.zoe.snow.context.aop;
 import com.zoe.snow.Global;
 import com.zoe.snow.auth.AuthBean;
 import com.zoe.snow.auth.NoNeedVerify;
+import com.zoe.snow.auth.Token;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.context.response.Response;
@@ -227,15 +228,11 @@ public class AccessAspect {
                         return false;
                     String token = args[method.getParameters().length - 1] == null ?
                             "" : args[method.getParameters().length - 1].toString();
-                    /*if (Validator.isEmpty(token))
-                        token = BeanFactory.getBean(Request.class).get("token");*/
-                    BaseUserModel user = userHelper.getUser(token);
+                    /*BaseUserModel user = userHelper.getUser(token);
                     if (user == null)
-                        return false;
-                   /*else {
-                        Global.user.set(user);
-                        Global.token.set(user.getToken());
-                    }*/
+                        return false;*/
+                    //return tok
+                    return Token.verify(token);
                 }
             }
         }

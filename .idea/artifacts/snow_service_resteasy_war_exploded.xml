@@ -51,6 +51,10 @@
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.4" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.4" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-spring:1.2.4" />
+          <element id="archive" name="snow-delivery-1.0.0-SNAPSHOT.jar">
+            <element id="module-output" name="snow-delivery" />
+          </element>
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.5.1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.22" />
           <element id="archive" name="snow-context-1.0.0-SNAPSHOT.jar">
@@ -59,10 +63,6 @@
           <element id="archive" name="snow-validator-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-validator" />
           </element>
-          <element id="archive" name="snow-delivery-1.0.0-SNAPSHOT.jar">
-            <element id="module-output" name="snow-delivery" />
-          </element>
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.5.1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.jboss.resteasy:jaxrs-api:3.0.12.Final" />
           <element id="archive" name="snow-configuration-1.0.0-SNAPSHOT.jar">

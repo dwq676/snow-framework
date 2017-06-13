@@ -52,16 +52,16 @@
     </bean>
     <!-- <bean id="authc" class="com.util.filter.MyAccessFilter"/>-->
     <bean id="anno" class="org.apache.shiro.web.filter.authc.AnonymousFilter"/>
-    <bean id="baseRolePermissionResolver" class="com.zoe.snow.auth.permission.BaseRolePermissionResolver"/>
+    <bean id="baseRolePermissionResolver" class="com.zoe.snow.auth.shiro.permission.BaseRolePermissionResolver"/>
     <bean id="myAuthorizer" class="org.apache.shiro.authz.ModularRealmAuthorizer">
         <property name="rolePermissionResolver" ref="baseRolePermissionResolver"/>
     </bean>
 
-    <bean id="myRealm" class="com.zoe.snow.auth.realm.UserRealm">
+    <bean id="myRealm" class="com.zoe.snow.auth.shiro.realm.UserRealm">
         <property name="credentialsMatcher" ref="passwordMatcher"></property>
     </bean>
     <!--密码验证器-->
-    <bean id="passwordMatcher" class="com.zoe.snow.auth.realm.LimitRetryHashedMatcher">
+    <bean id="passwordMatcher" class="com.zoe.snow.auth.shiro.realm.LimitRetryHashedMatcher">
     </bean>
     <!--默认的登录realm-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">

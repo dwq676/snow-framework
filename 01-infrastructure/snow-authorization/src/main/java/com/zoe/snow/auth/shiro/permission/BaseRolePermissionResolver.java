@@ -1,4 +1,4 @@
-package com.zoe.snow.auth.permission;
+package com.zoe.snow.auth.shiro.permission;
 
 import com.zoe.snow.auth.service.BaseRoleService;
 import com.zoe.snow.bean.BeanFactory;

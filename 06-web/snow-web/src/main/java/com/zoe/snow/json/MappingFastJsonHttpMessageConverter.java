@@ -66,7 +66,10 @@ public class MappingFastJsonHttpMessageConverter extends AbstractHttpMessageConv
         while ((i = inputMessage.getBody().read()) != -1) {
             baos.write(i);
         }
-        return JSON.parseArray(baos.toString(), clazz);
+        if (baos.toString().startsWith("["))
+            return JSON.parseArray(baos.toString(), clazz);
+        else
+            return JSON.parseObject(baos.toString(), clazz);
     }
 
     @Override

@@ -53,5 +53,7 @@ public interface BaseUserModel extends Model, Domain {
 
     boolean getIsAdmin();
 
+    //boolean getRememberMe();
+
     void setIsAdmin(boolean isAdmin);
 }

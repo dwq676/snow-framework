@@ -1,6 +1,5 @@
 package com.zoe.snow.conf;
 
-import com.zoe.snow.conf.deprecated.HibernateConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,8 @@ import org.springframework.stereotype.Component;
  * @date 2016/1/19
  */
 @Component("snow.conf")
-public class ConfigurationImpl implements Configuration, CrudConfiguration, CacheConfiguration, DaoConfiguration, RabbitMqConfiguration {
+public class ConfigurationImpl implements Configuration, CrudConfiguration,
+        CacheConfiguration, DaoConfiguration, RabbitMqConfiguration, AuthenticationConf {
     @Value("${snow.configuration.deploy:singleton}")
     private String deploy;
 
@@ -105,6 +105,21 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration, Cach
     @Value("${snow-rabbitmq-switch}")
     private boolean rabbitSwitch;
 
+    @Value("${auth.is-third-part}")
+    private boolean authIsThirdPart;
+    @Value("${auth.host}")
+    private String authHost;
+    @Value("${auth.port}")
+    private int authPort;
+    @Value("${auth.project}")
+    private String authProject;
+    @Value("${auth.expired-in}")
+    private long authExpiredIn;
+    @Value("${auth.expired-remember}")
+    private long authExpiredRemember;
+    @Value("${auth.multi}")
+    private boolean authMulti;
+
     /*@Value("${snow.elastic.cluster.name}")
     private String elasticClusterName;
     @Value("${snow.elastic.index.name}")
@@ -115,6 +130,40 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration, Cach
     private String elasticHaIps;
     @Value("${snow.elastic.switch}")
     private boolean elasticSwitch;*/
+
+    @Override
+    public long getAuthExpiredIn() {
+        return authExpiredIn;
+    }
+
+    @Override
+    public long getAuthExpiredRemember() {
+        return authExpiredRemember;
+    }
+
+    public boolean getAuthMulti() {
+        return authMulti;
+    }
+
+    @Override
+    public boolean getAuthIsThirdPart() {
+        return authIsThirdPart;
+    }
+
+    @Override
+    public String getAuthHost() {
+        return authHost;
+    }
+
+    @Override
+    public int getAuthPort() {
+        return authPort;
+    }
+
+    @Override
+    public String getAuthProject() {
+        return authProject;
+    }
 
     @Override
     public String getCacheName() {

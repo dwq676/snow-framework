@@ -1,8 +1,8 @@
-package com.zoe.snow.auth.realm;
+package com.zoe.snow.auth.shiro.realm;
 
 import com.zoe.snow.Global;
-import com.zoe.snow.auth.Authentication;
-import com.zoe.snow.auth.Authorization;
+import com.zoe.snow.auth.PostAuthentication;
+import com.zoe.snow.auth.PostAuthorization;
 import com.zoe.snow.auth.TokenProcessor;
 import com.zoe.snow.auth.service.BaseDomainService;
 import com.zoe.snow.auth.service.BaseRoleService;
@@ -10,7 +10,9 @@ import com.zoe.snow.auth.service.BaseUserService;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.cache.Cache;
 import com.zoe.snow.cache.ExpirationWay;
-import com.zoe.snow.context.CoreConfig;
+import com.zoe.snow.conf.AuthenticationConf;
+import com.zoe.snow.conf.CoreConfig;
+import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.support.user.BaseUserModel;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Security;
@@ -28,7 +30,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
-import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -63,10 +64,10 @@ public class UserRealm extends AuthorizingRealm {
         }
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setRoles(roles);
-        Authorization authorization = BeanFactory.getBean(Authorization.class);
-        Collection<Authorization> authorizationList = BeanFactory.getBeans(Authorization.class);
-        if (authorizationList != null) {
-            authorizationList.forEach(c -> {
+        PostAuthorization authorization = BeanFactory.getBean(PostAuthorization.class);
+        Collection<PostAuthorization> postAuthorizations = BeanFactory.getBeans(PostAuthorization.class);
+        if (postAuthorizations != null) {
+            postAuthorizations.forEach(c -> {
                 c.doGetAuthorizationInfo(principals, authorizationInfo);
             });
         }
@@ -79,6 +80,7 @@ public class UserRealm extends AuthorizingRealm {
         String key = (String) token.getPrincipal();
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
+        Logger.info(session.getId().toString());
         baseUserService = BeanFactory.getBean(BaseUserService.class);
         if (baseUserService == null)
             throw new NotImplementedException("BaseUserServiceSupport must be Implemented");
@@ -106,26 +108,26 @@ public class UserRealm extends AuthorizingRealm {
         }
 
         /*if (!Validator.isEmpty(domainId)) {
-            //Tenant tenant=bas
-            BaseTenantService baseTenantService = BeanFactory.getBean(BaseTenantService.class);
-            if (baseTenantService != null) {
-                Tenant tenant = null;
-                for (BaseUserModel u : userModels) {
-                    tenant = baseTenantService.getTenant(domainId, u.getId());
-                    if (tenant != null) {
-                        baseUserModel = u;
-                        break;
+                //Tenant tenant=bas
+                BaseTenantService baseTenantService = BeanFactory.getBean(BaseTenantService.class);
+                if (baseTenantService != null) {
+                    Tenant tenant = null;
+                    for (BaseUserModel u : userModels) {
+                        tenant = baseTenantService.getTenant(domainId, u.getId());
+                        if (tenant != null) {
+                            baseUserModel = u;
+                            break;
+                        }
+                    }
+                    //如果多租户的接口有被实现
+                    if (tenant == null) {
+                        throw new UnknownAccountException();
                     }
                 }
-                //如果多租户的接口有被实现
-                if (tenant == null) {
-                    throw new UnknownAccountException();
-                }
-            }
-        }*/
+            }*/
 
-        /*if (Boolean.TRUE.equals(baseUserModel.getLocked())) {
-            throw new LockedAccountException(); // 帐号锁定
+            /*if (Boolean.TRUE.equals(baseUserModel.getLocked())) {
+                throw new LockedAccountException(); // 帐号锁定
         }*/
         SimpleAuthenticationInfo authenticationInfo = null;
         if (baseUserModel != null) {
@@ -144,32 +146,36 @@ public class UserRealm extends AuthorizingRealm {
             else {*/
             BaseDomainService baseDomainService = BeanFactory.getBean(BaseDomainService.class);
 
-        /*Domain domain = null;
-        if (baseUserModel instanceof Domain)
-            domain = (Domain) baseUserModel;
-        if (domain != null) {
-            if (baseDomainService != null)
-                baseUserModel.setIsAdmin(baseDomainService.getIsAdmin(domain.getDomain()));
-            else if (domain.getDomain().equals("0"))
-                baseUserModel.setIsAdmin(true);
-        }*/
+            /*Domain domain = null;
+            if (baseUserModel instanceof Domain)
+                domain = (Domain) baseUserModel;
+            if (domain != null) {
+                if (baseDomainService != null)
+                    baseUserModel.setIsAdmin(baseDomainService.getIsAdmin(domain.getDomain()));
+                else if (domain.getDomain().equals("0"))
+                    baseUserModel.setIsAdmin(true);
+            }*/
 
             //UserHelper userHelper = BeanFactory.getBean(UserHelper.class);
-        /*
-        同一个账户多地同时连接到服务端，应该使用各自的token缓存用户信息
-        避免一个地方长久没有交互，另一个地方一直交互，结果没有交互的地方会话一直不过期
-        产生此原因是认证与业务逻辑相关服务分开部署
-        */
+            /*
+            同一个账户多地同时连接到服务端，应该使用各自的token缓存用户信息
+            避免一个地方长久没有交互，另一个地方一直交互，结果没有交互的地方会话一直不过期
+            产生此原因是认证与业务逻辑相关服务分开部署
+            */
             String userInfo = Security.md5(Validator.isEmpty(domainId) ? "" : domainId + baseUserModel.getUsername());
             session.setAttribute(token.getCredentials().toString(), baseUserModel);
             session.setAttribute(userInfo, baseUserModel);
+
+            AuthenticationConf conf = BeanFactory.getBean(AuthenticationConf.class);
+            long timeOut = conf.getAuthExpiredIn();
+            if (currentUser.isRemembered())
+                timeOut = conf.getAuthExpiredRemember();
             session.setTimeout(Converter.toLong(CoreConfig.getContextProperty("snow.session.time-out")) * 60 * 1000);
-            Cache.getInstance().put(baseUserModel.getToken(), baseUserModel, ExpirationWay.SlidingTime,
-                    Converter.toLong(CoreConfig.getContextProperty("snow.session.time-out")) * 60 * 1000);
+            Cache.getInstance().put(baseUserModel.getToken(), baseUserModel, ExpirationWay.AbsoluteTime, timeOut);
             //执行认证完全的回调
-            Collection<Authentication> authenticationList = BeanFactory.getBeans(Authentication.class);
-            if (authenticationList != null) {
-                authenticationList.forEach(c -> {
+            Collection<PostAuthentication> postAuthentications = BeanFactory.getBeans(PostAuthentication.class);
+            if (postAuthentications != null) {
+                postAuthentications.forEach(c -> {
                     c.doGetAuthenticationInfo(token);
                 });
             }
@@ -177,5 +183,4 @@ public class UserRealm extends AuthorizingRealm {
             authenticationInfo = new SimpleAuthenticationInfo();
         return authenticationInfo;
     }
-
 }
