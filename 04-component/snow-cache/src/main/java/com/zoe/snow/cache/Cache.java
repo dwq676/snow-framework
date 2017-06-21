@@ -6,10 +6,15 @@ import com.zoe.snow.conf.CacheConfiguration;
 import com.zoe.snow.conf.spare.CacheConfigurationImpl;
 import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.log.Logger;
+import com.zoe.snow.scheduler.FiveSecondJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * CacheStrategy
@@ -37,6 +42,34 @@ public class Cache implements ContextRefreshedListener {
             }
             return instance;
         }
+    }
+
+    public static <T> Element getElement(String key, T o, ExpirationWay expirationWay, long time, CacheItemPriority cacheItemPriority) {
+        Element element = new Element();
+        element.setCreateTime(System.currentTimeMillis());
+        element.setVisitTimes(0);
+        element.setUpdateTime(System.currentTimeMillis());
+        element.setKey(key);
+        element.setValue(o);
+        element.setPriority(cacheItemPriority.getValue());
+        if (time > 0)
+            element.setExpiration(System.currentTimeMillis() + time);
+        element.setSpanTime(time);
+        element.setExpirationWay(expirationWay);
+        return element;
+    }
+
+    public CacheStrategy by(String cacheName) {
+        try {
+            List<CacheStrategy> cacheStrategies = cacheStrategySet.parallelStream()
+                    .filter(c -> c.getName().toUpperCase().contains(cacheName.toUpperCase()))
+                    .collect(Collectors.toList());
+            if (cacheStrategies.size() > 0)
+                return cacheStrategies.get(0);
+        } catch (Exception ex) {
+            return cacheStrategy;
+        }
+        return cacheStrategy;
     }
 
     /**
@@ -109,7 +142,7 @@ public class Cache implements ContextRefreshedListener {
 
         }
         if (Logger.isDebugEnable())
-            Logger.debug("使用[{}]缓存处理器。", cacheConfiguration.getCacheName());
+            Logger.debug("默认使用[{}]缓存处理器，可使用其它，如redis。", cacheConfiguration.getCacheName());
 
         for (CacheStrategy strategy : cacheStrategySet) {
             if (strategy.getName().equals(cacheConfiguration.getCacheName())) {

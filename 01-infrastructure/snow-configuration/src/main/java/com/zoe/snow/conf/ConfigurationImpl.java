@@ -1,5 +1,6 @@
 package com.zoe.snow.conf;
 
+import com.zoe.snow.util.Converter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +30,7 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
     @Value("${snow.dao.orm}")
     private String ormName;
     @Value("${snow.datasource.multiplexing}")
-    private int multiplexing;
+    private String multiplexing;
 
     /* @Value("${snow.dao.database.driver}")
      private String driver;
@@ -42,15 +43,15 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
      // @Value("${snow.dao.database.password}")
      private String databasePassword;*/
     @Value("${snow.dao.database.initial-size}")
-    private int initialSize = 0;
+    private String initialSize = "0";
     @Value("${snow.dao.database.max-active}")
-    private int maxActive;
+    private String maxActive;
     @Value("${snow.dao.database.max-wait}")
-    private int maxWait;
+    private String maxWait;
     @Value("${snow.dao.database.test-interval}")
-    private int testInterval;
+    private String testInterval;
     @Value("${snow.dao.database.remove-abandoned-timeout}")
-    private int removeAbandonedTimeout;
+    private String removeAbandonedTimeout;
 
     /*@Value("${snow.dao.hibernate.use-second-level}")
     private String userSecondLevelCache;
@@ -62,28 +63,28 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
     private String dataSourceName;*/
 
     @Value("${snow.dao.remove-abandoned}")
-    private boolean removeAbandoned;
+    private String removeAbandoned;
     @Value("${snow.dao.log-abandoned}")
-    private boolean logAbandoned;
+    private String logAbandoned;
     @Value("${snow.dao.time-between-eviction-runs-millis}")
-    private int timeBetweenEvictionRunsMillis;
+    private String timeBetweenEvictionRunsMillis;
     @Value("${snow.dao.min-evictable-idle-time-millis}")
-    private int minEvictableIdleTimeMillis;
+    private String minEvictableIdleTimeMillis;
     @Value("${snow.dao.test-while-idle}")
-    private boolean testWhileIdle;
+    private String testWhileIdle;
     @Value("${snow.dao.test-on-borrow}")
-    private boolean testOnBorrow;
+    private String testOnBorrow;
     @Value("${snow.dao.test-on-return}")
-    private boolean testOnReturn;
+    private String testOnReturn;
     @Value("${snow.dao.pool-prepared-statements}")
-    private boolean poolPreparedStatements;
+    private String poolPreparedStatements;
     @Value("${snow.dao.maxPool-prepared-statement-per-connection-size}")
-    private int maxPoolPreparedStatementPerConnectionSize;
+    private String maxPoolPreparedStatementPerConnectionSize;
     @Value("${snow.dao.filters}")
     private String filters;
 
     @Value("${snow-rabbitmq-rabbitmqPort}")
-    private int rabbitmqPort;
+    private String rabbitmqPort;
     @Value("${snow-rabbitmq-rabbitmqUsername}")
     private String rabbitmqUsername;
     @Value("${snow-rabbitmq-rabbitmqPassword}")
@@ -93,32 +94,32 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
     @Value("${snow-rabbitmq-defaultRabbitmqExchange}")
     private String defaultRabbitmqExchange;
     @Value("${snow-rabbitmq-prefetchSize}")
-    private int prefetchSize;
+    private String prefetchSize;
     @Value("${snow-rabbitmq-serverHost}")
     private String serverHost;
     @Value("${snow-rabbitmq-virtualHost}")
     private String virtualHost;
     @Value("${snow-rabbitmq-connectionTimeout}")
-    private int connectionTimeout;
+    private String connectionTimeout;
     @Value("${snow-rabbitmq-eventMsgProcessNum}")
-    private int eventMsgProcessNum;
+    private String eventMsgProcessNum;
     @Value("${snow-rabbitmq-switch}")
-    private boolean rabbitSwitch;
+    private String rabbitSwitch;
 
     @Value("${auth.is-third-part}")
-    private boolean authIsThirdPart;
+    private String authIsThirdPart;
     @Value("${auth.host}")
     private String authHost;
     @Value("${auth.port}")
-    private int authPort;
+    private String authPort;
     @Value("${auth.project}")
     private String authProject;
     @Value("${auth.expired-in}")
-    private long authExpiredIn;
+    private String authExpiredIn;
     @Value("${auth.expired-remember}")
-    private long authExpiredRemember;
+    private String authExpiredRemember;
     @Value("${auth.multi}")
-    private boolean authMulti;
+    private String authMulti;
 
     /*@Value("${snow.elastic.cluster.name}")
     private String elasticClusterName;
@@ -133,21 +134,21 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Override
     public long getAuthExpiredIn() {
-        return authExpiredIn;
+        return Converter.toLong(authExpiredIn);
     }
 
     @Override
     public long getAuthExpiredRemember() {
-        return authExpiredRemember;
+        return Converter.toLong(authExpiredRemember);
     }
 
     public boolean getAuthMulti() {
-        return authMulti;
+        return Converter.toBool(authMulti);
     }
 
     @Override
     public boolean getAuthIsThirdPart() {
-        return authIsThirdPart;
+        return Converter.toBool(authIsThirdPart);
     }
 
     @Override
@@ -157,7 +158,7 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Override
     public int getAuthPort() {
-        return authPort;
+        return Converter.toInt(authPort);
     }
 
     @Override
@@ -202,32 +203,32 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Override
     public int getMultiplexing() {
-        return this.multiplexing;
+        return Converter.toInt(this.multiplexing);
     }
 
     @Override
     public int getInitialSize() {
-        return this.initialSize;
+        return Converter.toInt(this.initialSize);
     }
 
     @Override
     public int getMaxWait() {
-        return this.maxWait;
+        return Converter.toInt(this.maxWait);
     }
 
     @Override
     public int getMaxActive() {
-        return this.maxActive;
+        return Converter.toInt(this.maxActive);
     }
 
     @Override
     public int getTestInterval() {
-        return this.testInterval;
+        return Converter.toInt(this.testInterval);
     }
 
     @Override
     public int getRemoveAbandonedTimeout() {
-        return this.removeAbandonedTimeout;
+        return Converter.toInt(this.removeAbandonedTimeout);
     }
 
     /*@Override
@@ -252,47 +253,47 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Override
     public boolean getRemoveAbandoned() {
-        return removeAbandoned;
+        return Converter.toBool(removeAbandoned);
     }
 
     @Override
     public boolean getLogAbandoned() {
-        return logAbandoned;
+        return Converter.toBool(logAbandoned);
     }
 
     @Override
     public int getTimeBetweenEvictionRunsMillis() {
-        return timeBetweenEvictionRunsMillis;
+        return Converter.toInt(timeBetweenEvictionRunsMillis);
     }
 
     @Override
     public int getMinEvictableIdleTimeMillis() {
-        return minEvictableIdleTimeMillis;
+        return Converter.toInt(minEvictableIdleTimeMillis);
     }
 
     @Override
     public boolean getTestWhileIdle() {
-        return testWhileIdle;
+        return Converter.toBool(testWhileIdle);
     }
 
     @Override
     public boolean getTestOnBorrow() {
-        return testOnBorrow;
+        return Converter.toBool(testOnBorrow);
     }
 
     @Override
     public boolean getTestOnReturn() {
-        return testOnReturn;
+        return Converter.toBool(testOnReturn);
     }
 
     @Override
     public boolean getPoolPreparedStatements() {
-        return poolPreparedStatements;
+        return Converter.toBool(poolPreparedStatements);
     }
 
     @Override
     public int getMaxPoolPreparedStatementPerConnectionSize() {
-        return maxPoolPreparedStatementPerConnectionSize;
+        return Converter.toInt(maxPoolPreparedStatementPerConnectionSize);
     }
 
     @Override
@@ -307,7 +308,7 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Override
     public int getRabbitMQPort() {
-        return rabbitmqPort;
+        return Converter.toInt(rabbitmqPort);
     }
 
     @Override
@@ -332,7 +333,7 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Override
     public int getPrefetchSize() {
-        return prefetchSize;
+        return Converter.toInt(prefetchSize);
     }
 
     @Override
@@ -347,17 +348,17 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Override
     public int getConnectionTimeout() {
-        return connectionTimeout;
+        return Converter.toInt(connectionTimeout);
     }
 
     @Override
     public int getEventMsgProcessNum() {
-        return eventMsgProcessNum;
+        return Converter.toInt(eventMsgProcessNum);
     }
 
     @Override
     public boolean getRabbitmqSwitch() {
-        return rabbitSwitch;
+        return Converter.toBool(rabbitSwitch);
     }
 
     /*@Override

@@ -3,6 +3,7 @@ package com.zoe.snow.auth.shiro.realm;
 import com.zoe.snow.Global;
 import com.zoe.snow.auth.PostAuthentication;
 import com.zoe.snow.auth.PostAuthorization;
+import com.zoe.snow.auth.Token;
 import com.zoe.snow.auth.TokenProcessor;
 import com.zoe.snow.auth.service.BaseDomainService;
 import com.zoe.snow.auth.service.BaseRoleService;
@@ -171,7 +172,8 @@ public class UserRealm extends AuthorizingRealm {
             if (currentUser.isRemembered())
                 timeOut = conf.getAuthExpiredRemember();
             session.setTimeout(Converter.toLong(CoreConfig.getContextProperty("snow.session.time-out")) * 60 * 1000);
-            Cache.getInstance().put(baseUserModel.getToken(), baseUserModel, ExpirationWay.AbsoluteTime, timeOut);
+            Cache.getInstance().by("redis").put(baseUserModel.getToken(), getToken(domainId, currentUser.isRemembered()
+                    , baseUserModel), ExpirationWay.AbsoluteTime, timeOut);
             //执行认证完全的回调
             Collection<PostAuthentication> postAuthentications = BeanFactory.getBeans(PostAuthentication.class);
             if (postAuthentications != null) {
@@ -182,5 +184,21 @@ public class UserRealm extends AuthorizingRealm {
         } else
             authenticationInfo = new SimpleAuthenticationInfo();
         return authenticationInfo;
+    }
+
+    private Token getToken(String appId, boolean remember, BaseUserModel user) {
+        Token token = new Token();
+        token.setAppid(appId);
+        token.setToken(user.getToken());
+        token.setUid(user.getId());
+        token.setUsername(user.getUsername());
+        AuthenticationConf conf = BeanFactory.getBean(AuthenticationConf.class);
+        BaseRoleService baseRoleService = BeanFactory.getBean(BaseRoleService.class);
+        long timeout = conf.getAuthExpiredIn();
+        if (remember)
+            timeout = conf.getAuthExpiredRemember();
+        token.setExpiredIn(timeout);
+        token.setBaseRoleModel(baseRoleService.findRole(user.getId()));
+        return token;
     }
 }

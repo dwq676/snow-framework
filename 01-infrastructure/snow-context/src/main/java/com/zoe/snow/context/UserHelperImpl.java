@@ -43,7 +43,7 @@ public class UserHelperImpl implements UserHelper {
         if (token.length > 0) {
             baseUserModelSupport = session.get(token[0]);
             if (baseUserModelSupport == null)
-                baseUserModelSupport = Cache.getInstance().get(token[0]);
+                baseUserModelSupport = Cache.getInstance().by("redis").get(token[0]);
         }
 
         if (baseUserModelSupport == null)

@@ -1,8 +1,11 @@
 package com.zoe.snow.util;
 
+import com.alibaba.fastjson.JSON;
 import com.zoe.snow.Global;
 import com.zoe.snow.log.Logger;
+import net.sf.json.JSONObject;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.net.URLDecoder;
@@ -68,8 +71,65 @@ public final class Converter {
         if (object instanceof Timestamp)
             return toString((Timestamp) object, getDateTimeFormat(LocaleUtil.toLocale(localeAndCounty)));
 
+        if (object instanceof Serializable) {
+            JSONObject jsonObject = JSONObject.fromObject(object);
+            return jsonObject.toString();
+        }
+
+
         return object.toString();
     }
+
+    public static <T> T fromJson(String string, Class<T> classZ) {
+        try {
+            return JSON.parseObject(string, classZ);
+        } catch (Exception e) {
+            Logger.error(e, "从string转换成[{}],{}", classZ, string);
+            return null;
+        }
+
+    }
+
+    /*public static <T> Object fromString(String str, Class<T> classZ) {
+        if (Validator.isEmpty(str))
+            return null;
+
+        if (classZ.isArray()) {
+            *//*StringBuilder sb = new StringBuilder();
+            for (int length = Array.getLength(object), i = 0; i < length; i++)
+                sb.append(',').append(Array.get(object, i));
+
+            return sb.substring(1);*//*
+            String[] strings = str.split(",");
+            return new ArrayMaker<T>(classZ).createArray(strings.length);
+        }
+
+        if (classZ.) {
+            String[] strings = str.split(",");
+            return
+
+            return sb.substring(1);
+        }
+
+        if (object instanceof Map) {
+            StringBuilder sb = new StringBuilder();
+            ((Map) object).forEach((key, value) -> sb.append(',').append(toString(key)).append('=').append(toString(value)));
+
+            return sb.substring(1);
+        }
+
+        if (object instanceof java.sql.Date)
+            return toString((java.sql.Date) object, getDateFormat(LocaleUtil.toLocale(localeAndCounty)));
+
+        if (object instanceof Timestamp)
+            return toString((Timestamp) object, getDateTimeFormat(LocaleUtil.toLocale(localeAndCounty)));
+
+        if (object instanceof Serializable) {
+            JSONObject jsonObject = JSONObject.fromObject(object);
+            return jsonObject.toString();
+        }
+
+    }*/
 
     /**
      * 根据当前编码获取下一个编码
@@ -250,6 +310,19 @@ public final class Converter {
             return 0;
         }
     }
+
+    public static boolean toBool(String object) {
+        if (Validator.isEmpty(object))
+            return false;
+
+        try {
+            return Boolean.parseBoolean(object);
+        } catch (Exception e) {
+            Logger.warn(e, "将对象[{}]转化为boolean值时发生异常！", object);
+            return false;
+        }
+    }
+
 
     /**
      * 将整数字符串转化为整数数组。

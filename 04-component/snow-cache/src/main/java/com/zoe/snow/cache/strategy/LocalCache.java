@@ -1,5 +1,6 @@
 package com.zoe.snow.cache.strategy;
 
+import com.zoe.snow.cache.Cache;
 import com.zoe.snow.cache.Element;
 import com.zoe.snow.cache.CacheItemPriority;
 import com.zoe.snow.cache.ExpirationWay;
@@ -91,17 +92,7 @@ public class LocalCache implements CacheStrategy, FiveSecondJob {
         if (Validator.isEmpty(key))
             return;
 
-        Element element = new Element();
-        element.setCreateTime(System.currentTimeMillis());
-        element.setVisitTimes(0);
-        element.setUpdateTime(System.currentTimeMillis());
-        element.setKey(key);
-        element.setValue(o);
-        element.setPriority(cacheItemPriority.getValue());
-        if (time > 0)
-            element.setExpiration(System.currentTimeMillis() + time);
-        element.setSpanTime(time);
-        element.setExpirationWay(expirationWay);
+        Element element = Cache.getElement(key, o, expirationWay, time, cacheItemPriority);
 
         map.put(key, element);
     }

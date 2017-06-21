@@ -1,6 +1,7 @@
 package com.zoe.snow.auth.service;
 
 import com.zoe.snow.model.support.user.role.BasePermissionSupport;
+import com.zoe.snow.model.support.user.role.BaseRoleModel;
 
 import java.util.Set;
 
@@ -16,4 +17,6 @@ public interface BaseRoleService {
      * @return
      */
     Set<BasePermissionSupport> findPermissions(String roleId); // 根据用户名查找其权限
+
+    BaseRoleModel findRole(String accountId);
 }

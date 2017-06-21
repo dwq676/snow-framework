@@ -30,6 +30,7 @@
           <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
           <element id="library" level="project" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" />
           <element id="library" level="project" name="Maven: org.javassist:javassist:3.20.0-GA" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.29" />
           <element id="archive" name="snow-log-ex-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-log-ex" />
           </element>
@@ -89,7 +90,6 @@
             <element id="module-output" name="snow-model" />
           </element>
           <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
-          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.29" />
           <element id="archive" name="snow-spring-1.0.0-SNAPSHOT.jar">
             <element id="module-output" name="snow-spring" />
           </element>
@@ -105,10 +105,6 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.3.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.testng:testng:6.3.1" />
-          <element id="library" level="project" name="Maven: org.beanshell:bsh:2.0b4" />
-          <element id="library" level="project" name="Maven: com.beust:jcommander:1.12" />
-          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.6" />
           <element id="library" level="project" name="Maven: org.springframework:spring-test:4.3.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
           <element id="archive" name="resteasy-jarxrs-ex-1.0.0-SNAPSHOT.jar">

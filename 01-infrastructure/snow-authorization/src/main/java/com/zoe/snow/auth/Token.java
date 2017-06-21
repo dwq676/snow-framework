@@ -7,6 +7,7 @@ import com.zoe.snow.model.ResultSet;
 import com.zoe.snow.model.support.user.role.BaseRoleModel;
 import net.sf.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
@@ -16,12 +17,13 @@ import java.util.Set;
  * @author <a href="mailto:dwq676@126.com">daiwenqing</a>
  * @date 2017/5/25
  */
-public class Token {
+public class Token implements Serializable {
     private String appid;
     private String uid;
     @JSONField(name = "expired_in")
     private long expiredIn;
     private String token;
+    private String username;
 
     @JSONField(name = "role")
     private BaseRoleModel baseRoleModel;
@@ -59,6 +61,14 @@ public class Token {
                 return false;
         else
             return remoteResult;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getAppid() {
