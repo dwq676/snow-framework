@@ -16,7 +16,9 @@ public class SessionImpl implements Session, SessionAdapterAware {
 
     @Override
     public String getSessionId() {
-        return sessionThreadLocal.get().getSessionId();
+        if (sessionThreadLocal.get() != null)
+            return sessionThreadLocal.get().getSessionId();
+        return "";
     }
 
     @Override

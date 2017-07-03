@@ -1,7 +1,6 @@
 package com.zoe.snow.dao.dialect;
 
 import com.zoe.snow.model.Model;
-import com.zoe.snow.model.annotation.Jsonable;
 
 /**
  * Column

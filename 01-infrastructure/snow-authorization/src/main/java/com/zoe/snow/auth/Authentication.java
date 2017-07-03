@@ -11,11 +11,10 @@ public interface Authentication {
     /**
      * 登录
      *
-     * @param appId 平台或者租户
      * @param ip    登录IP
      * @return
      */
-    Object login(String appId, String ip, AccountViewModel accountViewModel);
+    Object login(String ip, AccountViewModel accountViewModel);
 
     Object logout(String token);
 

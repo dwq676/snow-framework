@@ -2,6 +2,7 @@ package com.zoe.snow.crud;
 
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.fun.Callable;
+import com.zoe.snow.json.DJson;
 import com.zoe.snow.model.ResultSet;
 import com.zoe.snow.validator.exception.*;
 import com.zoe.snow.log.Logger;
@@ -145,7 +146,7 @@ public class Result<T> implements Serializable, ResultSet<T> {
             //Map<String, Object> map = new HashMap<>();
             JSONObject jsonObject = new JSONObject();
             if (data instanceof Model) {
-                jsonObject.put("data", ModelHelper.toJson((Model) data));
+                jsonObject.put("data", DJson.toJson((Model) data));
             } else if (data instanceof PageList) {
                 PageList pageList = (PageList) data;
                 jsonObject.put("data", pageList.toJson());

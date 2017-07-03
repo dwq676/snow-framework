@@ -1,6 +1,5 @@
 package com.zoe.snow.auth;
 
-import com.zoe.snow.dao.DataSourceHost;
 import org.springframework.stereotype.Component;
 
 /**

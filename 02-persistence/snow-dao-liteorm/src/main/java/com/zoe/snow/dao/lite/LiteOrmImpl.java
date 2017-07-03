@@ -10,6 +10,7 @@ import java.util.Set;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.dao.sql.Sql;
 import com.zoe.snow.dao.sql.SqlTable;
+import com.zoe.snow.json.DJson;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.ModelHelper;
@@ -192,7 +193,7 @@ public class LiteOrmImpl implements LiteOrm {
         int n = sql.update(insertSql.toString(), args.toArray());
 
         if (n == 0)
-            Logger.warn(null, "新增操作失败！sql:{};args:{}", insertSql, ModelHelper.toJson(model));
+            Logger.warn(null, "新增操作失败！sql:{};args:{}", insertSql, DJson.toJson(model));
 
         return n == 1;
     }
@@ -219,7 +220,7 @@ public class LiteOrmImpl implements LiteOrm {
         int n = sql.update(updateSql.toString(), args.toArray());
 
         if (n == 0)
-            Logger.warn(null, "更新操作失败！sql:{};args:{}", updateSql, modelHelper.toJson(model));
+            Logger.warn(null, "更新操作失败！sql:{};args:{}", updateSql, DJson.toJson(model));
 
         return n;
     }

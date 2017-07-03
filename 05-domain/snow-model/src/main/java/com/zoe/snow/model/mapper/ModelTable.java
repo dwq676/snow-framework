@@ -4,11 +4,8 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.zoe.snow.model.Model;
-import com.zoe.snow.model.annotation.FetchWay;
-import com.zoe.snow.model.annotation.Jsonable;
 import com.zoe.snow.model.annotation.Property;
 
 import javax.persistence.JoinColumn;

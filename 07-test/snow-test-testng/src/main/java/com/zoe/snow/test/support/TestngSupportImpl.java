@@ -9,6 +9,7 @@ import com.zoe.snow.crud.service.proxy.QueryProxy;
 import com.zoe.snow.dao.Closable;
 import com.zoe.snow.dao.Transaction;
 import com.zoe.snow.dao.sql.Sql;
+import com.zoe.snow.json.DJson;
 import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.model.PageList;
 import com.zoe.snow.model.enums.Criterion;
@@ -388,7 +389,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
                 .join(School.class, JoinType.Inner)
                 .where("id", Criterion.Equals, "1").one();
 
-        ModelHelper.fromJson(ModelHelper.toJson(userModel).toString(), UserModel.class);
+        ModelHelper.fromJson(DJson.toJson(userModel).toString(), UserModel.class);
 
         crudService.sql("select * fRom crip_user t where  t.id= ?").asJson("1");
 

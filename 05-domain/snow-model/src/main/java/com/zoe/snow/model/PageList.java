@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.json.DJson;
 import com.zoe.snow.model.mapper.ModelTable;
 import com.zoe.snow.model.mapper.ModelTables;
 import net.sf.json.JSONArray;
@@ -141,7 +142,7 @@ public class PageList<T extends Model> {
         object.put("number", this.number);
         JSONArray array = new JSONArray();
         for (T model : list)
-            array.add(ModelHelper.toJson(model));
+            array.add(DJson.toJson(model));
         object.put("rows", array);
 
         return object;

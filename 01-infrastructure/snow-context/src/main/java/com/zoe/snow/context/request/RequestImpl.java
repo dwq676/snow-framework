@@ -8,6 +8,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
 import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.json.DJson;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.ModelHelper;
 import com.zoe.snow.util.Security;
@@ -121,7 +122,7 @@ public class RequestImpl implements Request, HttpServletRequestAware {
                 jsonObject.put(name, get(name));
             }
         }
-        model = ModelHelper.fromJson(jsonObject, (Class<T>) model.getClass());
+        model = DJson.parseJson(jsonObject.toString(), (Class<T>) model.getClass());
     }
 
     @Override

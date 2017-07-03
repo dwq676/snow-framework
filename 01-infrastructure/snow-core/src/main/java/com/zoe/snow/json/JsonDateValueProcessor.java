@@ -1,4 +1,4 @@
-package com.zoe.snow.model;
+package com.zoe.snow.json;
 
 import com.zoe.snow.Global;
 import net.sf.json.JsonConfig;

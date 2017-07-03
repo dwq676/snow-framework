@@ -1,7 +1,7 @@
 package com.zoe.snow.model.support;
 
 import com.zoe.snow.model.Model;
-import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.json.Jsonable;
 
 /**
  * Created by wangyangcheng on 2016/5/16.

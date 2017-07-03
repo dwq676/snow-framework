@@ -1,5 +1,6 @@
 package com.zoe.snow.service.cxf;
 
+import com.zoe.snow.json.DJson;
 import com.zoe.snow.service.cxf.user.Dept;
 import net.sf.json.JSONObject;
 import org.apache.cxf.binding.soap.SoapMessage;
@@ -124,12 +125,12 @@ public class AuthorInterceptor extends AbstractPhaseInterceptor<SoapMessage> {
             },"domain":"1", "createTime":"Mon Jan 11 19:23:20 CST 2016", "validFlag":"0"
         }],"email":"dwq@66.com", "anonymous":"2", "username":"dwq7878", "sort":"0", "identityType":"0", "phone":"1386595925", "multi":"0", "nickname":"嘎嘎", "sex":"0", "createTime":"Mon Jan 11 19:23:20 CST 2016", "validFlag":"0", "id":"dwq"
         }*/
-        String json = ModelHelper.toJson(userModel).toString();
+        String json = DJson.toJson(userModel).toString();
         /*JSONObject jsonObject = new JSONObject();
         Map<String, Class> classMap = new HashMap<String, Class>();
         classMap.put("roles", role.class);
         jsonObject.toBean(JSONObject.fromObject(json), UserModel.class, classMap);
         System.out.printf(json);*/
-        ModelHelper.fromJson(JSONObject.fromObject(json), UserModel.class);
+        DJson.parseJson(json, UserModel.class);
     }
 }

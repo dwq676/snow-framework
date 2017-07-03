@@ -1,7 +1,7 @@
 package com.zoe.snow.dao.dialect.mysql;
 
 import com.zoe.snow.dao.dialect.Columns;
-import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.json.Jsonable;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;

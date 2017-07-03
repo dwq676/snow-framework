@@ -2,19 +2,22 @@ package com.zoe.snow.context.aop;
 
 import com.zoe.snow.Global;
 import com.zoe.snow.auth.AuthBean;
+import com.zoe.snow.auth.Authentication;
 import com.zoe.snow.auth.NoNeedVerify;
-import com.zoe.snow.auth.Token;
+import com.zoe.snow.auth.Remote;
 import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.context.request.Request;
+import com.zoe.snow.conf.AuthenticationConf;
 import com.zoe.snow.context.response.Response;
 import com.zoe.snow.crud.Result;
 import com.zoe.snow.delivery.Http;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
+import com.zoe.snow.model.ResultSet;
 import com.zoe.snow.model.annotation.NotNull;
 import com.zoe.snow.model.support.user.BaseUserModel;
 import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.util.Validator;
+import net.sf.json.JSONObject;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -228,11 +231,36 @@ public class AccessAspect {
                         return false;
                     String token = args[method.getParameters().length - 1] == null ?
                             "" : args[method.getParameters().length - 1].toString();
-                    /*BaseUserModel user = userHelper.getUser(token);
-                    if (user == null)
-                        return false;*/
-                    //return tok
-                    return Token.verify(token);
+
+                    AuthenticationConf conf = BeanFactory.getBean(AuthenticationConf.class);
+                    Authentication authentication = null;
+                    String remoteAuthBeanName = "snow.auth.service.remote";
+                    ResultSet result = null;
+                    boolean remoteResult = false;
+                    boolean isRemote = false;
+                    if (conf.getAuthIsThirdPart()) {
+                        authentication = BeanFactory.getBean(remoteAuthBeanName);
+                        String re = authentication.verify(token).toString();
+                        if (re.trim().startsWith("{")) {
+                            JSONObject jsonObject = JSONObject.fromObject(re);
+                            remoteResult = jsonObject.getBoolean("success");
+                        }
+                        isRemote = true;
+                    } else {
+                        Collection<Authentication> authentications = BeanFactory.getBeans(Authentication.class);
+                        for (Authentication auth : authentications) {
+                            if (!(auth instanceof Remote))
+                                authentication = auth;
+                        }
+                        result = ResultSet.class.cast(authentication.verify(token));
+                    }
+                    if (!isRemote)
+                        if (result != null)
+                            return result.isSuccess();
+                        else
+                            return false;
+                    else
+                        return remoteResult;
                 }
             }
         }

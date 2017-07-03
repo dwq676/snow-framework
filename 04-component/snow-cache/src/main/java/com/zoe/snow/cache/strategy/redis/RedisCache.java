@@ -7,11 +7,14 @@ import com.zoe.snow.cache.ExpirationWay;
 import com.zoe.snow.cache.strategy.CacheStrategy;
 import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.util.Converter;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+
+import java.lang.reflect.ParameterizedType;
 
 /**
  * RedisCache
@@ -34,7 +37,7 @@ public class RedisCache implements CacheStrategy, ContextRefreshedListener {
     private int total;
     @Value("${snow.cache.redis.max-idle:5}")
     private int idle;
-    @Value("${snow.cache.redis.max-wait:500}")
+    @Value("${snow.cache.redis.max-wait:50000}")
     private long wait;
     private JedisPool pool;
 
@@ -62,8 +65,9 @@ public class RedisCache implements CacheStrategy, ContextRefreshedListener {
         jedis.set(key, Converter.toString(element));
 
         if (time > 0) {
+            time = time / 1000;
             int t = (int) time;
-            jedis.expire(key, t / 1000);
+            jedis.expire(key, t);
         }
         jedis.close();
     }
@@ -72,8 +76,11 @@ public class RedisCache implements CacheStrategy, ContextRefreshedListener {
     public <T> T get(String key) {
         Jedis jedis = pool.getResource();
         jedis.select(2);
-        Element element = Converter.fromJson(jedis.get(key), Element.class);
-        return (T) element.getValue();
+        Element<T> element = Converter.fromJson(jedis.get(key), Element.class);
+        jedis.close();
+        if (element != null)
+            return element.getValue();
+        return null;
     }
 
     @Override

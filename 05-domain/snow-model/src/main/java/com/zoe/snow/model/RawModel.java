@@ -1,18 +1,12 @@
 package com.zoe.snow.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.zoe.snow.bean.BeanFactory;
-import com.zoe.snow.model.annotation.Jsonable;
-import com.zoe.snow.model.annotation.Property;
+import com.zoe.snow.json.Jsonable;
 import com.zoe.snow.model.annotation.SupperClass;
 import com.zoe.snow.model.enums.IdStrategy;
-import com.zoe.snow.model.mapper.ModelTable;
-import com.zoe.snow.model.mapper.ModelTables;
-import com.zoe.snow.util.Validator;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Map;
 
 /**
  * Model支持类，主键ID使用UUID。

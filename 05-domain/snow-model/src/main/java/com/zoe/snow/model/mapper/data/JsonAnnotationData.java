@@ -1,6 +1,6 @@
 package com.zoe.snow.model.mapper.data;
 
-import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.json.Jsonable;
 
 /**
  * JsonAnnotationData

@@ -1,11 +1,10 @@
 package com.zoe.snow.dao.dialect.oracle;
 
 import com.zoe.snow.dao.dialect.TableInfo;
-import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.json.Jsonable;
 import com.zoe.snow.model.support.BaseModelSupport;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;

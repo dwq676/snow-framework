@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.zoe.snow.model.annotation;
+package com.zoe.snow.json;
 
 import java.lang.annotation.*;
 
@@ -14,6 +14,8 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Jsonable {
+
+    boolean hidden() default false;
     /**
      * 数据格式。
      *

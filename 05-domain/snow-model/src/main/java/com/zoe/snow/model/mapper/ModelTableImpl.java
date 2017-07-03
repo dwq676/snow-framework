@@ -22,7 +22,7 @@ import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.Model;
 import com.zoe.snow.model.ModelHelper;
-import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.json.Jsonable;
 import com.zoe.snow.model.annotation.Property;
 import com.zoe.snow.model.mapper.data.ModelTableData;
 import com.zoe.snow.util.Converter;

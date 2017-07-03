@@ -1,6 +1,6 @@
 package com.zoe.snow.service.cxf.user;
 
-import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.json.Jsonable;
 import com.zoe.snow.model.support.BaseModelSupport;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;

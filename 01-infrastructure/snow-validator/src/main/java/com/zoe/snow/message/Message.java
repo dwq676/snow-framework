@@ -122,6 +122,8 @@ public enum Message {
 
     LoginLock("msg.423"),
 
+    InvalidToken("msg.403"),
+
     ExistsRecycle("error.exists.recycle"),
 
     ExistsRecycleFailure("error.exists.recycle.failure"),

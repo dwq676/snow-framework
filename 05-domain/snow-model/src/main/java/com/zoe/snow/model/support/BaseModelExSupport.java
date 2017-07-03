@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zoe.snow.model.CustomDateDeSerializer;
 import com.zoe.snow.model.CustomDateSerializer;
 import com.zoe.snow.model.RawModel;
-import com.zoe.snow.model.annotation.Jsonable;
+import com.zoe.snow.json.Jsonable;
 import com.zoe.snow.model.annotation.Property;
 import com.zoe.snow.model.annotation.SupperClass;
 import org.springframework.beans.factory.config.BeanDefinition;

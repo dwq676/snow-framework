@@ -21,28 +21,32 @@ public class RemoteAuthenticationImpl implements Authentication, Remote {
     private Http http;
 
     @Override
-    public Object login(String appId, String ip, AccountViewModel accountViewModel) {
+    @NoNeedVerify
+    public Object login(String ip, AccountViewModel accountViewModel) {
         return http.post(getPath() + "login", null, JSONObject.fromObject(accountViewModel).toString(), null);
     }
 
     @Override
+    @NoNeedVerify
     public Object logout(String token) {
-        /*JSONObject jsonObject = new JSONObject();
-        jsonObject.put("token", token);*/
-        return http.post(getPath() + "logout", null, token, null);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("token", token);
+        return http.post(getPath() + "logout", null, jsonObject.toString(), null);
     }
 
     @Override
+    @NoNeedVerify
     public Object verify(String token) {
-        /*JSONObject jsonObject = new JSONObject();
-        jsonObject.put("token", token);*/
-        return http.post(getPath() + "verify", null, token, null);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("token", token);
+        return http.post(getPath() + "verify", null, jsonObject.toString(), null);
     }
 
     private String getPath() {
-        return new StringBuffer().append(HTTP_PROTOCOL).append(authenticationConf.getAuthHost())
-                .append(":").append(authenticationConf.getAuthPort())
-                .append("/").append(authenticationConf.getAuthProject()).append("/")
-                .toString();
+        StringBuffer stringBuffer = new StringBuffer().append(HTTP_PROTOCOL).append(authenticationConf.getAuthHost());
+        if (authenticationConf.getAuthPort() != 80)
+            stringBuffer.append(":").append(authenticationConf.getAuthPort());
+        stringBuffer.append("/").append(authenticationConf.getAuthProject()).append("/");
+        return stringBuffer.toString();
     }
 }
