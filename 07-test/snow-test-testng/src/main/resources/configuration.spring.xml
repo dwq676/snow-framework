@@ -18,7 +18,7 @@
                         <!--数据库驱动类型-->
                         <property name="driver" value="mysql"/>
                         <!--数据库名-->
-                        <property name="schema" value="test"/>
+                        <property name="schema" value="rdc"/>
                         <!--集群的名称，可为空-->
                         <property name="cluster" value="snow"/>
                         <property name="toValidate" value="false"/>
@@ -27,11 +27,11 @@
                         <property name="writeAbleHost">
                             <bean class="com.zoe.snow.dao.DataSourceHost">
                                 <!--主机IP地址，可以输入对称加密后的地址-->
-                                <property name="ip" value="localhost"/>
+                                <property name="ip" value="10.8.208.103"/>
                                 <!--主机用户名，可以入对称加密后的用户名 -->
-                                <property name="user" value="root"/>
+                                <property name="user" value="rdc"/>
                                 <!--主机用户密码，可以输入 对称加密后的密码-->
-                                <property name="password" value=""/>
+                                <property name="password" value="rdc"/>
                                 <!--端口号，默认可以不填写-->
                                 <property name="port" value="3306"/>
                                 <!--节点控制开关，默认为开的-->

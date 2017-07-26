@@ -45,11 +45,14 @@ public class ServiceFilter implements Filter {
         /*res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         res.setHeader("Access-Control-Max-Age", "3600");
-        res.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");*/
+        */
         if (CoreConfig.getContextProperty("snow.allow-cross-domain").equals("true")) {
             res.setHeader("Access-Control-Allow-Origin", "*");
-            res.setHeader("Access-Control-Allow-Headers", " content-type");
+            res.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With,Authorization, Content-Type, Accept");
+            /*res.setHeader("Access-Control-Allow-Headers", " content-type");
+            res.setHeader("Access-Control-Allow-Headers", " Authorization");*/
             res.setHeader("Access-Control-Allow-Methods", " POST");
+            res.setHeader("Access-Control-Allow-Methods", " OPTION");
         }
 
         //if (!ignore((HttpServletRequest) request, (HttpServletResponse) response))

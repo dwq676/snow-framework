@@ -190,11 +190,11 @@ public class CrudServiceImpl implements CrudService {
         if (args.size() > 0) {
             pageList = queryProxy.pageList();
         }
-        if (pageList.getList().size() > 0) {
+        if (pageList.size() > 0) {
             // 如果是修改，当前修改的实体的ID不能与库里有ID相等
-            if ((!Validator.isEmpty(model.getId()) && !pageList.getList().get(0).getId().equals(model.getId()))
+            if ((!Validator.isEmpty(model.getId()) && !pageList.get(0).getId().equals(model.getId()))
                     || Validator.isEmpty(model.getId())) {
-                Model m = pageList.getList().get(0);
+                Model m = pageList.get(0);
                 //BaseModelSupport baseModelSupport = BaseModelSupport.class.cast(pageList.getList().get(0));
                 //model.setId(baseModelSupport.getId());
                 int valid = ((ValidFlag) m).getValidFlag();

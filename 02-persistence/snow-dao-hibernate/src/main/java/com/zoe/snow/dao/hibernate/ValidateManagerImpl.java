@@ -101,7 +101,7 @@ public class ValidateManagerImpl implements ValidateManager {
                 , datasource);
         if (Validator.isEmpty(columnsList))
             return null;
-        Map<String, Columns> columnsMap = columnsList.getList().parallelStream()
+        Map<String, Columns> columnsMap = columnsList.parallelStream()
                 .collect(Collectors.toMap(c -> c.getColumnName(), c -> c));
         return columnsMap;
 

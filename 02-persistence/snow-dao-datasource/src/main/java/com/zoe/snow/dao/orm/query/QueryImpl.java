@@ -103,12 +103,17 @@ public class QueryImpl extends OrmContextImpl implements Query {
         if (Validator.isEmpty(column))
             return this;
         if (Validator.isEmpty(value))
-            return this;
+            if (criterion != Criterion.IsNull && criterion != Criterion.IsNotNUll)
+                return this;
 
         WhereContext whereContext = new WhereContext();
         whereContext.setCriterion(criterion);
         whereContext.setKey(column);
         this.whereContexts.add(whereContext);
+
+        if (operator == null)
+            operator = new Operator[]{Operator.And};
+
 
         if (this.whereBuffer.length() > 0) {
             if (operator.length < 1) {
@@ -163,6 +168,9 @@ public class QueryImpl extends OrmContextImpl implements Query {
     public Query where(Supplier<String> where, Object value, Operator... operators) {
         String whereStr = where.get();
         if (!Validator.isEmpty(whereStr)) {
+
+            if (operators == null)
+                operators = new Operator[]{Operator.And};
 
             if (operators.length > 0)
                 this.whereBuffer.append(operators[0].getType());

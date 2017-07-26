@@ -63,15 +63,15 @@ public class SqlProxy {
 
     public <T extends Model> List<T> list(Object... args) {
         //pageList 一定不为空
-        return (List<T>) pageList(args).getList();
+        return (List<T>) pageList(args);
     }
 
 
     public <T extends Model> T one(Object... args) {
         Sql sqlOrm = BeanFactory.getBean(Sql.class);
         PageList<T> pageList = sqlOrm.getList(this.classZ, this.sql, -1, -1, args);
-        if (pageList.getList().size() > 0)
-            return pageList.getList().get(0);
+        if (pageList.size() > 0)
+            return pageList.get(0);
         return null;
     }
 

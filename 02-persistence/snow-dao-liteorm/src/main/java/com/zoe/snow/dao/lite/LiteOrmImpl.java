@@ -68,7 +68,7 @@ public class LiteOrmImpl implements LiteOrm {
 
     @SuppressWarnings("unchecked")
     protected <T extends Model> T queryOne(LiteQuery query) {
-        List<T> list = (List<T>) query(query, false).getList();
+        List<T> list = query(query, false);
 
         return Validator.isEmpty(list) ? null : list.get(0);
     }
@@ -82,7 +82,7 @@ public class LiteOrmImpl implements LiteOrm {
     protected <T extends Model> PageList<T> query(LiteQuery query, boolean countable) {
         PageList<T> models = BeanFactory.getBean(PageList.class);
         if (countable && query.getSize() > 0)
-            models.setPage(count(query), query.getSize(), query.getPage());
+            models.getPage().setPage(count(query), query.getPage(), query.getSize());
         models.setList(new ArrayList<>());
 
         ModelTable modelTable = modelTables.get(query.getFrom());
@@ -101,7 +101,7 @@ public class LiteOrmImpl implements LiteOrm {
                 else
                     modelTable.set(model, columnNames[j], sqlTable.get(i, j));
             }
-            models.getList().add(model);
+            models.add(model);
         }
 
         return models;

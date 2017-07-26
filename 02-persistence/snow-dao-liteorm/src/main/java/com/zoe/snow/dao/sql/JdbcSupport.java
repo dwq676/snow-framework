@@ -35,7 +35,7 @@ public abstract class JdbcSupport<T extends PreparedStatement> implements Jdbc {
 
     protected <T extends Model> PageList<T> sqlTableToPageList(Class<? extends Model> classZ, SqlTable sqlTable, int count, int size, int page) {
         PageList<T> models = BeanFactory.getBean(PageList.class);
-        models.setPage(count, size, page);
+        models.getPage().setPage(count, page, size);
         if (Validator.isEmpty(classZ) || Validator.isEmpty(sqlTable))
             return models;
         ModelTable modelTable = modelTables.get(classZ);
@@ -48,7 +48,7 @@ public abstract class JdbcSupport<T extends PreparedStatement> implements Jdbc {
                 else
                     modelTable.set(model, columnNames[j], sqlTable.get(i, j));
             }
-            models.getList().add(model);
+            models.add(model);
         }
         return models;
     }

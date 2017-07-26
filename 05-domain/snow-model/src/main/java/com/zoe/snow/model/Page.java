@@ -1,5 +1,6 @@
 package com.zoe.snow.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -12,32 +13,30 @@ import org.springframework.stereotype.Component;
  * @author Dai Wenqing
  * @date 2015/10/4
  */
-@Component("snow.model.page")
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@Deprecated
-public class Page<T> {
 
-    protected int count;
-    protected int size;
-    protected int number;
-    protected T model;
+public class Page {
+    /*int getCount();
 
-    /**
-     * 设置分页信息。
-     *
-     * @param count
-     *            记录总数。
-     * @param size
-     *            每页显示记录数。
-     * @param number
-     *            当前显示页码数。
-     */
-    public void setPage(int count, int size, int number) {
-        this.count = Math.max(0, count);
-        this.size = Math.max(1, size);
-        this.number = Math.min(number, this.count / this.size + (this.count % this.size == 0 ? 0 : 1));
-        this.number = Math.max(1, this.number);
-    }
+    void setCount(int count);
+
+    int getPage();
+
+    void setPage(int page);
+
+    int getPageSize();
+
+    void setPageSize(int pageSize);
+
+    int getPages();
+
+    void setPageSize();*/
+
+
+    int count;
+    int page;
+    @JSONField(name = "page_size")
+    int pageSize;
+    int pages;
 
     /**
      * 获取记录总数。
@@ -48,60 +47,49 @@ public class Page<T> {
         return count;
     }
 
+    /*public void setCount(int count) {
+        this.count = count;
+    }*/
+
+    public int getPage() {
+        return page;
+    }
+
+    /**
+     * 设置分页信息。
+     *
+     * @param count    记录总数。
+     * @param pageSize 每页显示记录数。
+     * @param page     当前显示页码数。
+     */
+    public Page setPage(int count, int page, int pageSize) {
+        this.count = Math.max(0, count);
+        this.pageSize = Math.max(1, pageSize);
+        this.pages = this.count / this.pageSize + (this.count % this.pageSize == 0 ? 0 : 1);
+        this.pages = Math.max(1, this.pages);
+        //this.number = (int) Math.ceil(this.count / this.size);
+        this.page = page;
+        return this;
+    }
+
     /**
      * 获取每页最大显示记录数。
      *
      * @return 每页最大显示记录数。
      */
-    public int getSize() {
-        return size;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    /**
-     * 获取当前显示页数。
-     *
-     * @return 当前显示页数。
-     */
-    public int getNumber() {
-        return number;
+    /*public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }*/
+
+    public int getPages() {
+        return pages;
     }
 
-    /**
-     * 获取数据集。
-     *
-     * @return 数据集。
-     */
-    public T getData() {
-        return model;
-    }
-
-    /**
-     * 设置数据集。
-     *
-     * @param model
-     *            数据集。
-     */
-    public void setData(T model) {
-        this.model = model;
-    }
-
-    /**
-     * 转化为JSON格式的数据。
-     *
-     * @return JSON格式的数据。
-     */
-    public JSONObject toJson() {
-        JSONObject object = new JSONObject();
-        object.put("count", count);
-        object.put("size", size);
-        object.put("page", number);
-        JSONArray array = new JSONArray();
-        /*
-         * for (T model : list) array.add(modelHelper.toJson(model));
-         */
-        array.add(JSONArray.fromObject(this.model));
-        object.put("list", array);
-
-        return object;
-    }
+    /*public void setPages(int pages) {
+        this.pages = pages;
+    }*/
 }

@@ -60,6 +60,221 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
     private ModelTables modelTables;
     @Autowired
     private MessageTool messageTool;
+    private String cvNameList = "Afghanistan\n" +
+            "Aland\n" +
+            "Albania\n" +
+            "Algeria\n" +
+            "American Samoa\n" +
+            "Andorra\n" +
+            "Angola\n" +
+            "Antigua and Barb.\n" +
+            "Argentina\n" +
+            "Armenia\n" +
+            "Australia\n" +
+            "Austria\n" +
+            "Azerbaijan\n" +
+            "Bahamas\n" +
+            "Bahrain\n" +
+            "Bangladesh\n" +
+            "Barbados\n" +
+            "Belarus\n" +
+            "Belgium\n" +
+            "Belize\n" +
+            "Benin\n" +
+            "Bermuda\n" +
+            "Bhutan\n" +
+            "Bolivia\n" +
+            "Bosnia and Herz.\n" +
+            "Botswana\n" +
+            "Br. Indian Ocean Ter.\n" +
+            "Brazil\n" +
+            "Brunei\n" +
+            "Bulgaria\n" +
+            "Burkina Faso\n" +
+            "Burundi\n" +
+            "Cambodia\n" +
+            "Cameroon\n" +
+            "Canada\n" +
+            "Cape Verde\n" +
+            "Cayman Is.\n" +
+            "Central African Rep.\n" +
+            "Chad\n" +
+            "Chile\n" +
+            "China\n" +
+            "Colombia\n" +
+            "Comoros\n" +
+            "Congo\n" +
+            "Costa Rica\n" +
+            "Croatia\n" +
+            "Cuba\n" +
+            "Curaçao\n" +
+            "Cyprus\n" +
+            "Czech Rep.\n" +
+            "Côte d'Ivoire\n" +
+            "Dem. Rep. Congo\n" +
+            "Dem. Rep. Korea\n" +
+            "Denmark\n" +
+            "Djibouti\n" +
+            "Dominica\n" +
+            "Dominican Rep.\n" +
+            "Ecuador\n" +
+            "Egypt\n" +
+            "El Salvador\n" +
+            "Eq. Guinea\n" +
+            "Eritrea\n" +
+            "Estonia\n" +
+            "Ethiopia\n" +
+            "Faeroe Is.\n" +
+            "Falkland Is.\n" +
+            "Fiji\n" +
+            "Finland\n" +
+            "Fr. Polynesia\n" +
+            "Fr. S. Antarctic Lands\n" +
+            "France\n" +
+            "Gabon\n" +
+            "Gambia\n" +
+            "Georgia\n" +
+            "Germany\n" +
+            "Ghana\n" +
+            "Greece\n" +
+            "Greenland\n" +
+            "Grenada\n" +
+            "Guam\n" +
+            "Guatemala\n" +
+            "Guinea\n" +
+            "Guinea-Bissau\n" +
+            "Guyana\n" +
+            "Haiti\n" +
+            "Heard I. and McDonald Is.\n" +
+            "Honduras\n" +
+            "Hungary\n" +
+            "Iceland\n" +
+            "India\n" +
+            "Indonesia\n" +
+            "Iran\n" +
+            "Iraq\n" +
+            "Ireland\n" +
+            "Isle of Man\n" +
+            "Israel\n" +
+            "Italy\n" +
+            "Jamaica\n" +
+            "Japan\n" +
+            "Jersey\n" +
+            "Jordan\n" +
+            "Kazakhstan\n" +
+            "Kenya\n" +
+            "Kiribati\n" +
+            "Korea\n" +
+            "Kuwait\n" +
+            "Kyrgyzstan\n" +
+            "Lao PDR\n" +
+            "Latvia\n" +
+            "Lebanon\n" +
+            "Lesotho\n" +
+            "Liberia\n" +
+            "Libya\n" +
+            "Liechtenstein\n" +
+            "Lithuania\n" +
+            "Luxembourg\n" +
+            "Macedonia\n" +
+            "Madagascar\n" +
+            "Malawi\n" +
+            "Malaysia\n" +
+            "Mali\n" +
+            "Malta\n" +
+            "Mauritania\n" +
+            "Mauritius\n" +
+            "Mexico\n" +
+            "Micronesia\n" +
+            "Moldova\n" +
+            "Mongolia\n" +
+            "Montenegro\n" +
+            "Montserrat\n" +
+            "Morocco\n" +
+            "Mozambique\n" +
+            "Myanmar\n" +
+            "N. Cyprus\n" +
+            "N. Mariana Is.\n" +
+            "Namibia\n" +
+            "Nepal\n" +
+            "Netherlands\n" +
+            "New Caledonia\n" +
+            "New Zealand\n" +
+            "Nicaragua\n" +
+            "Niger\n" +
+            "Nigeria\n" +
+            "Niue\n" +
+            "Norway\n" +
+            "Oman\n" +
+            "Pakistan\n" +
+            "Palau\n" +
+            "Palestine\n" +
+            "Panama\n" +
+            "Papua New Guinea\n" +
+            "Paraguay\n" +
+            "Peru\n" +
+            "Philippines\n" +
+            "Poland\n" +
+            "Portugal\n" +
+            "Puerto Rico\n" +
+            "Qatar\n" +
+            "Romania\n" +
+            "Russia\n" +
+            "Rwanda\n" +
+            "S. Geo. and S. Sandw. Is.\n" +
+            "S. Sudan\n" +
+            "Saint Helena\n" +
+            "Saint Lucia\n" +
+            "Samoa\n" +
+            "Saudi Arabia\n" +
+            "Senegal\n" +
+            "Serbia\n" +
+            "Seychelles\n" +
+            "Siachen Glacier\n" +
+            "Sierra Leone\n" +
+            "Singapore\n" +
+            "Slovakia\n" +
+            "Slovenia\n" +
+            "Solomon Is.\n" +
+            "Somalia\n" +
+            "South Africa\n" +
+            "Spain\n" +
+            "Sri Lanka\n" +
+            "St. Pierre and Miquelon\n" +
+            "St. Vin. and Gren.\n" +
+            "Sudan\n" +
+            "Suriname\n" +
+            "Swaziland\n" +
+            "Sweden\n" +
+            "Switzerland\n" +
+            "Syria\n" +
+            "São Tomé and Principe\n" +
+            "Tajikistan\n" +
+            "Tanzania\n" +
+            "Thailand\n" +
+            "Timor-Leste\n" +
+            "Togo\n" +
+            "Tonga\n" +
+            "Trinidad and Tobago\n" +
+            "Tunisia\n" +
+            "Turkey\n" +
+            "Turkmenistan\n" +
+            "Turks and Caicos Is.\n" +
+            "U.S. Virgin Is.\n" +
+            "Uganda\n" +
+            "Ukraine\n" +
+            "United Arab Emirates\n" +
+            "United Kingdom\n" +
+            "United States\n" +
+            "Uruguay\n" +
+            "Uzbekistan\n" +
+            "Vanuatu\n" +
+            "Venezuela\n" +
+            "Vietnam\n" +
+            "W. Sahara\n" +
+            "Yemen\n" +
+            "Zambia\n" +
+            "Zimbabwe\n";
 
     public static void Main(String[] args) {
         ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("classpath:*.spring.xml");
@@ -319,7 +534,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         Result<PageList> pageListResult = Result.reply(() -> crudService.query().from(UserModel.class)
                 .where("userName", Criterion.In, "jack_28,jack_32").paging(1, 10).list());
 
-        pageListResult.getData().getList();
+        pageListResult.getData();
 
         transactionSet.forEach(Transaction::beginTransaction);
         UserModel userModel = new UserModel();
@@ -351,6 +566,22 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
     @Transactional
     public void test() {
         String pin = PinYinUtil.generatePinYin("呃呃");
+        String[] cvs = cvNameList.split("[\\n]+");
+        transactionSet.forEach(Transaction::beginTransaction);
+
+        List<CV> cvList = crudService.query().from(CV.class).list();
+
+        cvList.forEach(c -> {
+            for (String n : cvs) {
+                if (c.getName().contains(n) || n.contains(c.getName())) {
+                    c.setCode(n);
+                    crudService.save(c);
+                }
+            }
+        });
+
+        transactionSet.forEach(Transaction::commit);
+        cloneableSet.forEach(Closable::close);
 
         UserModel userModel = new UserModel();
        /* userModel = new UserModel();
@@ -383,7 +614,7 @@ public class TestngSupportImpl extends AbstractTestNGSpringContextTests implemen
         // COMMENT '指标名称') ").invoke();
         // transactionSet.forEach(Transaction::commit);
         //UserModel userModel= crudService.execute()
-        transactionSet.forEach(Transaction::beginTransaction);
+
 
         userModel = crudService.query().from(UserModel.class).join(Student.class, JoinType.Inner)
                 .join(School.class, JoinType.Inner)

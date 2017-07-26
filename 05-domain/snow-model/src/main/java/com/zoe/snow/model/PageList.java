@@ -3,18 +3,15 @@
  */
 package com.zoe.snow.model;
 
-import java.lang.reflect.Method;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zoe.snow.bean.BeanFactory;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.zoe.snow.json.DJson;
-import com.zoe.snow.model.mapper.ModelTable;
-import com.zoe.snow.model.mapper.ModelTables;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -24,64 +21,31 @@ import org.springframework.stereotype.Component;
  */
 @Component("snow.model.page-list")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class PageList<T extends Model> {
+public class PageList<T extends Serializable> extends ArrayList<T> {
 
-    @Value("${commons.dao.sql.page-size.max:100}")
+    /*@Value("${commons.dao.sql.page-size.max:100}")
     protected int maxPageSize;
-    protected List<T> list = new ArrayList<>();
 
 
     protected int count;
     protected int size;
     protected int page;
-    protected int number;
-   /* protected T model;*/
+    protected int number;*/
+    //protected List<T> list = new ArrayList<>();
 
-    /**
-     * 设置分页信息。
-     *
-     * @param count 记录总数。
-     * @param size  每页显示记录数。
-     * @param page  当前显示页码数。
-     */
-    public void setPage(int count, int size, int page) {
-        this.count = Math.max(0, count);
-        this.size = Math.max(1, size);
-        this.number = this.count / this.size + (this.count % this.size == 0 ? 0 : 1);
-        this.number = Math.max(1, this.number);
-        //this.number = (int) Math.ceil(this.count / this.size);
-        this.page = page;
-    }
+    @JSONField(name = "paging")
+    protected Page page = new Page();
 
-    /**
-     * 获取记录总数。
-     *
-     * @return 记录总数。
-     */
-    public int getCount() {
-        return count;
-    }
-
-    /**
-     * 获取每页最大显示记录数。
-     *
-     * @return 每页最大显示记录数。
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * 获取当前显示页数。
-     *
-     * @return 当前显示页数。
-     */
-    public int getPage() {
+    public Page getPage() {
         return page;
     }
 
-    public int getNumber() {
-        return number;
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
+    public void setList(List<T> list) {
+        this.addAll(list);
     }
 
     /**
@@ -120,35 +84,31 @@ public class PageList<T extends Model> {
         object.put("list", array);
 
         return object;
-    }*/
+    }
     public List<T> getList() {
         return list;
     }
 
     public void setList(List<T> list) {
         this.list = list;
-    }
+    }*/
 
     /*@Override
     public T getData() {
         return null;
     }*/
-
     public JSONObject toJson() {
         JSONObject object = new JSONObject();
-        object.put("total", count);
-        object.put("size", size);
-        object.put("page", page);
-        object.put("number", this.number);
+        object.put("paging", page);
         JSONArray array = new JSONArray();
-        for (T model : list)
+        for (T model : this)
             array.add(DJson.toJson(model));
         object.put("rows", array);
 
         return object;
     }
 
-    public PageList toList(Class<?> modelClass) {
+    /*public PageList toList(Class<?> modelClass) {
         //if(modelClass== this.getList())
         PageList pageList = BeanFactory.getBean(PageList.class);
         List list = new ArrayList<>();
@@ -190,5 +150,5 @@ public class PageList<T extends Model> {
         } catch (Exception e) {
         }
         return pageList;
-    }
+    }*/
 }

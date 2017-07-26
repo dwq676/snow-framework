@@ -85,7 +85,7 @@ public class ServiceBasic implements QueryService, ExecuteService {
             return false;
         PageList<T> modelList = all(query, false);
         boolean re = true;
-        for (Model model : modelList.getList()) {
+        for (Model model : modelList) {
             re = re && deleteOrRecycle(deleteType, model);
         }
         return re;

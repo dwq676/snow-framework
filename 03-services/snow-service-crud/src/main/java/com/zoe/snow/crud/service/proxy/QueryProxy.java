@@ -115,7 +115,7 @@ public class QueryProxy extends ProxySupport {
 
     public <T extends Model> List<T> list() {
         //pageList 一定不为空
-        return (List<T>) pageList().getList();
+        return (List<T>) pageList();
     }
 
     /*public <T extends Model> T one(Object... args) {

@@ -60,7 +60,7 @@ public class HibernateOrmImpl implements HibernateOrm {
     public <T extends Model> T findOne(HibernateQuery query) {
         query.paging(1, 1);
         PageList<T> pageList = query(query);
-        return pageList.getList().size() > 0 ? pageList.getList().get(0) : null;
+        return pageList.size() > 0 ? pageList.get(0) : null;
     }
 
     @SuppressWarnings("unchecked")
@@ -76,7 +76,7 @@ public class HibernateOrmImpl implements HibernateOrm {
 
         // 每页面总条件大于0，且当前不是获取第一页
         if (query.getPage() > 0) {
-            models.setPage(Converter.toInt(createCountQuery(Mode.Read, query).iterate().next()), query.getSize(), query.getPage());
+            models.getPage().setPage(Converter.toInt(createCountQuery(Mode.Read, query).iterate().next()), query.getPage(), query.getSize());
         }
 
         if (!Validator.isEmpty(query.getTo())) {
@@ -88,7 +88,7 @@ public class HibernateOrmImpl implements HibernateOrm {
         } else
             models.setList(createCommonQuery(Mode.Read, query).list());
 
-        return models.toList(query.getOriginFromModelClass());
+        return models;
     }
 
     @SuppressWarnings("unchecked")

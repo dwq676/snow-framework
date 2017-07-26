@@ -3,13 +3,10 @@ package com.zoe.snow.crud;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.fun.Callable;
 import com.zoe.snow.json.DJson;
-import com.zoe.snow.model.ResultSet;
+import com.zoe.snow.model.*;
 import com.zoe.snow.validator.exception.*;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
-import com.zoe.snow.model.Model;
-import com.zoe.snow.model.ModelHelper;
-import com.zoe.snow.model.PageList;
 import com.zoe.snow.util.Validator;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -38,6 +35,7 @@ public class Result<T> implements Serializable, ResultSet<T> {
     // @JsonProperty
     private String code;
     private boolean success = true;
+    private Page paging;
 
     public Result(T data, Message message) {
         this.data = data;
@@ -85,10 +83,11 @@ public class Result<T> implements Serializable, ResultSet<T> {
             if (data instanceof Model) {
                 result.setResult(data, true, Message.Success, args);
             } else if (data instanceof PageList) {
-                if (PageList.class.cast(data).getList().size() > 0)
+                if (PageList.class.cast(data).size() > 0)
                     result.setResult(data, true, Message.Success, args);
                 else
                     result.setResult(data, true, Message.SelectNoAnyRecord, args);
+                result.setPaging(PageList.class.cast(data).getPage());
             } else if (data instanceof JSONArray) {
                 if (JSONArray.class.cast(data).size() > 0)
                     result.setResult(data, true, Message.Success, args);
@@ -115,6 +114,14 @@ public class Result<T> implements Serializable, ResultSet<T> {
             }
         }
         return result;
+    }
+
+    public Page getPaging() {
+        return paging;
+    }
+
+    public void setPaging(Page paging) {
+        this.paging = paging;
     }
 
     @Override
