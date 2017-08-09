@@ -249,10 +249,41 @@ public class QueryImpl extends OrmContextImpl implements Query {
      */
     @Override
     public Query order(String order, OrderBy... orderBy) {
+        if (Validator.isEmpty(order))
+            return this;
         if (this.order.length() > 0)
             this.order.append(",");
+        OrderBy defaultOrderBy = OrderBy.Asc;
         if (orderBy.length > 0)
-            this.order.append(order).append(" " + orderBy[0].getType() + " ");
+            defaultOrderBy = orderBy[0];
+        this.order.append(tableNameAlias.get(this.fromModelClass)).append(".").append(order).append(" " + defaultOrderBy.getType() + " ");
+        return this;
+    }
+
+    @Override
+    public Query order(String order, String orderBy) {
+        if (Validator.isEmpty(order))
+            return this;
+        if (this.order.length() > 0)
+            this.order.append(",");
+        OrderBy defaultOrderBy = OrderBy.Asc;
+
+        String[] orders = order.split(",");
+        OrderBy[] bys = new OrderBy[orders.length];
+
+        for (int i = 0; i < bys.length; i++) {
+            bys[i] = OrderBy.Asc;
+        }
+        if (!Validator.isEmpty(orderBy)) {
+            String[] b = orderBy.split(",");
+            for (int i = 0; i < b.length; i++) {
+                bys[i] = OrderBy.get(b[i]);
+            }
+        }
+
+        for (int i = 0; i < orders.length; i++) {
+            this.order(orders[i], bys[i]);
+        }
         return this;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +88,9 @@ public class MapProxy extends ProxySupport {
 
     public <T extends Model> List<T> list() {
         //pageList 一定不为空
-        return (List<T>) pageList();
+        List<T> list = new ArrayList<>();
+        list.addAll(pageList());
+        return list;
     }
 
     /*public <T extends Model> T one(Object... args) {

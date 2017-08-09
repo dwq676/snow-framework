@@ -1,5 +1,7 @@
 package com.zoe.snow.model.enums;
 
+import com.zoe.snow.util.Validator;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,6 +28,8 @@ public enum Operator {
     }
 
     public Operator get(String type) {
+        if (Validator.isEmpty(type))
+            return And;
         if (map == null) {
             map = new ConcurrentHashMap<>();
             for (Operator dataType : Operator.values())

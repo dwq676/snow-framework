@@ -1,5 +1,7 @@
 package com.zoe.snow.model.enums;
 
+import com.zoe.snow.util.Validator;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,6 +21,8 @@ public enum OrderBy {
     }
 
     public static OrderBy get(String type) {
+        if (Validator.isEmpty(type))
+            return Asc;
         if (map == null) {
             map = new ConcurrentHashMap<>();
             for (OrderBy dataType : OrderBy.values())

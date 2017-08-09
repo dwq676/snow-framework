@@ -70,6 +70,14 @@ public interface Query {
     Query order(String order, OrderBy... orderBy);
 
     /**
+     * 允许一次传入多个order，以“，”句隔开
+     *
+     * @param order ORDER BY片段。
+     * @return 当前Query实例。
+     */
+    Query order(String order, String orderBy);
+
+    /**
      * 设置GROUP BY片段。为空则不分组。
      *
      * @param group GROUP BY片段。
