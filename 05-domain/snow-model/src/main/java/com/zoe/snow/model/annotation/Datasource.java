@@ -1,5 +1,7 @@
 package com.zoe.snow.model.annotation;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.lang.annotation.*;
 
 /**
@@ -13,4 +15,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Datasource {
     String value() default "";
+
+    //Value fromValue() default @Value("${d:nothing}");
 }

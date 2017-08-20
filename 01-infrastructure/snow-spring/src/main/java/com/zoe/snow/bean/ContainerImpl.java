@@ -1,5 +1,6 @@
 package com.zoe.snow.bean;
 
+import com.zoe.snow.Global;
 import com.zoe.snow.listener.ContextClosedListener;
 import com.zoe.snow.listener.ContextRefreshedListener;
 import com.zoe.snow.listener.StartListenerList;
@@ -26,8 +27,8 @@ public class ContainerImpl implements Container, ApplicationListener<Application
 
     @Autowired(required = false)
     protected List<ContextRefreshedListener> refreshedListeners;
-    @Autowired(required = false)
-    protected List<ContextClosedListener> closedListeners;
+    /*@Autowired(required = false)
+    protected List<ContextClosedListener> closedListeners;*/
     protected ApplicationContext applicationContext;
 
     @Autowired
@@ -137,10 +138,11 @@ public class ContainerImpl implements Container, ApplicationListener<Application
 
         if (Logger.isInfoEnable())
             Logger.info("执行[{}]个Bean环境初始化完成后续工作。", refreshedListeners.size());
+        Global.ready = true;
     }
 
     protected void onContextClosed() {
-        if (Logger.isDebugEnable())
+        /*if (Logger.isDebugEnable())
             Logger.debug("开始执行Bean环境关闭后续工作。");
 
         if (Validator.isEmpty(closedListeners)) {
@@ -154,7 +156,7 @@ public class ContainerImpl implements Container, ApplicationListener<Application
         closedListeners.forEach(listener -> listener.onContextClosed());
 
         if (Logger.isInfoEnable())
-            Logger.info("执行[{}]个Bean环境关闭后续工作。", closedListeners.size());
+            Logger.info("执行[{}]个Bean环境关闭后续工作。", closedListeners.size());*/
     }
 
     @Override

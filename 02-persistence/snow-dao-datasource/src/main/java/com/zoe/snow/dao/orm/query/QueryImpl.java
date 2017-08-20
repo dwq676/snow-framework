@@ -12,6 +12,7 @@ import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
 import org.hibernate.procedure.ParameterMisuseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
@@ -32,6 +33,7 @@ import java.util.function.Supplier;
 public class QueryImpl extends OrmContextImpl implements Query {
     @Autowired
     protected ModelTables modelTables;
+    //@Value("${platform}:")
     //protected Map<String, String> aliasMap = new ConcurrentHashMap<>();
 
     @Override

@@ -16,8 +16,9 @@ public class Global {
     public static final String DOMAIN = "domainId";
 
     /*
-    * elastic启动是否准备好
+    * application is ready
     */
+    public static boolean ready = false;
     public static boolean elasticReady = false;
     /*public static ThreadLocal<Object> user = new ThreadLocal<>();
     public static ThreadLocal<String> token = new ThreadLocal<>();*/

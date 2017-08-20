@@ -42,9 +42,10 @@ public class TransactionAspect {
             if (r instanceof Result) {
                 Result result = Result.class.cast(r);
                 //执行事务，且返回执行成功，才提交事务
-                confirm(result.getData(), proceedingJoinPoint.getTarget().getClass().getName());
+                //confirm(result.getData(), proceedingJoinPoint.getTarget().getClass().getName());
+                commit(proceedingJoinPoint.getTarget().getClass().getName(), !result.isSuccess());
             } else {
-                confirm(r, proceedingJoinPoint.getTarget().getClass().getName());
+                commit(proceedingJoinPoint.getTarget().getClass().getName(), r == null);
             }
         } catch (Throwable e) {
             if (transactionSet != null) {
@@ -59,7 +60,7 @@ public class TransactionAspect {
     }
 
 
-    private void confirm(Object data, String simpleName) {
+    /*private void confirm(boolean data, String simpleName) {
         //ProceedingJoinPoint proceedingJoinPoint = ; Result data = ;
         if (data instanceof Boolean) {
             if (Boolean.class.cast(data)) {
@@ -69,7 +70,7 @@ public class TransactionAspect {
         } else if (data != null) {
             commit(simpleName, false);
         }
-    }
+    }*/
 
     private void commit(String simpleName, boolean rollback) {
         if (!Validator.isEmpty(outerTransaction.get()))

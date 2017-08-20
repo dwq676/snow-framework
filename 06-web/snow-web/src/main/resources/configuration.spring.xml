@@ -69,7 +69,14 @@
         <property name="useSecondLevel" value="false"/>
     </bean>
     <bean id="snow:p" class="com.zoe.snow.conf.CoreConfig">
-        <property name="location" value="classpath:core.conf.properties"/>
+        <!--<property name="location" value="classpath:core.conf.properties"/>-->
+        <property name="locations">
+            <list>
+                <value>classpath*:core.conf.properties</value>
+                <value>classpath*:platform.conf.properties</value>
+            </list>
+        </property>
+
     </bean>
     <bean id="redirectTo" class="com.zoe.snow.context.response.RedirectTo">
         <property name="url" value=""/>

@@ -60,6 +60,7 @@
     <orderEntry type="module" module-name="snow-service-crud" />
     <orderEntry type="module" module-name="snow-dao-liteorm" />
     <orderEntry type="module" module-name="snow-configuration" />
+    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.18" level="project" />
     <orderEntry type="module" module-name="snow-dao-hibernate" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:4.3.9.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.1.3.GA" level="project" />

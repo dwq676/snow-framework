@@ -2,6 +2,7 @@ package com.zoe.snow.json;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.springfox.SwaggerJsonSerializer;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -28,6 +29,7 @@ public class MappingFastJsonHttpMessageConverter extends AbstractHttpMessageConv
 
     public MappingFastJsonHttpMessageConverter() {
         super(new MediaType("application", "json", DEFAULT_CHARSET));
+        //this.getFastJsonConfig().getSerializeConfig().put(Json.class, SwaggerJsonSerializer.instance);
     }
 
     public SerializerFeature[] getSerializerFeature() {

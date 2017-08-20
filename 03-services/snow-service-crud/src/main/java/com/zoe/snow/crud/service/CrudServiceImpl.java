@@ -131,7 +131,7 @@ public class CrudServiceImpl implements CrudService {
 
         if (id == null)
             return null;
-        return ormManage.getOrm().findById(classZ, id);
+        return ormManage.getOrm().findById(classZ, id, CrudServiceHelper.getDatasource(classZ));
     }
 
     @LogTo("crud")
@@ -139,6 +139,7 @@ public class CrudServiceImpl implements CrudService {
     public <T extends Model> boolean deleteById(Class<T> classZ, String id) {
         //return de;
         Query query = queryManager.getQuery();
+        CrudServiceHelper.initQuery(query);
         query.from(classZ);
         query.where("id", id);
         return executeService.deleteOrRecycle(query, DeleteType.Delete);

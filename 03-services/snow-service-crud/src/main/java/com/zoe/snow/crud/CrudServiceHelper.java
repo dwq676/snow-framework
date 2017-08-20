@@ -165,9 +165,9 @@ public class CrudServiceHelper {
 
     public static <T extends Model> String getDatasource(Class<T> modelClass) {
         Datasource datasource = modelClass.getAnnotation(Datasource.class);
-        if (Validator.isEmpty(datasource))
-            return "";
-        return datasource.value();
+        if (!Validator.isEmpty(datasource))
+            return datasource.value();
+        return "";
     }
 
 }

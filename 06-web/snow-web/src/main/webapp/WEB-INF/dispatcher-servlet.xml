@@ -67,22 +67,22 @@
 
     <mvc:annotation-driven>
         <mvc:message-converters>
-            <ref bean="stringHttpMessageConverter" />
+            <!--<ref bean="stringHttpMessageConverter" />-->
             <ref bean="fastJsonHttpMessageConverter" />
             <!--<ref bean="marshallingHttpMessageConverter" />-->
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <bean id="stringHttpMessageConverter"
+    <!--<bean id="stringHttpMessageConverter"
           class="org.springframework.http.converter.StringHttpMessageConverter">
-        <constructor-arg value="UTF-8" index="0"></constructor-arg><!--
-            避免出现乱码 -->
+        <constructor-arg value="UTF-8" index="0"></constructor-arg>&lt;!&ndash;
+            避免出现乱码 &ndash;&gt;
         <property name="supportedMediaTypes">
             <list>
                 <value>text/plain;charset=UTF-8</value>
             </list>
         </property>
-    </bean>
+    </bean>-->
     <bean id="fastJsonHttpMessageConverter"
           class="com.zoe.snow.json.MappingFastJsonHttpMessageConverter">
         <property name="supportedMediaTypes">
