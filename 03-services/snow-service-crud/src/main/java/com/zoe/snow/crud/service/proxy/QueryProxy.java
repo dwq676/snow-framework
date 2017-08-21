@@ -31,6 +31,16 @@ public class QueryProxy extends ProxySupport {
         return this;
     }
 
+    public QueryProxy min(String column) {
+        query.min(column);
+        return this;
+    }
+
+    public QueryProxy max(String column) {
+        query.max(column);
+        return this;
+    }
+
     public QueryProxy select(String select) {
         getQuery().select(select);
         return this;

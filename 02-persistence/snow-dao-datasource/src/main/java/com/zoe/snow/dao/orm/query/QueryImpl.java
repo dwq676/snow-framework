@@ -90,6 +90,18 @@ public class QueryImpl extends OrmContextImpl implements Query {
     }
 
     @Override
+    public Query max(String column) {
+        minOrMaxFieldMap.put(column, String.format("max(%s)", column));
+        return this;
+    }
+
+    @Override
+    public Query min(String column) {
+        minOrMaxFieldMap.put(column, String.format("min(%s)", column));
+        return this;
+    }
+
+    @Override
     public Query where(String column, Object value, Operator... operator) {
         return where(column, Criterion.Equals, value, operator);
     }

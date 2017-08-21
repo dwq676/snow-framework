@@ -45,19 +45,37 @@ public class HibernateQuery extends QueryImpl implements Query {
         StringBuilder hql = new StringBuilder();
         //aliasMap = new ConcurrentHashMap<>();
         //tableNameAlias = new ConcurrentHashMap<>();
+        StringBuffer selectBuffer = new StringBuffer();
         if (!Validator.isEmpty(this.getSelect())) {
             if (!Validator.isEmpty(this.getTo())) {
                 String[] selects = this.getSelect().split(",");
-                StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < selects.length; i++) {
-                    stringBuffer.append(selects[i]);
-                    stringBuffer.append(" as ");
-                    stringBuffer.append(selects[i]);
+                    selectBuffer.append(selects[i]);
+                    selectBuffer.append(" as ");
+                    selectBuffer.append(selects[i]);
                     if (selects.length > 1 && i < selects.length - 1) {
-                        stringBuffer.append(",");
+                        selectBuffer.append(",");
                     }
                 }
-                hql.append("select ").append(stringBuffer.toString());
+                hql.append("select ").append(selectBuffer.toString());
+            }
+        }
+        boolean theFirst = false;
+        int ndx = 0;
+        if (minOrMaxFieldMap.keySet().size() > 0) {
+            if (selectBuffer.length() == 0) {
+                theFirst = true;
+                hql.append("select ");
+            }
+            /*minOrMaxFieldMap.forEach((k, v) -> {
+                hql.append(",").append(v);
+            });*/
+            for (String key : minOrMaxFieldMap.keySet()) {
+                if (theFirst && ndx == 0)
+                    hql.append(minOrMaxFieldMap.get(key));
+                else
+                    hql.append(",").append(minOrMaxFieldMap.get(key));
+                ndx++;
             }
         }
         from(hql.append(" FROM "), isGettingCount);

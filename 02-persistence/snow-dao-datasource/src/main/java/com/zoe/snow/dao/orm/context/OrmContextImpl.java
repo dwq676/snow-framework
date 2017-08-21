@@ -46,7 +46,7 @@ public class OrmContextImpl implements OrmContext {
     //表别名
     protected Map<Class<? extends Model>, String> tableNameAlias = new ConcurrentHashMap<>();
     protected String schema;
-
+    protected Map<String, String> minOrMaxFieldMap = new ConcurrentHashMap<>();
     /*@Override
     public Class<? extends Model> getModelClass() {
         return modelClass;

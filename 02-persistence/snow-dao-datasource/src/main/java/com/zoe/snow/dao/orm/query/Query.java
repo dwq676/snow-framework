@@ -41,6 +41,10 @@ public interface Query {
 
     Query datasource(String datasource);
 
+    Query max(String column);
+
+    Query min(String column);
+
     //Query set(String set);
 
     //Query sql(String sql);
