@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component("snow.model.page-list")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class PageList<T extends Serializable> extends ArrayList<T> {
+public class PageList<T> extends ArrayList<T> {
 
     /*@Value("${commons.dao.sql.page-size.max:100}")
     protected int maxPageSize;

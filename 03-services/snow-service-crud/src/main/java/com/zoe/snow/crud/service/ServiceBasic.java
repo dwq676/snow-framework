@@ -31,7 +31,7 @@ public class ServiceBasic implements QueryService, ExecuteService {
     protected OrmManage ormManage;
 
     @Override
-    public <T extends Model> T one(Query query, boolean excludeDomain) {
+    public <T> T one(Query query, boolean excludeDomain) {
         //doMustNotNull(query
         //setArgs(query, args);
         CrudServiceHelper.initQuery(query);
@@ -41,7 +41,7 @@ public class ServiceBasic implements QueryService, ExecuteService {
     //@LogTo("crud")
     @SuppressWarnings({"unchecked"})
     @Override
-    public <T extends Model> PageList<T> list(Query query, boolean excludeDomain) {
+    public <T> PageList<T> list(Query query, boolean excludeDomain) {
         //setArgs(query, args);
         CrudServiceHelper.initQuery(query);
         return ormManage.getOrm().query(CrudServiceHelper.setQueryCondition(query, excludeDomain, Global.QueryFlag.Valid));
@@ -49,7 +49,7 @@ public class ServiceBasic implements QueryService, ExecuteService {
 
     //@LogTo("crud")
     @Override
-    public <T extends Model> PageList<T> all(Query query, boolean excludeDomain) {
+    public <T> PageList<T> all(Query query, boolean excludeDomain) {
         //setArgs(query, args);
         CrudServiceHelper.initQuery(query);
         return ormManage.getOrm().query(CrudServiceHelper.setQueryCondition(query, excludeDomain, Global.QueryFlag.All));

@@ -3,6 +3,7 @@
  */
 package com.zoe.snow.dao.hibernate;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class HibernateOrmImpl implements HibernateOrm {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Model> T findOne(HibernateQuery query) {
+    public <T> T findOne(HibernateQuery query) {
         query.paging(1, 1);
         PageList<T> pageList = query(query);
         return pageList.size() > 0 ? pageList.get(0) : null;
@@ -65,13 +66,14 @@ public class HibernateOrmImpl implements HibernateOrm {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Model> PageList<T> query(HibernateQuery query) {
+    public <T> PageList<T> query(HibernateQuery query) {
         PageList<T> models = BeanFactory.getBean(PageList.class);
         if (Validator.isEmpty(query))
             return models;
 
         query.getQueryContext().forEach((k, v) -> {
-            query.getArgs().add(v);
+            if (!k.startsWith("$"))
+                query.getArgs().add(v);
         });
 
         // 每页面总条件大于0，且当前不是获取第一页

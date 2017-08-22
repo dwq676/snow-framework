@@ -16,42 +16,37 @@ public interface QueryService {
 
     /**
      * 使用Query上下文查询单个有效的数据
-     * 
-     * @param query
-     *            查询上下文
-     * @param excludeDomain
-     *            是否排除域的过滤
+     *
+     * @param query         查询上下文
+     * @param excludeDomain 是否排除域的过滤
      * @param <T>
      * @return
      */
-    <T extends Model> T one(Query query, boolean excludeDomain);
+    <T> T one(Query query, boolean excludeDomain);
 
     /**
      * 使用Query上下文查询所有有效的数据
-     * 
-     * @param query
-     *            查询上下文
-     * @param excludeDomain
-     *            是否排除域的过滤
+     *
+     * @param query         查询上下文
+     * @param excludeDomain 是否排除域的过滤
      * @param <T>
      * @return
      */
-    <T extends Model> PageList<T> list(Query query, boolean excludeDomain);
+    <T> PageList<T> list(Query query, boolean excludeDomain);
 
     /**
      * 使用Query上下文查询所有的数据，包括无效数据
      *
-     * @param query
-     *            查询上下文
-     * @param excludeDomain
-     *            是否排除域的过滤
+     * @param query         查询上下文
+     * @param excludeDomain 是否排除域的过滤
      * @param <T>
      * @return
      */
-    <T extends Model> PageList<T> all(Query query, boolean excludeDomain);
+    <T> PageList<T> all(Query query, boolean excludeDomain);
 
     /**
      * 计算总条件
+     *
      * @param query
      * @param excludeDomain
      * @return
@@ -59,5 +54,6 @@ public interface QueryService {
     int count(Query query, boolean excludeDomain);
 
     JSONObject asJsonObject(Query query, String ormName);
+
     JSONArray asJsonArray(Query query, String ormName);
 }

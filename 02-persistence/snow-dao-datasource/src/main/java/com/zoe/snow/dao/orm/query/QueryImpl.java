@@ -12,7 +12,6 @@ import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
 import org.hibernate.procedure.ParameterMisuseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
@@ -91,13 +90,25 @@ public class QueryImpl extends OrmContextImpl implements Query {
 
     @Override
     public Query max(String column) {
-        minOrMaxFieldMap.put(column, String.format("max(%s)", column));
+        getLimit(column, "max");
         return this;
+    }
+
+    private void getLimit(String column, String limit) {
+        String s = String.format("%s(%s)", limit, column);
+        minOrMaxFieldMap.put(column, s);
+        StringBuffer buffer = new StringBuffer().append(tableNameAlias.get(this.getFrom()))
+                .append(".num =").append("( SELECT ").append(s)
+                .append(" FROM ").append(this.fromModelClass.getSimpleName())
+                .append(" $WHERE ").append(" )");
+        this.paging(-1, -1);
+        this.queryContext.put("$" + limit, buffer);
+        where(() -> "$" + limit);
     }
 
     @Override
     public Query min(String column) {
-        minOrMaxFieldMap.put(column, String.format("min(%s)", column));
+        getLimit(column, "min");
         return this;
     }
 
@@ -120,6 +131,15 @@ public class QueryImpl extends OrmContextImpl implements Query {
             if (criterion != Criterion.IsNull && criterion != Criterion.IsNotNUll)
                 return this;
 
+        appendWhere(column, criterion, value, operator, this.whereBuffer, false);
+        appendWhere(column, criterion, value, operator, this.whereBufferWithout$, true);
+        return this;
+    }
+
+    private void appendWhere(String column, Criterion criterion, Object value, Operator[] operator, StringBuffer buffer, boolean skipThe$) {
+        if (skipThe$)
+            if (column.startsWith("$"))
+                return;
         WhereContext whereContext = new WhereContext();
         whereContext.setCriterion(criterion);
         whereContext.setKey(column);
@@ -129,33 +149,33 @@ public class QueryImpl extends OrmContextImpl implements Query {
             operator = new Operator[]{Operator.And};
 
 
-        if (this.whereBuffer.length() > 0) {
+        if (buffer.length() > 0) {
             if (operator.length < 1) {
-                this.whereBuffer.append(" and ");
+                buffer.append(" and ");
                 whereContext.setOperator(Operator.And);
             } else {
-                this.whereBuffer.append(" " + operator[0].getType() + " ");
+                buffer.append(" " + operator[0].getType() + " ");
                 whereContext.setOperator(operator[0]);
             }
         }
         String from = this.getFrom() != null ? this.getFrom().getSimpleName() : this.getFromType();
-        this.whereBuffer.append(from).append(".");
+        buffer.append(from).append(".");
         if (byOrm || column.equals("id"))
-            this.whereBuffer.append(column);
+            buffer.append(column);
         else if (!Validator.isEmpty(this.getFrom()))
-            this.whereBuffer.append(modelTables.get(this.getFrom()).getFields().get(Converter.toFirstUpperCase(column)));
+            buffer.append(modelTables.get(this.getFrom()).getFields().get(Converter.toFirstUpperCase(column)));
         if (!Validator.isEmpty(criterion))
-            this.whereBuffer.append(criterion.getType());
+            buffer.append(criterion.getType());
         boolean hasAdd = false;
         if (criterion == Criterion.In || criterion == Criterion.NotIN) {
-            int count = addArgs(value, Criterion.In, whereContext);
-            this.whereBuffer.append(" (");
+            int count = addArgs(value, Criterion.In, whereContext, skipThe$);
+            buffer.append(" (");
             for (int i = 0; i < count; i++) {
                 if (i > 0)
-                    this.whereBuffer.append(",");
-                this.whereBuffer.append("?");
+                    buffer.append(",");
+                buffer.append("?");
             }
-            this.whereBuffer.append(") ");
+            buffer.append(") ");
             hasAdd = true;
         } else if (criterion == Criterion.Like) {
             if (value.toString().contains("%"))
@@ -169,8 +189,7 @@ public class QueryImpl extends OrmContextImpl implements Query {
             value = "%" + value;
         }
         if (!hasAdd)
-            addArgs(value, criterion, whereContext);
-        return this;
+            addArgs(value, criterion, whereContext, skipThe$);
     }
 
     @Override
@@ -180,6 +199,15 @@ public class QueryImpl extends OrmContextImpl implements Query {
 
     @Override
     public Query where(Supplier<String> where, Object value, Operator... operators) {
+        appendWhere(where, value, operators, this.whereBuffer, false);
+        appendWhere(where, value, operators, this.whereBufferWithout$, true);
+        return this;
+    }
+
+    private void appendWhere(Supplier<String> where, Object value, Operator[] operators, StringBuffer buffer, boolean skipThe$) {
+        if (skipThe$)
+            if (where.get().contains("$"))
+                return;
         String whereStr = where.get();
         if (!Validator.isEmpty(whereStr)) {
 
@@ -187,21 +215,22 @@ public class QueryImpl extends OrmContextImpl implements Query {
                 operators = new Operator[]{Operator.And};
 
             if (operators.length > 0)
-                this.whereBuffer.append(operators[0].getType());
-            else if (whereBuffer.length() > 0) {
-                this.whereBuffer.append(" and ");
+                buffer.append(operators[0].getType());
+            else if (buffer.length() > 0) {
+                buffer.append(" and ");
             } else
-                this.whereBuffer.append(" ");
-            this.whereBuffer.append(whereStr);
-            this.whereBuffer.append(" ");
+                buffer.append(" ");
+            buffer.append(whereStr);
+            buffer.append(" ");
+
             if (whereStr.toLowerCase().indexOf("in") > -1)
-                addArgs(value, Criterion.In, null);
+                addArgs(value, Criterion.In, null, skipThe$);
             else if (whereStr.toLowerCase().indexOf("between") > -1)
-                addArgs(value, Criterion.Between, null);
+                addArgs(value, Criterion.Between, null, skipThe$);
             else
-                addArgs(value, Criterion.Equals, null);
+                addArgs(value, Criterion.Equals, null, skipThe$);
+
         }
-        return this;
     }
 
     /**
@@ -209,7 +238,9 @@ public class QueryImpl extends OrmContextImpl implements Query {
      * @param criterion
      * @return
      */
-    private int addArgs(Object value, Criterion criterion, WhereContext whereContext) {
+    private int addArgs(Object value, Criterion criterion, WhereContext whereContext, boolean skipThe$) {
+        if (skipThe$)
+            return 0;
         int count = value == null ? 0 : 1;
         if (!Validator.isEmpty(value)) {
             Object[] values = null;
@@ -309,6 +340,11 @@ public class QueryImpl extends OrmContextImpl implements Query {
      */
     @Override
     public Query paging(int page, int size) {
+        if (this.minOrMaxFieldMap.keySet().size() > 0) {
+            this.page = -1;
+            this.size = -1;
+            return this;
+        }
         this.page = page;
         this.size = size;
         return this;

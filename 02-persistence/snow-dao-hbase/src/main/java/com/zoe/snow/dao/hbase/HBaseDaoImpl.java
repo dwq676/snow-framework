@@ -22,6 +22,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +49,12 @@ public class HBaseDaoImpl implements HBaseDao {
     }
 
     @Override
-    public <T extends Model> T findOne(HBaseQuery query) {
+    public <T> T findOne(HBaseQuery query) {
         return null;
     }
 
     @Override
-    public <T extends Model> PageList<T> query(HBaseQuery query) {
+    public <T> PageList<T> query(HBaseQuery query) {
         return null;
     }
 

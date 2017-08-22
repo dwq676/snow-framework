@@ -28,6 +28,7 @@ public class OrmContextImpl implements OrmContext {
     protected String select;
     //条件
     protected StringBuffer whereBuffer = new StringBuffer();
+    protected StringBuffer whereBufferWithout$ = new StringBuffer();
     protected List<WhereContext> whereContexts = new ArrayList<>();
     protected String group = "";
     protected StringBuffer order = new StringBuffer();
@@ -64,6 +65,16 @@ public class OrmContextImpl implements OrmContext {
 
     public String getWhere() {
         return whereBuffer.toString();
+    }
+
+    public String getWhereWithOut$() {
+       /* String withOut$ = whereBufferWithout$.toString();
+        tableNameAlias.forEach((k, v) -> {
+            if (withOut$.contains(v)) {
+                withOut$.replace(v, "").replace("\\.", "");
+            }
+        });*/
+        return whereBufferWithout$.toString();
     }
 
     @Override

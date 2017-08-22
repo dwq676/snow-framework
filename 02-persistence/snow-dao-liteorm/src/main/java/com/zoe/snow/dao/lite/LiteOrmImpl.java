@@ -55,13 +55,14 @@ public class LiteOrmImpl implements LiteOrm {
     public <T extends Model> T findById(Class<T> modelClass, String id, String... datasource) {
         if (Validator.isEmpty(id))
             return null;
+        //((Model)T)
         LiteQuery liteQuery = new LiteQuery();
         liteQuery.from(modelClass).where(() -> "id =?");
         return queryOne(liteQuery);
     }
 
     @Override
-    public <T extends Model> T findOne(LiteQuery query) {
+    public <T> T findOne(LiteQuery query) {
         query.paging(1, 1);
         return queryOne(query);
     }
@@ -74,7 +75,7 @@ public class LiteOrmImpl implements LiteOrm {
     }
 
     @Override
-    public <T extends Model> PageList<T> query(LiteQuery query) {
+    public <T> PageList<T> query(LiteQuery query) {
         return query(query);
     }
 

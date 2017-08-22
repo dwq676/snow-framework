@@ -95,7 +95,7 @@ public interface OrmContext {
 
     Map<Class<? extends Model>, JoinType> getJoinClasses();
 
-    Map<Class<? extends  Model>,String> getTableNameAlias();
+    Map<Class<? extends Model>, String> getTableNameAlias();
 
     List<WhereContext> getWhereContexts();
 

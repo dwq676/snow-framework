@@ -125,12 +125,12 @@ public class QueryProxy extends ProxySupport {
         return list(false, args);
     }*/
 
-    public <T extends Model> PageList<T> pageList() {
+    public <T> PageList<T> pageList() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
         return queryService.list(getQuery(), excludeDomain);
     }
 
-    public <T extends Model> List<T> list() {
+    public <T> List<T> list() {
         //pageList 一定不为空
         List<T> list = new ArrayList<>();
         list.addAll(pageList());
@@ -141,7 +141,7 @@ public class QueryProxy extends ProxySupport {
         return one(false, args);
     }*/
 
-    public <T extends Model> T one() {
+    public <T> T one() {
         return queryService.one(getQuery(), excludeDomain);
     }
 
@@ -149,7 +149,7 @@ public class QueryProxy extends ProxySupport {
         return all(false, args);
     }*/
 
-    public <T extends Model> PageList<T> all() {
+    public <T> PageList<T> all() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
         return queryService.all(getQuery(), excludeDomain);
     }

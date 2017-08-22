@@ -80,13 +80,13 @@ public class MapProxy extends ProxySupport {
         return this;
     }
 
-    public <T extends Model> PageList<T> pageList() {
+    public <T> PageList<T> pageList() {
         // QueryInfo queryInfo = QueryInfo.class.cast(query);
         Query query = CrudServiceHelper.mapToQuery(classZ, map, page, size, this.args);
         return queryService.list(query, excludeDomain);
     }
 
-    public <T extends Model> List<T> list() {
+    public <T> List<T> list() {
         //pageList 一定不为空
         List<T> list = new ArrayList<>();
         list.addAll(pageList());
@@ -97,7 +97,7 @@ public class MapProxy extends ProxySupport {
         return one(false, args);
     }*/
 
-    public <T extends Model> T one() {
+    public <T> T one() {
         Query query = CrudServiceHelper.mapToQuery(classZ, map, page, size, this.args);
         return queryService.one(query, excludeDomain);
     }
@@ -106,7 +106,7 @@ public class MapProxy extends ProxySupport {
         return all(false, args);
     }*/
 
-    public <T extends Model> PageList<T> all() {
+    public <T> PageList<T> all() {
         Query query = CrudServiceHelper.mapToQuery(classZ, map, page, size, this.args);
         return queryService.all(query, excludeDomain);
     }

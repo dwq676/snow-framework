@@ -24,7 +24,7 @@ public class DJson {
      * @param model Model实例。
      * @return JSON数据。
      */
-    public static <T extends Serializable> JSONObject toJson(T model) {
+    public static <T> JSONObject toJson(T model) {
         if (model == null)
             return null;
 

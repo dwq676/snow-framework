@@ -10,6 +10,9 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Hibernate检索构造器。用于构造HibernateORM检索语句。
  *
@@ -60,16 +63,13 @@ public class HibernateQuery extends QueryImpl implements Query {
                 hql.append("select ").append(selectBuffer.toString());
             }
         }
-        boolean theFirst = false;
+        /*boolean theFirst = false;
         int ndx = 0;
         if (minOrMaxFieldMap.keySet().size() > 0) {
             if (selectBuffer.length() == 0) {
                 theFirst = true;
                 hql.append("select ");
             }
-            /*minOrMaxFieldMap.forEach((k, v) -> {
-                hql.append(",").append(v);
-            });*/
             for (String key : minOrMaxFieldMap.keySet()) {
                 if (theFirst && ndx == 0)
                     hql.append(minOrMaxFieldMap.get(key));
@@ -77,9 +77,22 @@ public class HibernateQuery extends QueryImpl implements Query {
                     hql.append(",").append(minOrMaxFieldMap.get(key));
                 ndx++;
             }
-        }
+        }*/
         from(hql.append(" FROM "), isGettingCount);
-        where(hql);
+        String whereHql = where(hql);
+
+        for (String k : queryContext.keySet()) {
+            if (k.startsWith("$")) {
+                String v = queryContext.get(k).toString();
+                v = v.toString().replace("$WHERE", whereHql);
+                String hqlStr = hql.toString().replace(k, v.toString());
+                hql = new StringBuilder();
+                hql.append(hqlStr);
+                List<Object> a = new ArrayList<>();
+                a.addAll(this.args);
+                a.forEach(this.args::add);
+            }
+        }
 
         String orderString = this.getOrder();
         for (Class<? extends Model> k : tableNameAlias.keySet()) {
@@ -93,35 +106,44 @@ public class HibernateQuery extends QueryImpl implements Query {
             hql.append(" GROUP BY ").append(this.getGroup());
         if (!Validator.isEmpty(orderString))
             hql.append(" ORDER BY ").append(orderString);
-        if (!Validator.isEmpty(this.getQueryContext().get("order")))
-            hql.append(this.getQueryContext().get("order"));
+        /*if (!Validator.isEmpty(this.getQueryContext().get("order")))
+            hql.append(this.getQueryContext().get("order"));*/
 
         return hql;
     }
 
-    protected void where(StringBuilder hql) {
+    protected String where(StringBuilder hql) {
+        StringBuffer whereHql = new StringBuffer();
         if (!Validator.isEmpty(this.getWhere())) {
             String whereStr = this.getWhere();
+            String whereStrWithout$ = getWhereWithOut$();
             for (Class<? extends Model> k : tableNameAlias.keySet()) {
                 whereStr = whereStr.replace(k.getSimpleName(), tableNameAlias.get(k));
+                whereStrWithout$ = whereStrWithout$.replace(k.getSimpleName(), "").replace(".", "");
             }
             hql.append(" WHERE (").append(whereStr).append(")");
+            whereHql.append(" WHERE (").append(whereStrWithout$).append(")");
         }
         /*else
             hql.append(" WHERE ");*/
         boolean starting = false;
 
         for (String k : this.getQueryContext().keySet()) {
+            if (k.startsWith("$"))
+                continue;
+            StringBuffer innerBuff = new StringBuffer();
             if (starting || !Validator.isEmpty(this.getWhere()))
-                hql.append(" and ");
+                innerBuff.append(" and ");
             else {
                 if (!starting)
-                    hql.append(" WHERE ");
+                    innerBuff.append(" WHERE ");
             }
-            hql.append(k).append(Criterion.Equals.getType());
-            // query.getArgs().add(query.getQueryContext().get(k));
+            innerBuff.append(k).append(Criterion.Equals.getType());
             starting = true;
+            hql.append(innerBuff);
         }
+        //hql.append(whereHql);
+        return whereHql.toString();
     }
 
     protected StringBuilder from(StringBuilder hql, boolean isGettingCount) {

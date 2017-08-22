@@ -7,6 +7,8 @@ import com.zoe.snow.model.enums.InterventionType;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * 规范ORM框架 对象提示的通用接口 对不同ORM要求实现的接口
  *
@@ -35,7 +37,7 @@ public interface Orm<Q extends Query> {
      * @param query 检索条件。
      * @return Model实例，如果不存在则返回null。
      */
-    <T extends Model> T findOne(Q query);
+    <T> T findOne(Q query);
 
     /**
      * 检索满足条件的数据。
@@ -43,7 +45,7 @@ public interface Orm<Q extends Query> {
      * @param query 检索条件。
      * @return Model实例集。
      */
-    <T extends Model> PageList<T> query(Q query);
+    <T> PageList<T> query(Q query);
 
     /**
      * 计算满足条件的数据数。

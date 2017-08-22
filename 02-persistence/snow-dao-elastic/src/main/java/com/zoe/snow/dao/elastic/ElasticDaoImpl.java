@@ -28,6 +28,8 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
+
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 
@@ -84,12 +86,12 @@ public class ElasticDaoImpl implements ElasticDao {
     }
 
     @Override
-    public <T extends Model> T findOne(ElasticQuery query) {
+    public <T> T findOne(ElasticQuery query) {
         return null;
     }
 
     @Override
-    public <T extends Model> PageList<T> query(ElasticQuery query) {
+    public <T> PageList<T> query(ElasticQuery query) {
         return null;
     }
 
