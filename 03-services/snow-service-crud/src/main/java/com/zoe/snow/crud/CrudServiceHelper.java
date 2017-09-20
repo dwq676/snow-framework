@@ -2,6 +2,7 @@ package com.zoe.snow.crud;
 
 import com.zoe.snow.Global;
 import com.zoe.snow.bean.BeanFactory;
+import com.zoe.snow.conf.CoreConfig;
 import com.zoe.snow.crud.service.ModelTableNullException;
 import com.zoe.snow.dao.orm.context.OrmContext;
 import com.zoe.snow.dao.orm.query.Query;
@@ -36,12 +37,12 @@ public class CrudServiceHelper {
         if (Validator.isEmpty(query))
             return;
         OrmContext ormContext = OrmContext.class.cast(query);
-        CrudServiceHelper.doMustNotNull(ormContext.getFrom());
+        /*CrudServiceHelper.doMustNotNull(ormContext.getFrom());
         String ds = "";
         Datasource datasource = ormContext.getFrom().getAnnotation(Datasource.class);
         if (!Validator.isEmpty(datasource))
-            ds = datasource.value();
-        query.datasource(ds);
+            ds = datasource.value();*/
+        query.datasource(getDatasource(ormContext.getFrom()));
     }
 
     /**
@@ -165,8 +166,17 @@ public class CrudServiceHelper {
 
     public static <T extends Model> String getDatasource(Class<T> modelClass) {
         Datasource datasource = modelClass.getAnnotation(Datasource.class);
-        if (!Validator.isEmpty(datasource))
-            return datasource.value();
+        if (!Validator.isEmpty(datasource)) {
+            if (!Validator.isEmpty(datasource.value())) {
+                if (datasource.value().startsWith("$")) {
+                    Object conf = CoreConfig.getContextProperty(datasource.value().substring(1));
+                    if (conf == null)
+                        return datasource.value();
+                    else
+                        return conf.toString();
+                }
+            }
+        }
         return "";
     }
 

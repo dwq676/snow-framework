@@ -122,7 +122,8 @@ public class HibernateQuery extends QueryImpl implements Query {
                 whereStrWithout$ = whereStrWithout$.replace(k.getSimpleName(), "").replace(".", "");
             }
             hql.append(" WHERE (").append(whereStr).append(")");
-            whereHql.append(" WHERE (").append(whereStrWithout$).append(")");
+            if (!Validator.isEmpty(whereStrWithout$))
+                whereHql.append(" WHERE (").append(whereStrWithout$).append(")");
         }
         /*else
             hql.append(" WHERE ");*/

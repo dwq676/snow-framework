@@ -13,7 +13,19 @@ public enum Message {
      */
     Success("msg.200"),
 
+    NoContent("msg.204"),
+
     Failed("msg.424"),
+    /**
+     * 未授权
+     */
+    UnAuthorized("msg.401"),
+
+    LoginLock("msg.423"),
+
+    InvalidToken("msg.403"),
+
+    MethodNotAllow("msg.405"),
 
     /**
      * 业务逻辑相关
@@ -67,11 +79,6 @@ public enum Message {
     IllegalOperate("error.illegal.operate"),
 
     NoTellAnyReason("error.not.tell.any.reason"),
-
-    /**
-     * 未授权
-     */
-    UnAuthorized("msg.401"),
     /**
      * 不允许为空
      */
@@ -119,10 +126,6 @@ public enum Message {
     NotBetween("error.parameter.not.between"),
 
     Busy("error.system.dispatch.busy"),
-
-    LoginLock("msg.423"),
-
-    InvalidToken("msg.403"),
 
     ExistsRecycle("error.exists.recycle"),
 

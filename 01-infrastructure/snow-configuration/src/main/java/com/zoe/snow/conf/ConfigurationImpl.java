@@ -1,6 +1,7 @@
 package com.zoe.snow.conf;
 
 import com.zoe.snow.util.Converter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -120,7 +121,8 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
     private String authExpiredRemember;
     @Value("${auth.multi}")
     private String authMulti;
-
+    @Value("${auth.protocol}")
+    private String authProtocol;
     /*@Value("${snow.elastic.cluster.name}")
     private String elasticClusterName;
     @Value("${snow.elastic.index.name}")
@@ -144,6 +146,11 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     public boolean getAuthMulti() {
         return Converter.toBool(authMulti);
+    }
+
+    @Override
+    public String getAuthProtocol() {
+        return authProtocol;
     }
 
     @Override

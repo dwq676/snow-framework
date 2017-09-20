@@ -116,7 +116,7 @@ public class ServiceBasic implements QueryService, ExecuteService {
             return ormManage.getOrm().save(model, InterventionType.UPDATE, CrudServiceHelper.getDatasource(model.getClass()));
         } else {
             if (deleteType == DeleteType.Remove)
-                return ormManage.getOrm().delete(model);
+                return ormManage.getOrm().delete(model, CrudServiceHelper.getDatasource(model.getClass()));
         }
         return false;
     }

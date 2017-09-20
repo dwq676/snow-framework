@@ -77,7 +77,7 @@ public class QueryProxy extends ProxySupport {
     }
 
     public QueryProxy where(Supplier<String> where, Object args, Operator... operators) {
-        getQuery().where(where, args);
+        getQuery().where(where, args, operators);
         return this;
     }
 

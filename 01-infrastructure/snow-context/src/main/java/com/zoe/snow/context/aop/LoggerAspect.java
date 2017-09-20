@@ -33,6 +33,10 @@ public class LoggerAspect {
 
     @Before("anyMethod()")
     public void doBefore(JoinPoint jp) {
+        //logging(jp);
+    }
+
+    private void logging(JoinPoint jp) {
         Method method = AopUtil.getMethod(jp);
         if (method != null) {
             LogTo logTo = method.getAnnotation(LogTo.class);

@@ -31,11 +31,14 @@ public class Page {
 
     void setPageSize();*/
 
-
+    //总条数据
     int count;
+    //第几页
     int page;
+    //每页大小
     @JSONField(name = "page_size")
     int pageSize;
+    //共多少页
     int pages;
 
     /**

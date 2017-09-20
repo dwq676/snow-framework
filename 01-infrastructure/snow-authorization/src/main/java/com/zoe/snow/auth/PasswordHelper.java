@@ -28,6 +28,9 @@ public class PasswordHelper {
         System.out.println("admin："+encryptPassword("admin", "admin123"));
 
         System.out.println("quantil：" + encryptPassword("quantil", "quantil@123456"));
+        System.out.println("quantil：" + encryptPassword("quantil", "Quantil2017!@#"));
+        System.out.println("op：" + encryptPassword("op", "qtl-op2017!@#"));
+        System.out.println("watch：" + encryptPassword("watch", "watch2017!@#"));
         System.out.println("admin：" + encryptPassword("admin", "quantil@admin"));
         System.out.println("dwq：" + encryptPassword("dwq", "dwq"));
         System.out.println("zxf：" + encryptPassword("zxf", "zxf"));

@@ -53,6 +53,8 @@ public class ServiceFilter implements Filter {
             res.setHeader("Access-Control-Allow-Headers", " Authorization");*/
             res.setHeader("Access-Control-Allow-Methods", " POST");
             res.setHeader("Access-Control-Allow-Methods", " OPTION");
+            res.setHeader("Access-Control-Allow-Methods", " DELETE");
+            res.setHeader("Access-Control-Allow-Methods", " PUT");
         }
 
         //if (!ignore((HttpServletRequest) request, (HttpServletResponse) response))

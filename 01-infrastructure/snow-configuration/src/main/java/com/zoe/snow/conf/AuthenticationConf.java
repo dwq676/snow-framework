@@ -27,4 +27,6 @@ public interface AuthenticationConf {
     long getAuthExpiredRemember();
 
     boolean getAuthMulti();
+
+    String getAuthProtocol();
 }

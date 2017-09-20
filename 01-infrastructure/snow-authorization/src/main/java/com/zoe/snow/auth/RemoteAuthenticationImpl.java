@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 @Service("snow.auth.service.remote")
 public class RemoteAuthenticationImpl implements Authentication, Remote {
     private static final String HTTP_PROTOCOL = "http://";
+    private static final String HTTPS_PROTOCOL = "https://";
+
     @Autowired
     private AuthenticationConf authenticationConf;
     @Autowired
@@ -43,7 +45,10 @@ public class RemoteAuthenticationImpl implements Authentication, Remote {
     }
 
     private String getPath() {
-        StringBuffer stringBuffer = new StringBuffer().append(HTTP_PROTOCOL).append(authenticationConf.getAuthHost());
+        String pro = HTTP_PROTOCOL;
+        if (authenticationConf.getAuthProtocol() == "https")
+            pro = HTTPS_PROTOCOL;
+        StringBuffer stringBuffer = new StringBuffer().append(pro).append(authenticationConf.getAuthHost());
         if (authenticationConf.getAuthPort() != 80)
             stringBuffer.append(":").append(authenticationConf.getAuthPort());
         stringBuffer.append("/").append(authenticationConf.getAuthProject()).append("/");
