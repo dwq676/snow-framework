@@ -1,6 +1,6 @@
 package com.zoe.snow.context.validator;
 
-import com.zoe.snow.auth.AuthBean;
+import com.zoe.snow.auth.*;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.context.request.Request;
 import com.zoe.snow.context.response.RedirectTo;
@@ -10,9 +10,8 @@ import com.zoe.snow.model.support.user.UserHelper;
 import com.zoe.snow.conf.CoreConfig;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Validator;
-import com.zoe.snow.validator.Checker;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -56,6 +55,24 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
 
         if (handler instanceof HandlerMethod) {
             AuthBean authBean = BeanFactory.getBean(AuthBean.class);
+            RequestMapping methodRequestMapping = ((HandlerMethod) handler).getMethodAnnotation(RequestMapping.class);
+            RequestMapping classRequestMapping = ((HandlerMethod) handler).getMethod().getDeclaringClass().getAnnotation(RequestMapping.class);
+            if (methodRequestMapping != null) {
+                String classRequestMappingValue = "";
+                String methodRequestMappingValue = "";
+                if (classRequestMapping != null)
+                    if (classRequestMapping.value() != null)
+                        if (classRequestMapping.value().length > 0)
+                            classRequestMappingValue = classRequestMapping.value()[0];
+                if (methodRequestMapping.value() != null)
+                    if (methodRequestMapping.value().length > 0)
+                        methodRequestMappingValue = methodRequestMapping.value()[0];
+
+                methodRequestMappingValue = methodRequestMappingValue.replace(":", "")
+                        .replace(".", "").replace("+", "");
+                request.setAttribute("CONTROL_URL", classRequestMappingValue + methodRequestMappingValue);
+            }
+            //validatePermission(request);
             //未找到开关 默认不开启权限验证
             if (authBean != null && authBean.getAuthSwitch()) {
                 /*if (authBean.getAuthSwitch()) {
@@ -66,7 +83,7 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
                         return false;
                     }
                 }*/
-                SecurityUtils.getSubject().isPermitted();
+                //SecurityUtils.getSubject().isPermitted();
             }
             if (!sessionList.contains(session.getSessionId())) {
                 sessionList.add(session.getSessionId());
@@ -87,45 +104,82 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
             }
 
             HandlerMethod hm = (HandlerMethod) handler;
-            Validate validate = hm.getMethodAnnotation(Validate.class);
-            if (!Validator.isEmpty(validate)) {
-                for (Rule rule : validate.rules()) {
-                    if (Validator.isEmpty(rule.name()))
-                        break;
-                    if (Validator.isEmpty(rule.message()))
-                        break;
-                    String failure = rule.message().getType();
-                    Checker checker = BeanFactory.getBean(failure);
-                    if (!Validator.isEmpty(checker)) {
-                        Request r = BeanFactory.getBean(Request.class);
-                        if (!checker.validate(r.get(rule.name()), rule.paramter())) {
-                            String path = hm.getBeanType().getName();
-                            String[] paths = path.split("\\.");
-                            List<String> list = Arrays.asList(paths);
-                            /*
-                             * list.remove(0); list.remove(list.size() - 1);
-                             */
-                            if (list.size() > 3)
-                                path = String.join(".", list.subList(2, list.size() - 1));
-                            else if (list.size() > 2)
-                                path = String.join(".", list.subList(2, list.size()));
-                            else if (list.size() > 1)
-                                path = String.join(".", list.subList(1, list.size()));
-                            else
-                                path = String.join(".", list);
-                            String result = checker.failure(rule.message(), path + "." + rule.name()).toString();
-                            write(response, result);
-                            re = false;
-                        }
-                    } else {
-                        String result = checker.failure(Message.CheckerNotFound, rule.name()).toString();
+            re = validate(response, re, hm);
+        }
+        return re;
+    }
+
+    /*private boolean validatePermission(HttpServletRequest request) {
+        String isThirdPart = CoreConfig.getContextProperty("auth.is-third-part").toString();
+        Authentication authentication = null;
+        if (Boolean.valueOf(isThirdPart))
+            authentication = (Authentication) BeanFactory.getBean(Remote.class);
+        else
+            authentication = (Authentication) BeanFactory.getBean(Local.class);
+        if (authentication != null) {
+            PermissionBean permissionBean = new PermissionBean();
+            permissionBean.setAction(request.getMethod());
+            permissionBean.setName(request.getRequestURI());
+            permissionBean.setType(jsonObject.getString(Global.Constants.auth.PLATFORM));
+            jsonObject = (JSONObject) JSONObject.parse(JSONObject.toJSONString(authentication.verify(permissionBean)));
+            return jsonObject.getBoolean("success");
+        }
+        return false;
+    }*/
+
+    private String getToken(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if (Validator.isEmpty(token))
+            return "";
+
+        String[] ts = token.split("\\s+");
+        if (ts.length > 1)
+            return ts[1];
+        else
+            return token;
+    }
+
+    private boolean validate(HttpServletResponse response, boolean re, HandlerMethod hm) throws IOException {
+        /*Validate validate = hm.getMethodAnnotation(Validate.class);
+        if (!Validator.isEmpty(validate)) {
+            for (Rule rule : validate.rules()) {
+                if (Validator.isEmpty(rule.name()))
+                    break;
+                if (Validator.isEmpty(rule.message()))
+                    break;
+                String failure = rule.message().getType();
+                Checker checker = BeanFactory.getBean(failure);
+                if (!Validator.isEmpty(checker)) {
+                    Request r = BeanFactory.getBean(Request.class);
+                    if (!checker.validate(r.get(rule.name()), rule.paramter())) {
+                        String path = hm.getBeanType().getName();
+                        String[] paths = path.split("\\.");
+                        List<String> list = Arrays.asList(paths);
+                        *//*
+                         * list.remove(0); list.remove(list.size() - 1);
+                         *//*
+                        if (list.size() > 3)
+                            path = String.join(".", list.subList(2, list.size() - 1));
+                        else if (list.size() > 2)
+                            path = String.join(".", list.subList(2, list.size()));
+                        else if (list.size() > 1)
+                            path = String.join(".", list.subList(1, list.size()));
+                        else
+                            path = String.join(".", list);
+                        String result = checker.failure(rule.message(), path + "." + rule.name()).toString();
                         write(response, result);
                         re = false;
                     }
+                } else {
+                    String result = checker.failure(Message.CheckerNotFound, rule.name()).toString();
+                    write(response, result);
+                    re = false;
                 }
             }
         }
-        return re;
+        return re;*/
+
+        return true;
     }
 
     private boolean authentication() {
@@ -167,10 +221,6 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
 
     private void validateSession() {
         try {
-            Subject subject = SecurityUtils.getSubject();
-            if (!subject.isAuthenticated() && subject.isRemembered()) {
-                //subject.getPrincipal().toString()
-            }
         } catch (Exception e) {
 
         }
@@ -204,6 +254,5 @@ public class ValidatorInterceptor extends HandlerInterceptorAdapter {
         if (handler instanceof HandlerMethod) {
             counter.decrementAndGet();
         }
-
     }
 }

@@ -28,6 +28,9 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
     private String sessionName;
     @Value("${snow.cache.name}")
     private String cacheName;
+    @Value("${snow.project-name}")
+    private String projectName;
+
     @Value("${snow.dao.orm}")
     private String ormName;
     @Value("${snow.datasource.multiplexing}")
@@ -109,7 +112,7 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
 
     @Value("${auth.is-third-part}")
     private String authIsThirdPart;
-    @Value("${auth.host}")
+    @Value("${auth.host:}")
     private String authHost;
     @Value("${auth.port}")
     private String authPort;
@@ -181,6 +184,11 @@ public class ConfigurationImpl implements Configuration, CrudConfiguration,
     @Override
     public String getSessionName() {
         return sessionName;
+    }
+
+    @Override
+    public String getProjectName() {
+        return projectName;
     }
 
     /*@Override

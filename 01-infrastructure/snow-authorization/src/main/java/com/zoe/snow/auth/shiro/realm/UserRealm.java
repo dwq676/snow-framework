@@ -14,6 +14,7 @@ import com.zoe.snow.conf.AuthenticationConf;
 import com.zoe.snow.conf.CoreConfig;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.model.support.user.BaseUserModel;
+import com.zoe.snow.model.support.user.role.BaseRoleModel;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Security;
 import com.zoe.snow.util.Validator;
@@ -44,6 +45,7 @@ public class UserRealm extends AuthorizingRealm {
 
     private BaseUserService baseUserService;// = new UserServiceImpl();
     private PasswordService passwordService;
+    private BaseRoleService baseRoleService;
 
     public void setPasswordService(PasswordService passwordService) {
         this.passwordService = passwordService;
@@ -58,12 +60,12 @@ public class UserRealm extends AuthorizingRealm {
         baseUserService = BeanFactory.getBean(BaseUserService.class);
         if (baseUserService == null)
             throw new NotImplementedException("BaseUserServiceSupport must be Implemented");
-        Set<String> roles = baseUserService.findRoles(username);
+        List<BaseRoleModel> roles = baseRoleService.findRoles(username);
         if (roles == null) {
             return null;
         }
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        authorizationInfo.setRoles(roles);
+        //authorizationInfo.setRoles(roles);
         PostAuthorization authorization = BeanFactory.getBean(PostAuthorization.class);
         Collection<PostAuthorization> postAuthorizations = BeanFactory.getBeans(PostAuthorization.class);
         if (postAuthorizations != null) {
@@ -86,26 +88,26 @@ public class UserRealm extends AuthorizingRealm {
             throw new NotImplementedException("BaseUserServiceSupport must be Implemented");
         BaseUserModel baseUserModel = null;
 
-        Object domainObject = session.getAttribute(Global.DOMAIN);
+        Object domainObject = session.getAttribute(Global.Constants.DOMAIN);
         String domainId = domainObject == null ? "" : domainObject.toString();
-        List<BaseUserModel> userModels = baseUserService.findByUsername(key, domainId);
-        if (!Validator.isEmpty(domainId)) {
+        baseUserModel = baseUserService.findAccount(key, domainId);
+        /*if (!Validator.isEmpty(domainId)) {
             if (userModels != null) {
                 if (userModels.size() > 0) {
                     baseUserModel = userModels.get(0);
                 }
             }
-        }
+        }*/
 
-        if (baseUserModel == null) {
+        /*if (baseUserModel == null) {
             baseUserModel = baseUserService.findByPhone(key);
             if (baseUserModel == null) {
                 baseUserModel = baseUserService.findByIdCard(key);
-                /*if (baseUserModel != null) {
+                *//*if (baseUserModel != null) {
                     throw new UnknownAccountException();// 没找到帐号
-                }*/
+                }*//*
             }
-        }
+        }*/
 
         /*if (!Validator.isEmpty(domainId)) {
                 //Tenant tenant=bas

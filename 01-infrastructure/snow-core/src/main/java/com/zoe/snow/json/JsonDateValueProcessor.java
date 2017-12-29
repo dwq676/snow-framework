@@ -41,7 +41,7 @@ public class JsonDateValueProcessor implements JsonValueProcessor {
 
     private Object process(Object value) {
         if (value instanceof Date) {
-            SimpleDateFormat sdf = new SimpleDateFormat(Global.dateTimeFormat, Locale.CHINA);
+            SimpleDateFormat sdf = new SimpleDateFormat(Global.Constants.dateTimeFormat, Locale.CHINA);
             return sdf.format(value);
         }
         return value == null ? "" : value.toString();

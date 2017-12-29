@@ -1,11 +1,10 @@
 package com.zoe.snow.json;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.util.Converter;
 import com.zoe.snow.util.Validator;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
 
 import java.io.Serializable;
 import java.lang.reflect.*;
@@ -109,7 +108,7 @@ public class DJson {
 
     public static <T extends Serializable> List<T> parseJsonArray(String json, Class<T> modelClass) {
         List<T> list = new ArrayList<T>();
-        JSONArray jsonArray = JSONArray.fromObject(json);
+        JSONArray jsonArray = JSONArray.parseArray(json);
         try {
             if (jsonArray != null) {
                 jsonArray.forEach(c -> {
@@ -168,11 +167,11 @@ public class DJson {
                 }
             }
         }
-        JSONObject jsonObject = JSONObject.fromObject(json);
+        /*JSONObject jsonObject = JSONObject.parseObject(json);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
         jsonConfig.setRootClass(modelClass);
-        jsonConfig.setClassMap(m);
-        return (T) JSONObject.toBean(jsonObject, jsonConfig);
+        jsonConfig.setClassMap(m);*/
+        return (T) JSONObject.parseObject(json, modelClass);
     }
 }

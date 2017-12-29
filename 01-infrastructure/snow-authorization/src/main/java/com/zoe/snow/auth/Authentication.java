@@ -11,7 +11,7 @@ public interface Authentication {
     /**
      * 登录
      *
-     * @param ip    登录IP
+     * @param ip 登录IP
      * @return
      */
     Object login(String ip, AccountViewModel accountViewModel);
@@ -19,4 +19,6 @@ public interface Authentication {
     Object logout(String token);
 
     Object verify(String token);
+
+    Object verify(PermissionBean permissionBean, String token);
 }

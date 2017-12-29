@@ -8,6 +8,7 @@ import java.util.UUID;
 
 /**
  * 生成器，用于生成随机数、UUID类
+ *
  * @author dwq
  */
 public final class Generator {
@@ -23,7 +24,7 @@ public final class Generator {
         StringBuilder sb = new StringBuilder();
         for (; sb.length() < length; ) {
             int n = Math.abs(random.nextInt()) % 'z';
-            if ((n >= '0' && n <= '9') || (n >= 'A' && n <= 'Z') || (n >= 'a' && n <= 'z'))
+            if ((n >= '0' && n <= '9') || (n >= 'a' && n <= 'f'))
                 sb.append((char) n);
         }
 

@@ -18,7 +18,7 @@ import java.util.function.Supplier;
  */
 @Component("snow.crud.service.proxy.execute")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class ExecuteProxy extends ProxySupport{
+public class ExecuteProxy extends ProxySupport {
     //private CrudService crudService;
     private DeleteType deleteType;
     private ActionType actionType;
@@ -32,6 +32,11 @@ public class ExecuteProxy extends ProxySupport{
     public ExecuteProxy update(Class<? extends Model> classZ) {
         this.actionType = ActionType.Update;
         getQuery().from(classZ);
+        return this;
+    }
+
+    public ExecuteProxy setExcludeDomain(boolean excludeDomain) {
+        this.excludeDomain = excludeDomain;
         return this;
     }
 
@@ -73,7 +78,7 @@ public class ExecuteProxy extends ProxySupport{
         this.actionType = ActionType.Delete;
         getQuery().from(classZ);
         getQuery().where("id", id);
-        return executeService.deleteOrRecycle(getQuery(), DeleteType.Delete);
+        return executeService.deleteOrRecycle(getQuery(), DeleteType.Delete, excludeDomain);
     }
 
     public boolean recycle(Class<? extends Model> classZ, String id) {
@@ -81,7 +86,7 @@ public class ExecuteProxy extends ProxySupport{
         this.actionType = ActionType.Delete;
         getQuery().from(classZ);
         getQuery().where("id", id);
-        return executeService.deleteOrRecycle(getQuery(), DeleteType.Recycle);
+        return executeService.deleteOrRecycle(getQuery(), DeleteType.Recycle, excludeDomain);
     }
 
     public boolean remove(Class<? extends Model> classZ, String id) {
@@ -89,7 +94,7 @@ public class ExecuteProxy extends ProxySupport{
         this.actionType = ActionType.Delete;
         getQuery().from(classZ);
         getQuery().where("id", id);
-        return executeService.deleteOrRecycle(getQuery(), DeleteType.Remove);
+        return executeService.deleteOrRecycle(getQuery(), DeleteType.Remove, excludeDomain);
     }
 
     public ExecuteProxy where(String column, Criterion criterion, Object value, Operator... operator) {
@@ -114,7 +119,7 @@ public class ExecuteProxy extends ProxySupport{
 
     public boolean invoke() {
         if (actionType == ActionType.Delete)
-            return executeService.deleteOrRecycle(getQuery(), deleteType);
+            return executeService.deleteOrRecycle(getQuery(), deleteType, excludeDomain);
         else if (actionType == ActionType.Update)
             return executeService.update(getQuery());
         return false;

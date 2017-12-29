@@ -16,6 +16,8 @@ public enum Message {
     NoContent("msg.204"),
 
     Failed("msg.424"),
+
+    BadRequest("msg.400"),
     /**
      * 未授权
      */
@@ -28,9 +30,19 @@ public enum Message {
     MethodNotAllow("msg.405"),
 
     /**
+     * 信息已经存在
+     */
+    Exist("msg.40011"),
+
+    /**
+     * 非法输入
+     */
+    InputIllegal("msg.40012"),
+
+    /**
      * 业务逻辑相关
      */
-    Business("msg.40001"),
+    //Business("msg.40001"),
     /**
      * 通用错误提醒，可追加原因
      */
@@ -39,33 +51,28 @@ public enum Message {
     /* 调用服务失败 */
     ServiceError("msg.50001"),
 
-    /**
-     * 非法输入
-     */
-    InputIllegal("msg.40022"),
-
-    /**
-     * 信息已经存在
-     */
-    Exist("error.exists"),
-
     NoExist("msg.20051"),
+
+    MustNotEmpty("msg.40010"),
+
+    HasDependency("msg.40013"),
 
     /**
      * 添加失败
-     */
+     *//*
     AddError("error.add"),
 
-    /**
+    *//**
      * 更新失败
-     */
+     *//*
     UpdateError("error.update"),
 
-    /**
+    *//**
      * 删除失败
-     */
-    DeleteError("error.delete"),
-
+     *//*
+    DeleteError("error.delete"),*/
+    /* 当前位置的参数为空 */
+    ParameterPositionInHolderIsnull("error.parameter.position-in-holder-is-null"),
     /**
      * 无法查询到相关记录
      */
@@ -79,51 +86,6 @@ public enum Message {
     IllegalOperate("error.illegal.operate"),
 
     NoTellAnyReason("error.not.tell.any.reason"),
-    /**
-     * 不允许为空
-     */
-    NotEmpty("msg.40021"),
-    /**
-     * 超过最大长度
-     */
-    OverMaxLength("error.parameter.over.max.length"),
-    /**
-     * 长度最小长度
-     */
-    LessMinLength("error.parameter.less.min.length"),
-
-    /**
-     * 规则不匹配
-     */
-    NotMatchRegex("error.parameter.not.match.regex"),
-    /**
-     * 邮件格式非法
-     */
-    IllegalEmail("error.parameter.illegal.email"),
-    /**
-     * 不允许等于某个对象值
-     */
-    NotEqual("error.parameter.not.equal"),
-    /**
-     * 未等于某个对象或值
-     */
-    Equal("error.parameter.equal"),
-    /**
-     * 不大于
-     */
-    NotGreaterThan("error.parameter.not.greater.than"),
-
-    /* 当前位置的参数为空 */
-    ParameterPositionInHolderIsnull("error.parameter.position-in-holder-is-null"),
-
-    /**
-     * 不小于
-     */
-    NotLessThan("error.parameter.less.than"),
-    /**
-     * 不在区间内
-     */
-    NotBetween("error.parameter.not.between"),
 
     Busy("error.system.dispatch.busy"),
 

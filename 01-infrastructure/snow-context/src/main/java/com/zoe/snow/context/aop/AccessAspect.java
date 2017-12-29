@@ -1,23 +1,23 @@
 package com.zoe.snow.context.aop;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zoe.snow.Global;
-import com.zoe.snow.auth.AuthBean;
-import com.zoe.snow.auth.Authentication;
-import com.zoe.snow.auth.NoNeedVerify;
-import com.zoe.snow.auth.Remote;
+import com.zoe.snow.auth.*;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.conf.AuthenticationConf;
+import com.zoe.snow.conf.Configuration;
+import com.zoe.snow.context.request.Request;
 import com.zoe.snow.context.response.Response;
 import com.zoe.snow.crud.Result;
-import com.zoe.snow.delivery.Http;
 import com.zoe.snow.log.Logger;
 import com.zoe.snow.message.Message;
+import com.zoe.snow.model.Model;
 import com.zoe.snow.model.ResultSet;
 import com.zoe.snow.model.annotation.NotNull;
-import com.zoe.snow.model.support.user.BaseUserModel;
-import com.zoe.snow.model.support.user.UserHelper;
+import com.zoe.snow.model.mapper.ModelTable;
+import com.zoe.snow.model.mapper.ModelTables;
 import com.zoe.snow.util.Validator;
-import net.sf.json.JSONObject;
+import com.zoe.snow.model.Validatable;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -46,11 +46,7 @@ public class AccessAspect {
     @Autowired(required = false)
     private Set<com.zoe.snow.dao.Closable> cloneableSet;
     @Autowired
-    private UserHelper userHelper;
-    @Autowired
-    private AuthBean authBean;
-    @Autowired
-    private Http http;
+    private Request request;
 
     @After("anyMethod()")
     public void doAfter(JoinPoint jp) {
@@ -80,7 +76,13 @@ public class AccessAspect {
         try {
             method = AopUtil.getMethod(pj);
             List<String> nullArgNames = new ArrayList<>();
-            if (validator(args, method, nullArgNames)) return result.setResult(null, false, Message.UnAuthorized);
+            String token = args[method.getParameters().length - 1] == null ?
+                    "" : args[method.getParameters().length - 1].toString();
+            if (Validator.isEmpty(token))
+                return result.setResult(null, false, Message.InvalidToken);
+
+            Result validatorResult = validator(args, token, method, nullArgNames);
+            if (!validatorResult.isSuccess()) return validatorResult;
 
             if (nullArgNames.size() > 0) {
                 return result.setResult(null, false, Message.ParameterPositionInHolderIsnull, String.join(",", nullArgNames),
@@ -109,162 +111,129 @@ public class AccessAspect {
         }
     }
 
-    private boolean validator(Object[] args, Method method, List<String> nullArgNames) {
-        if (!Validator.isEmpty(method)) {
-            List<NotNull> notNulls = new ArrayList<>();
-            int pos = 0;
-            if (!auth(method, args)) return true;
-            for (Parameter parameter : method.getParameters()) {
-                NotNull notNull = parameter.getDeclaredAnnotation(NotNull.class);
-                if (notNull != null) {
-                    notNulls.add(notNull);
-                    if (Validator.isEmpty(args[pos]))
-                        nullArgNames.add(parameter.getName());
-                }
-                pos++;
-            }
-        }
-        return false;
-    }
-
-    /*private Object rmi(Register register, Class<?> clazz, Method method, Object[] args) {
-        if (register == null || clazz == null || method == null)
-            return null;
-        String url = getUrl(register, clazz, method);
-        Object result = null;
-        Map<String, String> params = new HashMap<>();
-        String[] paramNames = null;
-        try {
-            paramNames = getParameterNames(clazz.getName(), method.getName());
-            int ndx = 0;
-            for (String param : paramNames) {
-                params.put(param, args[ndx++].toString());
-            }
-        } catch (Exception e) {
-            Logger.error(e, "获取方法参数列表时出现了错误，类名为：[{}]，类名为：[{}]", clazz.getName(), method.getName());
-        }
-        try {
-            POST post = method.getAnnotation(POST.class);
-            GET get = method.getAnnotation(GET.class);
-            if (get != null) {
-                result = http.get(url, null, params);
-            } else if (post != null) {
-                JSONObject jsonObject = JSONObject.fromObject(params);
-                result = http.post(url, params, jsonObject.toString());
-            }
-            result = TypeConverter.converter(result, method.getReturnType());
-        } catch (Exception e) {
-            Logger.error(e, "执行远程调用时失败类名为：[{}]，类名为：[{}]", clazz.getName(), method.getName());
-        }
-        return result;
-    }
-
-    private String getUrl(Register register, Class<?> clazz, Method method) {
-        StringBuffer urlBuffer = new StringBuffer();
-        urlBuffer.append(register.protocol()).append("://");
-        urlBuffer.append(register.host());
-        urlBuffer.append(":");
-        urlBuffer.append(register.port());
-        if (!Validator.isEmpty(register.nameSpace())) {
-            urlBuffer.append("/");
-            urlBuffer.append(register.nameSpace());
-        } else {
-            urlBuffer.append("/").append(register.prefix());
-            Path servicePath = clazz.getAnnotation(Path.class);
-            Path methodPath = method.getAnnotation(Path.class);
-            if (servicePath != null) {
-                if (!servicePath.value().startsWith("/"))
-                    urlBuffer.append("/");
-                urlBuffer.append(servicePath.value());
-            }
-            if (methodPath != null) {
-                if (!methodPath.value().startsWith("/"))
-                    urlBuffer.append("/");
-                urlBuffer.append(methodPath.value());
-            }
-        }
-        return urlBuffer.toString();
-    }*/
-
-
-    /**
-     * 解析服务请求参数并转换为对应的实体
-     */
-    private Object[] injectParamOfJson(Method method, Object[] args) {
-        /*Request request = BeanFactory.getBean(Request.class);
-        if (request != null) {
-            int pos = 0;
-            for (Parameter parameter : method.getParameters()) {
-                Json json = parameter.getDeclaredAnnotation(Json.class);
-                if (json != null) {
-                    String data = request.get(json.value());
-                    if (!Validator.isEmpty(data)) {
+    private Result validator(Object[] args, String token, Method method, List<String> nullArgNames) {
+        return Result.reply(() -> {
+            if (!Validator.isEmpty(method)) {
+                List<NotNull> notNulls = new ArrayList<>();
+                int pos = 0;
+                //验证token有效性
+                AuthenticationConf conf = BeanFactory.getBean(AuthenticationConf.class);
+                Authentication authentication = null;
+                ResultSet result = null;
+                Result authResult = auth(method, token);
+                //验证权限
+                if (authResult.isSuccess()) {
+                    for (Parameter parameter : method.getParameters()) {
+                        NotNull notNull = parameter.getDeclaredAnnotation(NotNull.class);
                         try {
-                            JSONObject jsonObject = JSONObject.fromObject(data);
-                            if (jsonObject != null) {
-                                //parameter.get
-                                //ModelHelper.fromJson(jsonObject,parameter.)
+                            Class<?> classZ = (Class<?>) parameter.getParameterizedType();
+                            if (args[pos] instanceof Validatable) {
+                                ModelTables modelTables = BeanFactory.getBean(ModelTables.class);
+                                ModelTable modelTable = modelTables.get((Class<? extends Model>) classZ);
+
                             }
                         } catch (Exception e) {
-                        }
-                    }
-                }
-                pos++;
-            }
-        }*/
 
-        return args;
+                        }
+
+                        if (notNull != null) {
+                            notNulls.add(notNull);
+                            if (Validator.isEmpty(args[pos]))
+                                nullArgNames.add(parameter.getName());
+                        }
+                        pos++;
+                    }
+                } else if (Message.UnAuthorized.getType().contains(authResult.getCode()))
+                    return Message.UnAuthorized;
+                else
+                    return Message.InvalidToken;
+            }
+            return Message.Success;
+        });
     }
 
-    private boolean auth(Method method, Object[] args) {
-        if (method == null)
-            return false;
-        NoNeedVerify noNeedVerify = method.getDeclaringClass().getAnnotation(NoNeedVerify.class);
-        if (noNeedVerify == null)
-            noNeedVerify = method.getAnnotation(NoNeedVerify.class);
-        /*为空证明这个不是特殊方法*/
-        if (noNeedVerify == null) {
-            if (authBean != null) {
-                //打开了授权开关
-                if (authBean.getAuthSwitch()) {
-                    if (method.getParameters().length == 0)
-                        return false;
-                    String token = args[method.getParameters().length - 1] == null ?
-                            "" : args[method.getParameters().length - 1].toString();
+    private Result auth(Method method, String token) {
+        return Result.reply(() -> {
+            if (method == null)
+                return false;
+            NoNeedVerify noNeedVerify = method.getDeclaringClass().getAnnotation(NoNeedVerify.class);
+            NeedAdmin needAdmin = method.getDeclaringClass().getAnnotation(NeedAdmin.class);
 
-                    AuthenticationConf conf = BeanFactory.getBean(AuthenticationConf.class);
-                    Authentication authentication = null;
-                    String remoteAuthBeanName = "snow.auth.service.remote";
-                    ResultSet result = null;
-                    boolean remoteResult = false;
-                    boolean isRemote = false;
-                    if (conf.getAuthIsThirdPart()) {
-                        authentication = BeanFactory.getBean(remoteAuthBeanName);
-                        String re = authentication.verify(token).toString();
-                        if (re.trim().startsWith("{")) {
-                            JSONObject jsonObject = JSONObject.fromObject(re);
-                            remoteResult = jsonObject.getBoolean("success");
-                        }
-                        isRemote = true;
-                    } else {
-                        Collection<Authentication> authentications = BeanFactory.getBeans(Authentication.class);
-                        for (Authentication auth : authentications) {
-                            if (!(auth instanceof Remote))
-                                authentication = auth;
-                        }
-                        result = ResultSet.class.cast(authentication.verify(token));
-                    }
-                    if (!isRemote)
-                        if (result != null)
-                            return result.isSuccess();
-                        else
-                            return false;
-                    else
-                        return remoteResult;
+            if (noNeedVerify == null)
+                noNeedVerify = method.getAnnotation(NoNeedVerify.class);
+            if (needAdmin == null)
+                needAdmin = method.getAnnotation(NeedAdmin.class);
+
+            if (noNeedVerify != null && noNeedVerify.NoNeedEffectiveness())
+                return true;
+
+            AuthenticationConf conf = BeanFactory.getBean(AuthenticationConf.class);
+            Authentication authentication = null;
+            ResultSet result = null;
+            if (method.getParameters().length == 0)
+                return false;
+            String remoteAuthBeanName = "snow.auth.service.remote";
+            PermissionBean permissionBean = new PermissionBean();
+            permissionBean.setMethod(request.getMethod());
+            String url = Validator.isEmpty(request.get("CONTROL_URL")) ? request.getUri() : request.get("CONTROL_URL");
+            permissionBean.setUrl(url);
+            permissionBean.setType(((Configuration) conf).getProjectName());
+            boolean loginResult = false;
+
+            //验证token
+            if (conf.getAuthIsThirdPart()) {
+                authentication = BeanFactory.getBean(remoteAuthBeanName);
+                String re = authentication.verify(token).toString();
+                if (re.trim().startsWith("{")) {
+                    JSONObject jsonObject = JSONObject.parseObject(re);
+                    loginResult = jsonObject.getBoolean("success");
+                    if (!loginResult)
+                        return Message.InvalidToken;
                 }
+                //isRemote = true;
+            } else {
+                authentication = (Authentication) BeanFactory.getBean(Local.class);
+                result = ResultSet.class.cast(authentication.verify(token));
+                loginResult = result.isSuccess();
+                if (!loginResult)
+                    return Message.InvalidToken;
             }
-        }
-        return true;
+
+            //需要验证权限
+            if (noNeedVerify == null) {
+                if (conf.getAuthIsThirdPart()) {
+                    authentication = BeanFactory.getBean(remoteAuthBeanName);
+                    String re = authentication.verify(token).toString();
+                    if (re.trim().startsWith("{")) {
+                        JSONObject jsonObject = JSONObject.parseObject(re);
+                        boolean isRoot = jsonObject.getJSONObject("data").getBoolean(Global.Constants.auth.IS_SUPER_ADMIN);
+                        if (!isRoot) {
+                            jsonObject = JSONObject.parseObject(authentication.verify(permissionBean, token).toString());
+                            loginResult = jsonObject.getBoolean("success");
+                        }
+                        if (needAdmin != null)
+                            loginResult = isRoot;
+                    }
+                    //isRemote = true;
+                } else {
+                    authentication = (Authentication) BeanFactory.getBean(Local.class);
+                    result = ResultSet.class.cast(authentication.verify(token));
+                    loginResult = result.isSuccess();
+                    JSONObject jo = (JSONObject) JSONObject.toJSON(result.getData());
+                    boolean isRoot = false;
+                    if (jo != null)
+                        isRoot = jo.getBoolean(Global.Constants.auth.IS_SUPER_ADMIN);
+                    if (!isRoot) {
+                        ResultSet permissionRe = ResultSet.class.cast(authentication.verify(permissionBean, token));
+                        loginResult = permissionRe.isSuccess();
+                    }
+                    if (needAdmin != null)
+                        loginResult = isRoot;
+                }
+                return loginResult ? loginResult : Message.UnAuthorized;
+            } else
+                return true;
+        });
     }
 
     @Pointcut("execution(* *..*ServiceImpl.*(..))")

@@ -24,6 +24,7 @@ public class ProxySupport {
     protected QueryService queryService;
     @Autowired
     protected ExecuteService executeService;
+    protected boolean excludeDomain = false;
 
     /*public void setQuery(Query query) {
          this.query = query;

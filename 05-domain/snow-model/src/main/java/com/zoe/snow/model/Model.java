@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  * @author lpw
  */
-public interface Model extends Serializable {
+public interface Model extends Serializable, Validatable {
     /**
      * 获得Model ID值。
      *

@@ -41,9 +41,11 @@ public class UserHelperImpl implements UserHelper {
     public BaseUserModel getUser(String... token) {
         BaseUserModel baseUserModelSupport = null;
         if (token.length > 0) {
-            baseUserModelSupport = session.get(token[0]);
-            if (baseUserModelSupport == null)
-                baseUserModelSupport = Cache.getInstance().by("redis").get(token[0]);
+            if (!Validator.isEmpty(token[0])) {
+                baseUserModelSupport = session.get(token[0]);
+                if (baseUserModelSupport == null)
+                    baseUserModelSupport = Cache.getInstance().by("redis").get(token[0]);
+            }
         }
 
         if (baseUserModelSupport == null)
@@ -67,7 +69,7 @@ public class UserHelperImpl implements UserHelper {
 
     @Override
     public String getDomain(String... token) {
-        Domain user = (Domain) getUser();
+        Domain user = getUser(token);
         return user == null ? "0" : user.getDomain();
     }
 

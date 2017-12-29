@@ -33,8 +33,9 @@ public interface ExecuteService {
 
     /**
      * 被删除，但放入回收站数据，可从界面上恢复为正常数据
+     * <p>
+     * 对象id
      *
-     *            对象id
      * @return
      */
     //<T extends Model> Boolean delete(Class<T> classZ, String id);
@@ -43,7 +44,7 @@ public interface ExecuteService {
 
     //<T extends Model> Boolean clear(Class<T> classZ, Map<String, Criterion> criterionMap, Object[] args);
 
-    <T extends Model> boolean deleteOrRecycle(Query query, DeleteType deleteType);
+    <T extends Model> boolean deleteOrRecycle(Query query, DeleteType deleteType, boolean... excludeDomain);
 
-    boolean update(Query query);
+    boolean update(Query query, boolean... excludeDomain);
 }

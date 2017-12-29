@@ -14,4 +14,8 @@ public interface Configuration {
     default String getDeploy() {
         return "web";
     }
+
+    default String getProjectName() {
+        return "";
+    }
 }

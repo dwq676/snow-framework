@@ -46,6 +46,9 @@ public class RequestImpl implements Request, HttpServletRequestAware {
         String value = requestThreadLocal.get().getParameter(name);
         if (value != null)
             return value;
+        value = requestThreadLocal.get().getAttribute(name) != null ? requestThreadLocal.get().getAttribute(name).toString() : "";
+        if (value != null)
+            return value;
 
         if (map == null) {
             map = new HashMap<>();

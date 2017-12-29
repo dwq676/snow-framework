@@ -34,7 +34,7 @@ public class ElasticAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
         String className = "";
         if (Validator.isEmpty(msg))
             return;
-        if (msg.contains(Global.split)) {
+        if (msg.contains(Global.Constants.split)) {
             String[] msgs = msg.split(classNameSpilt);
             if (msgs.length > 1) {
                 msg = msgs[1];
@@ -42,7 +42,7 @@ public class ElasticAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
             } else {
                 msg = msgs[0];
             }
-            String[] contents = msg.split(Global.split);
+            String[] contents = msg.split(Global.Constants.split);
             if (contents.length > 1) {
                 type = contents[0];
                 content = contents[1];

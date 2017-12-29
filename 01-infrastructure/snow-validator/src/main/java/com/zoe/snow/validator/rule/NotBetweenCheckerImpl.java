@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
  * @author Dai Wenqing
  * @date 2015/12/7
  */
-@Component("error.parameter.not.between")
+@Component("error.parameter.not-between")
 public class NotBetweenCheckerImpl implements Checker {
     @Override
-    public boolean validate(Object value, Object[] parameters) {
+    public boolean validate(Object value, Object... parameters) {
         if (value == null)
             return false;
         if (parameters.length < 2)

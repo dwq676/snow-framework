@@ -157,9 +157,10 @@ public class HibernateOrmImpl implements HibernateOrm {
         if (Validator.isEmpty(model.getId()))
             model.setId(null);
         Object object = null;
-        //DataSourceBean dataSourceBean = DataSourceManager.getDataSourceBean(datasource);
-        if (DataSourceManager.getDataSourceBean(datasource).getToValidate())
-            check(model, datasource);
+
+        /*if (DataSourceManager.getDataSourceBean(datasource).getToValidate())
+            check(model, datasource);*/
+
         Session session = sessionManage.get(Mode.Write, datasource);
         try {
             if (interventionType == InterventionType.INSERT)

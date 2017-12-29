@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
 @Repository("snow.model.mapper.tables")
 public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
     @Autowired(required = false)
-    protected Set<Model> models;
+    protected Set<Mappable> models;
     protected Map<Class<? extends Model>, ModelTable> map;
     protected Map<String, Model> tableNameMap;
 
@@ -56,8 +56,8 @@ public class ModelTablesImpl implements ModelTables, ContextRefreshedListener {
         map = new ConcurrentHashMap<>();
         //tableNameMap = new ConcurrentHashMap<>();
         if (!Validator.isEmpty(models))
-            for (Model model : models)
-                parse(model);
+            for (Mappable model : models)
+                parse((Model) model);
     }
 
     @Override

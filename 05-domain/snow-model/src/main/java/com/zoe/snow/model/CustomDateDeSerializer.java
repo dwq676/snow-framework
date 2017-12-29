@@ -18,7 +18,7 @@ import java.util.Date;
  * @date 2016/11/22
  */
 public class CustomDateDeSerializer extends JsonDeserializer {
-    private SimpleDateFormat sdf = new SimpleDateFormat(Global.dateTimeFormat);
+    private SimpleDateFormat sdf = new SimpleDateFormat(Global.Constants.dateTimeFormat);
 
     @Override
     public Date deserialize(JsonParser jp, DeserializationContext ctxt)

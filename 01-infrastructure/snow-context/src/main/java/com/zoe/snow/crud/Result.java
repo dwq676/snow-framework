@@ -1,5 +1,6 @@
 package com.zoe.snow.crud;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.zoe.snow.bean.BeanFactory;
 import com.zoe.snow.fun.Callable;
 import com.zoe.snow.json.DJson;
@@ -12,6 +13,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import com.zoe.snow.message.MessageTool;
 import org.hibernate.SessionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,9 @@ public class Result<T> implements Serializable, ResultSet<T> {
     private String code;
     private boolean success = true;
     private Page paging;
+
+    @JSONField(serialize = false)
+    private Message msgObj;
 
     public Result(T data, Message message) {
         this.data = data;
@@ -94,6 +99,7 @@ public class Result<T> implements Serializable, ResultSet<T> {
                 else
                     result.setResult(data, true, Message.SelectNoAnyRecord, args);
             } else if (data instanceof Message) {
+                result.setMsgObj((Message) data);
                 Message message = Message.class.cast(data);
                 boolean isSuccess = false;
                 if (message == Message.Success)
@@ -114,6 +120,14 @@ public class Result<T> implements Serializable, ResultSet<T> {
             }
         }
         return result;
+    }
+
+    public Message getMsgObj() {
+        return msgObj;
+    }
+
+    public void setMsgObj(Message msgObj) {
+        this.msgObj = msgObj;
     }
 
     public Page getPaging() {

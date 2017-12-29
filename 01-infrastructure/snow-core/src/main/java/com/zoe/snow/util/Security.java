@@ -7,6 +7,7 @@ import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
+import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -303,6 +304,9 @@ public final class Security {
             System.out.println("####开始解密");
             System.out.println("root:" + Security.AESDecode("wI+pPLaAN2ARcg5J9JFVKQ=="));
             System.out.println("root:" + Security.AESDecode("root"));
+
+
+            System.out.println( com.sun.xml.internal.messaging.saaj.util.Base64.base64Decode("eyJ0eXBlcyI6WyJQQUdFIiwiQUNUSU9OIl19"));
         } catch (Exception e) {
             e.printStackTrace();
         }

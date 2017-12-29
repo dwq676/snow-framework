@@ -44,7 +44,7 @@ import javax.persistence.Transient;
  * @date 2015/11/6
  */
 @Component("snow.crud.service")
-@NoNeedVerify
+@NoNeedVerify(NoNeedEffectiveness = true)
 public class CrudServiceImpl implements CrudService {
     //protected CrudDao crudDao;
     @Autowired
@@ -139,10 +139,10 @@ public class CrudServiceImpl implements CrudService {
     public <T extends Model> boolean deleteById(Class<T> classZ, String id) {
         //return de;
         Query query = queryManager.getQuery();
-        CrudServiceHelper.initQuery(query);
         query.from(classZ);
+        CrudServiceHelper.initQuery(query);
         query.where("id", id);
-        return executeService.deleteOrRecycle(query, DeleteType.Delete);
+        return executeService.deleteOrRecycle(query, DeleteType.Delete, true);
     }
 
     @LogTo("crud")

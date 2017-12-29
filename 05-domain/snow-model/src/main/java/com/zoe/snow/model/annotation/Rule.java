@@ -1,8 +1,9 @@
-package com.zoe.snow.context.validator;
+package com.zoe.snow.model.annotation;
 
-import com.zoe.snow.message.Message;
+import com.zoe.snow.model.enums.Rules;
 
 import java.lang.annotation.*;
+
 /**
  * Rule
  *
@@ -10,7 +11,7 @@ import java.lang.annotation.*;
  * @date 2015/12/7
  */
 @Documented
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Rule {
     /**
@@ -18,14 +19,14 @@ public @interface Rule {
      *
      * @return
      */
-    Message message() default Message.Error;
+    Rules rules();
 
     /**
      * 参数
      *
      * @return
      */
-    String[] paramter() default {};
+    String[] parameter() default {};
 
     String name() default "";
 }

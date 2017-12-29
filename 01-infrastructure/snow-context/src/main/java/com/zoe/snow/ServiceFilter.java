@@ -51,12 +51,24 @@ public class ServiceFilter implements Filter {
             res.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With,Authorization, Content-Type, Accept");
             /*res.setHeader("Access-Control-Allow-Headers", " content-type");
             res.setHeader("Access-Control-Allow-Headers", " Authorization");*/
-            res.setHeader("Access-Control-Allow-Methods", " POST");
+            /*res.setHeader("Access-Control-Allow-Methods", " POST");
             res.setHeader("Access-Control-Allow-Methods", " OPTION");
-            res.setHeader("Access-Control-Allow-Methods", " DELETE");
-            res.setHeader("Access-Control-Allow-Methods", " PUT");
+            res.setHeader("Access-Control-Allow-Methods", " DELETE");*/
+            //res.setHeader("Access-Control-Allow-Methods", " *");
+            res.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
         }
 
+
+        String uri = ((HttpServletRequest) request).getRequestURI();
+        Request r = BeanFactory.getBean(Request.class);
+        if (uri.contains("flowstat")) {
+            Logger.info("flowstat url is a abnormal IP is " + r.getIp());
+            return;
+        }
+        if (uri.contains("server_bandwidth_plan")) {
+            Logger.info("server_bandwidth_plan url is a abnormal IP is " + r.getIp());
+            return;
+        }
         //if (!ignore((HttpServletRequest) request, (HttpServletResponse) response))
         chain.doFilter(request, response);
 
@@ -122,6 +134,7 @@ public class ServiceFilter implements Filter {
         Response rp = BeanFactory.getBean(Response.class);
         ((HttpServletResponseAware) rp).set(response);
 
+        Global.GLOBAL_DOMAIN = request.getServerName();
         try {
             request.setCharacterEncoding("UTF-8");
             //response.addHeader("Content-Type", "text/html;charset=UTF-8");

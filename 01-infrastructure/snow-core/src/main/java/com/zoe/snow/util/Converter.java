@@ -1,9 +1,10 @@
 package com.zoe.snow.util;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zoe.snow.Global;
 import com.zoe.snow.log.Logger;
-import net.sf.json.JSONObject;
+//import net.sf.json.JSONObject;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -72,8 +73,7 @@ public final class Converter {
             return toString((Timestamp) object, getDateTimeFormat(LocaleUtil.toLocale(localeAndCounty)));
 
         if (object instanceof Serializable) {
-            JSONObject jsonObject = JSONObject.fromObject(object);
-            return jsonObject.toString();
+            return JSONObject.toJSONString(object);
         }
 
 
@@ -470,12 +470,12 @@ public final class Converter {
             return null;
 
         try {
-            return getSimpleDateFormat(Global.dateTimeFormat).parse(date);
+            return getSimpleDateFormat(Global.Constants.dateTimeFormat).parse(date);
         } catch (ParseException e) {
             try {
-                return getSimpleDateFormat(Global.dateFormat).parse(date);
+                return getSimpleDateFormat(Global.Constants.dateFormat).parse(date);
             } catch (Exception ex) {
-                Logger.warn(e, "使用格式[{}]将字符串[{}]转化为日期值时发生异常！", Global.dateFormat, date);
+                Logger.warn(e, "使用格式[{}]将字符串[{}]转化为日期值时发生异常！", Global.Constants.dateFormat, date);
             }
 
             return null;

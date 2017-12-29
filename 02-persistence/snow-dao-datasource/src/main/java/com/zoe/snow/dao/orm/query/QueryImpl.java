@@ -296,6 +296,7 @@ public class QueryImpl extends OrmContextImpl implements Query {
     public Query order(String order, OrderBy... orderBy) {
         if (Validator.isEmpty(order))
             return this;
+        order = Converter.customToCamel(order, "_");
         if (this.order.length() > 0)
             this.order.append(",");
         OrderBy defaultOrderBy = OrderBy.Asc;
@@ -311,7 +312,7 @@ public class QueryImpl extends OrmContextImpl implements Query {
             return this;
         if (this.order.length() > 0)
             this.order.append(",");
-        OrderBy defaultOrderBy = OrderBy.Asc;
+        //OrderBy defaultOrderBy = OrderBy.Asc;
 
         String[] orders = order.split(",");
         OrderBy[] bys = new OrderBy[orders.length];

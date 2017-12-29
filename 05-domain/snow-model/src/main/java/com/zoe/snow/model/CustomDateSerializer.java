@@ -20,7 +20,7 @@ public class CustomDateSerializer extends JsonSerializer<Date> {
     @Override
     public void serialize(Date value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
             throws IOException, JsonProcessingException {
-        SimpleDateFormat formatter = new SimpleDateFormat(Global.dateTimeFormat);
+        SimpleDateFormat formatter = new SimpleDateFormat(Global.Constants.dateTimeFormat);
         String formattedDate = formatter.format(value);
         jsonGenerator.writeString(formattedDate);
     }

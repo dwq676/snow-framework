@@ -24,8 +24,6 @@ import java.util.function.Supplier;
 @Component("snow.crud.service.proxy.query")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class QueryProxy extends ProxySupport {
-    private boolean excludeDomain = false;
-
     public QueryProxy setQueryName(String queryName) {
         this.queryName = queryName;
         return this;

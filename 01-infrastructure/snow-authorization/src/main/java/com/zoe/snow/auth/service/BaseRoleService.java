@@ -3,6 +3,7 @@ package com.zoe.snow.auth.service;
 import com.zoe.snow.model.support.user.role.BasePermissionSupport;
 import com.zoe.snow.model.support.user.role.BaseRoleModel;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,10 +14,14 @@ public interface BaseRoleService {
 
     /**
      * 获取角色分发的权限信息
+     *
      * @param roleId 角色Id
      * @return
      */
     Set<BasePermissionSupport> findPermissions(String roleId); // 根据用户名查找其权限
 
     BaseRoleModel findRole(String accountId);
+
+    List<BaseRoleModel> findRoles(String accountId);
+
 }

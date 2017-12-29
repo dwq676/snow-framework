@@ -74,6 +74,7 @@
             <list>
                 <value>classpath*:core.conf.properties</value>
                 <value>classpath*:platform.conf.properties</value>
+                <value>classpath*:auth.conf.properties</value>
             </list>
         </property>
 

@@ -53,7 +53,7 @@ public class Logger {
             }
         } else
             logTypeStr = logType.getType();
-        message = logTypeStr + Global.split + message;
+        message = logTypeStr + Global.Constants.split + message;
         return message;
     }
 

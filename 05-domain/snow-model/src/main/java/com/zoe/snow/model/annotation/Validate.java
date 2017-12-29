@@ -1,4 +1,4 @@
-package com.zoe.snow.context.validator;
+package com.zoe.snow.model.annotation;
 
 import java.lang.annotation.*;
 
@@ -9,7 +9,7 @@ import java.lang.annotation.*;
  * @date 2016/3/3
  */
 @Documented
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Validate {
     Rule[] rules() default {};

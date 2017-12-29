@@ -20,13 +20,16 @@ public interface BaseUserService {
 
     void unCorrelationRoles(Long userId, Long... roleIds);// 移除用户-角色关系*/
 
-    List<BaseUserModel> findByUsername(String username, String... domain);// 根据用户名查找用户
+    BaseUserModel findAccount(String accountRelatedInfo, String... domain);// 根据用户名查找用户
 
-    BaseUserModel findByPhone(String phone);
+    //Set<String> findRoles(String username);
+    /*BaseUserModel findByPhone(String phone);
 
     BaseUserModel findByUserId(String id);
 
+    BaseUserModel findByEmail(String email);
+
     BaseUserModel findByIdCard(String idCard);
 
-    Set<String> findRoles(String username);// 根据用户名查找其角色
+    */
 }

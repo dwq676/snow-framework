@@ -80,10 +80,10 @@ public class ServiceBasic implements QueryService, ExecuteService {
 
     @LogTo("crud")
     @Override
-    public <T extends Model> boolean deleteOrRecycle(Query query, DeleteType deleteType) {
+    public <T extends Model> boolean deleteOrRecycle(Query query, DeleteType deleteType, boolean... excludeDomain) {
         if (query == null)
             return false;
-        PageList<T> modelList = all(query, false);
+        PageList<T> modelList = all(query, excludeDomain.length > 0 ? excludeDomain[0] : false);
         boolean re = true;
         for (Model model : modelList) {
             re = re && deleteOrRecycle(deleteType, model);
@@ -124,7 +124,7 @@ public class ServiceBasic implements QueryService, ExecuteService {
 
     @LogTo("crud")
     @Override
-    public boolean update(Query query) {
+    public boolean update(Query query, boolean... excludeDomain) {
         //setArgs(query, args);
         CrudServiceHelper.initQuery(query);
         return ormManage.getOrm().update(query);

@@ -15,21 +15,21 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/3/14.
  */
-public class BaseRolePermissionResolver implements RolePermissionResolver{
+public class BaseRolePermissionResolver implements RolePermissionResolver {
     private BaseRoleService baseRoleService;
 
     @Override
-    public Collection<Permission> resolvePermissionsInRole(String roleString){
+    public Collection<Permission> resolvePermissionsInRole(String roleString) {
         baseRoleService = BeanFactory.getBean(BaseRoleService.class);
         if (baseRoleService == null)
             throw new NotImplementedException("BaseRoleServiceSupport must be Implemented");
         Set<BasePermissionSupport> permissions = baseRoleService.findPermissions(roleString);
-        if(permissions == null){
+        if (permissions == null) {
             return null;
         }
         List list = new ArrayList();
-        for(BasePermissionSupport permission : permissions){
-            if(permission.getType().equals("StringPermission")){
+        for (BasePermissionSupport permission : permissions) {
+            if (permission.getType().equals("StringPermission")) {
                 list.add(new StringPermission(permission.getPermission()));
             }
         }

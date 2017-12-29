@@ -1,5 +1,6 @@
 package com.zoe.snow;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,18 +11,19 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2016/10/10
  */
 public class Global {
-    public static final String split = "#split#";
-    public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-    public static final String dateFormat = "yyyy-MM-dd";
-    public static final String DOMAIN = "domainId";
-
+    private static final Map<String, Object> context = new ConcurrentHashMap<>();
     /*
     * application is ready
     */
     public static boolean ready = false;
     public static boolean elasticReady = false;
-    /*public static ThreadLocal<Object> user = new ThreadLocal<>();
-    public static ThreadLocal<String> token = new ThreadLocal<>();*/
+    /*public static ThreadLocal<Object> user = new ThreadLocal<>();*/
+    public static ThreadLocal<String> token = new ThreadLocal<>();
+    public static String GLOBAL_DOMAIN = "";
+
+    public static Map<String, Object> getContext() {
+        return context;
+    }
 
     public enum JsonType {
         /**
@@ -133,6 +135,26 @@ public class Global {
 
     public enum Action {
         Update, Select, Delete, Insert, Execute;
+    }
+
+    public enum DataType {
+        string, json, xml, yml
+    }
+
+    public class Constants {
+        public static final String split = "#split#";
+        public static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        public static final String dateFormat = "yyyy-MM-dd";
+        public static final String DOMAIN = "domainId";
+        public static final String STRING_NONE = "STRNaN";
+
+        public class auth {
+            public static final String IS_ADMIN = "is_admin";
+            public static final String IS_SUPER_ADMIN = "is_super_admin";
+            public static final String PLATFORM = "appid";
+            public static final String ADMIN = "admin";
+            public static final String ROOT = "root";
+        }
     }
 
 }
