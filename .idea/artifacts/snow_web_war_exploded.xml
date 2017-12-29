@@ -26,7 +26,7 @@
           </element>
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
           <element id="library" level="project" name="Maven: com.belerweb:pinyin4j:2.5.1" />
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.1.2" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.13" />
           <element id="library" level="project" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" />
           <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
@@ -111,7 +111,7 @@
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-spring:1.2.4" />
           <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.22" />
           <element id="library" level="project" name="Maven: org.logback-extensions:logback-ext-spring:0.1.2" />
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.1.2" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
         </element>
       </element>
       <element id="directory" name="META-INF">
